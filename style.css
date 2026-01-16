@@ -1,0 +1,9 @@
+:root { --bg:#0b0e14; --fg:#e7eaf0; --muted:#aab3c2; --card:#121826; --line:#253047; }
+* { box-sizing: border-box; }
+body { margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; background:var(--bg); color:var(--fg); }
+.wrap { max-width: 900px; margin: 0 auto; padding: 24px; }
+.sub { color: var(--muted); margin-top: 6px; }
+.nav a { color: var(--fg); text-decoration: none; margin-right: 14px; padding-bottom: 2px; border-bottom: 1px solid transparent; }
+.nav a:hover { border-bottom-color: var(--fg); }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px 22px; }
+.foot { color: var(--muted); font-size: 14px; }
