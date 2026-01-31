@@ -1,409 +1,342 @@
 /* =========================================
-   DormProjects — Tailwind-style converted to plain CSS
-   (No build step needed. Works on GitHub Pages.)
+   DormProjects — Technical Blueprint System
+   Plain CSS (Tailwind-style converted)
    ========================================= */
 
-/* Fonts (same as the other AI output) */
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* HSL Values (same as your snippet) */
-  --background: 218 22% 7%;      /* #0e1116 */
-  --foreground: 0 0% 90%;        /* #e6e6e6 */
+  --background: 218 22% 7%;
+  --foreground: 0 0% 90%;
 
-  --card: 217 24% 11%;           /* #151a22 */
-  --card-foreground: 0 0% 90%;
-
-  --primary: 38 92% 50%;         /* #f59e0b */
-  --primary-foreground: 0 0% 10%;
-
-  --secondary: 221 22% 19%;      /* #252b3a */
-  --secondary-foreground: 0 0% 90%;
-
-  --muted: 220 12% 75%;          /* #b6bcc8 */
-  --muted-foreground: 220 12% 55%;
-
+  --card: 217 24% 11%;
+  --primary: 38 92% 50%;
+  --muted: 220 12% 75%;
   --border: 221 22% 19%;
   --ring: 38 92% 50%;
 
-  --radius: 0px;                 /* strict sharp corners */
-
-  /* Layout */
+  --radius: 0px;
   --max: 1050px;
 
-  /* Grid */
   --grid-a: rgba(255,255,255,0.035);
   --grid-b: rgba(255,255,255,0.08);
 
-  /* Effects */
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.5);
+  /* corner tick size */
+  --tick: 12px;
 }
 
-/* Base reset-ish */
-* { box-sizing: border-box; }
-html, body { height: 100%; }
+*{ box-sizing:border-box; }
+html, body{ height:100%; }
 
-body {
-  margin: 0;
+body{
+  margin:0;
   color: hsl(var(--foreground));
-  font-family: "IBM Plex Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
 
   background-color: hsl(var(--background));
-
-  /* Blueprint Grid Pattern */
   background-image:
     linear-gradient(var(--grid-a) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-a) 1px, transparent 1px),
     linear-gradient(var(--grid-b) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-b) 1px, transparent 1px);
   background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
-  background-position: center top;
 }
 
-a {
-  color: hsl(var(--primary));
-  text-decoration: none;
-}
-a:hover { text-decoration: underline; }
+a{ color:hsl(var(--primary)); text-decoration:none; }
+a:hover{ text-decoration:underline; }
 
-h1,h2,h3,h4,h5,h6 {
-  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  margin: 0;
+h1,h2,h3,h4{
+  font-family:"IBM Plex Mono", ui-monospace, monospace;
+  font-weight:600;
+  margin:0;
 }
 
 /* =========================================
-   Utility classes (plain CSS versions)
-   ========================================= */
-
-.text-shadow-sm { text-shadow: var(--shadow-sm); }
-
-/* "glass-panel" = card background at 80% + blur + border */
-.glass-panel {
-  background: hsla(var(--card), 0.80);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid hsl(var(--border));
-}
-
-/* technical-border with corner ticks */
-.technical-border {
-  position: relative;
-  border: 1px solid hsl(var(--border));
-}
-.technical-border::before,
-.technical-border::after{
-  content:"";
-  position:absolute;
-  width: 6px;
-  height: 6px;
-}
-.technical-border::before{
-  top: -1px;
-  left: -1px;
-  border-top: 1px solid hsl(var(--primary));
-  border-left: 1px solid hsl(var(--primary));
-}
-.technical-border::after{
-  bottom: -1px;
-  right: -1px;
-  border-bottom: 1px solid hsl(var(--primary));
-  border-right: 1px solid hsl(var(--primary));
-}
-
-/* =========================================
-   Your existing site structure (mapped)
+   Layout
    ========================================= */
 
 .wrap{
   max-width: var(--max);
-  margin: 0 auto;
-  padding: 28px 18px 70px;
+  margin:0 auto;
+  padding:28px 18px 70px;
 }
 
-/* Top bar */
 .top{
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  gap: 14px;
-  margin-bottom: 24px;
+  align-items:center;
+  margin-bottom:24px;
 }
 
-.brand{
-  font-weight: 700;
-  letter-spacing: 0.2px;
-}
-
-/* Nav */
 .nav{
   display:flex;
-  gap: 16px;
-  flex-wrap: wrap;
+  gap:16px;
 }
 .nav a{
-  color: hsla(var(--muted), 1);
-  font-size: 14px;
+  color:hsl(var(--muted));
+  font-size:14px;
 }
-.nav a:hover{ color: hsl(var(--foreground)); text-decoration:none; }
+.nav a:hover{ color:hsl(var(--foreground)); }
 
-/* Hero becomes a technical glass panel */
-.hero{
-  border-radius: var(--radius);
-  padding: 26px 22px;
-  margin-bottom: 18px;
+/* =========================================
+   Technical Box (shared for hero, panel, card, featured)
+   ========================================= */
 
-  background: hsla(var(--card), 0.80);
+.tech-box{
+  position:relative;
+  background: hsla(var(--card), 0.82);
   backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid hsl(var(--border));
-  position: relative;
+  border:1px solid hsl(var(--border));
 }
 
-/* give hero the corner ticks (technical border) */
-.hero::before{
+/* 4-corner ticks (longer) */
+.tech-box::before,
+.tech-box::after{
   content:"";
   position:absolute;
-  top:-1px; left:-1px;
-  width:6px; height:6px;
-  border-top: 1px solid hsl(var(--primary));
-  border-left: 1px solid hsl(var(--primary));
+  width:var(--tick);
+  height:var(--tick);
 }
-.hero::after{
-  content:"";
+
+.tech-box::before{
+  top:-1px;
+  left:-1px;
+  border-top:2px solid hsl(var(--primary));
+  border-left:2px solid hsl(var(--primary));
+}
+
+.tech-box::after{
+  bottom:-1px;
+  right:-1px;
+  border-bottom:2px solid hsl(var(--primary));
+  border-right:2px solid hsl(var(--primary));
+}
+
+/* extra two corners */
+.tech-box span.corner{
   position:absolute;
-  bottom:-1px; right:-1px;
-  width:6px; height:6px;
-  border-bottom: 1px solid hsl(var(--primary));
-  border-right: 1px solid hsl(var(--primary));
+  width:var(--tick);
+  height:var(--tick);
+  pointer-events:none;
 }
+.tech-box span.tr{
+  top:-1px;
+  right:-1px;
+  border-top:2px solid hsl(var(--primary));
+  border-right:2px solid hsl(var(--primary));
+}
+.tech-box span.bl{
+  bottom:-1px;
+  left:-1px;
+  border-bottom:2px solid hsl(var(--primary));
+  border-left:2px solid hsl(var(--primary));
+}
+
+/* =========================================
+   Hero
+   ========================================= */
+
+.hero{
+  padding:26px 22px;
+  margin-bottom:18px;
+}
+.hero.tech-box{}
+
+/* insert extra corners */
+.hero::after{}
+.hero::before{}
+.hero::marker{}
+
+.hero span.corner.tr{}
+.hero span.corner.bl{}
 
 h1{
-  font-size: clamp(28px, 4vw, 42px);
-  letter-spacing: -0.04em;
-  margin-bottom: 10px;
+  font-size:clamp(28px,4vw,42px);
+  margin-bottom:10px;
 }
 .subtitle{
-  color: hsla(var(--muted), 1);
-  max-width: 70ch;
-  margin-bottom: 14px;
-  font-size: 15px;
+  color:hsl(var(--muted));
+  max-width:70ch;
+  margin-bottom:14px;
 }
 
-/* Tags */
+/* =========================================
+   Buttons & tags
+   ========================================= */
+
 .tags{
   display:flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 16px;
+  gap:8px;
+  margin-bottom:16px;
 }
 .tag{
-  border: 1px solid hsl(var(--border));
-  background: hsla(var(--card), 0.55);
-  padding: 4px 10px;
-  border-radius: 999px; /* keep tags pill; you can set to 0 if you want */
-  font-size: 12px;
-  color: hsla(var(--muted), 1);
-  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-family:"IBM Plex Mono", monospace;
+  font-size:12px;
+  padding:4px 10px;
+  border:1px solid hsl(var(--border));
+  background:hsla(var(--card),0.6);
+  color:hsl(var(--muted));
 }
 
-/* Buttons */
 .btns{
   display:flex;
-  gap: 10px;
-  flex-wrap: wrap;
+  gap:10px;
 }
 .btn{
-  border: 1px solid hsl(var(--border));
-  background: hsla(var(--card), 0.40);
-  padding: 8px 14px;
-  border-radius: var(--radius);
-  font-size: 14px;
-  color: hsla(var(--muted), 1);
+  padding:8px 14px;
+  border:1px solid hsl(var(--border));
+  background:hsla(var(--card),0.45);
+  color:hsl(var(--muted));
+  font-size:14px;
 }
 .btn.primary{
-  border-color: hsl(var(--primary));
-  color: hsl(var(--primary));
-  background: hsla(var(--primary), 0.08);
-}
-.btn:hover{
-  background: hsla(var(--card), 0.55);
-  text-decoration:none;
+  border-color:hsl(var(--primary));
+  color:hsl(var(--primary));
 }
 
-/* Main grid */
+/* =========================================
+   Grid
+   ========================================= */
+
 .grid{
   display:grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 14px;
-  margin-bottom: 14px;
+  grid-template-columns:1.1fr 0.9fr;
+  gap:14px;
 }
-@media (max-width: 900px){
-  .grid{ grid-template-columns: 1fr; }
-}
-
-/* Panels */
-.panel{
-  border-radius: var(--radius);
-  padding: 16px 14px;
-
-  background: hsla(var(--card), 0.80);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid hsl(var(--border));
-  position: relative;
-}
-.panel::before{
-  content:"";
-  position:absolute;
-  top:-1px; left:-1px;
-  width:6px; height:6px;
-  border-top: 1px solid hsl(var(--primary));
-  border-left: 1px solid hsl(var(--primary));
-}
-.panel::after{
-  content:"";
-  position:absolute;
-  bottom:-1px; right:-1px;
-  width:6px; height:6px;
-  border-bottom: 1px solid hsl(var(--primary));
-  border-right: 1px solid hsl(var(--primary));
+@media(max-width:900px){
+  .grid{ grid-template-columns:1fr; }
 }
 
-.panel h2{
-  margin: 0 0 10px;
-  font-size: 15px;
-  letter-spacing: 0.02em;
-  color: hsla(var(--foreground), 0.92);
-}
+/* =========================================
+   Panels / Featured / Cards (all identical now)
+   ========================================= */
 
-/* Rows */
-.row{
-  display:flex;
-  gap: 10px;
-  padding: 8px 8px;
-  border-radius: var(--radius);
-  background: hsla(var(--card), 0.45);
-  border: 1px solid hsla(var(--border), 0.85);
-  margin-bottom: 8px;
-  font-size: 14px;
-}
-.row b{
-  color: hsl(var(--foreground));
-  font-weight: 600;
-}
-.row span{
-  color: hsla(var(--muted), 1);
-}
-
-/* Featured */
-.featured{
-  border-radius: var(--radius);
-  padding: 16px 14px;
-
-  background: hsla(var(--card), 0.70);
-  border: 1px solid hsla(var(--border), 1);
-  position: relative;
-}
-.featured::before{
-  content:"";
-  position:absolute;
-  top:-1px; left:-1px;
-  width:6px; height:6px;
-  border-top: 1px solid hsl(var(--primary));
-  border-left: 1px solid hsl(var(--primary));
-}
-.featured::after{
-  content:"";
-  position:absolute;
-  bottom:-1px; right:-1px;
-  width:6px; height:6px;
-  border-bottom: 1px solid hsl(var(--primary));
-  border-right: 1px solid hsl(var(--primary));
-}
-
-.featured .kicker{
-  font-size: 12px;
-  letter-spacing: 1px;
-  color: hsl(var(--primary));
-  margin-bottom: 6px;
-  font-family: "IBM Plex Mono", ui-monospace, monospace;
-}
-.featured h3{
-  margin: 0 0 6px;
-  font-size: 18px;
-}
-.featured p{
-  color: hsla(var(--muted), 1);
-  font-size: 14px;
-  margin: 0;
-}
-
-/* Cards */
-.cards{
-  display:grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin-bottom: 14px;
-}
-@media (max-width: 700px){
-  .cards{ grid-template-columns: 1fr; }
-}
+.panel,
+.featured,
 .card{
-  border-radius: var(--radius);
-  padding: 14px 14px;
-
-  background: hsla(var(--card), 0.80);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid hsl(var(--border));
-  position: relative;
+  padding:16px 14px;
 }
+.panel,
+.featured,
+.card{
+  position:relative;
+}
+
+/* apply tech-box styling */
+.panel,
+.featured,
+.card{
+  background: hsla(var(--card), 0.82);
+  backdrop-filter: blur(8px);
+  border:1px solid hsl(var(--border));
+}
+
+/* corner ticks */
+.panel::before,
+.featured::before,
 .card::before{
   content:"";
   position:absolute;
-  top:-1px; left:-1px;
-  width:6px; height:6px;
-  border-top: 1px solid hsl(var(--primary));
-  border-left: 1px solid hsl(var(--primary));
+  top:-1px;
+  left:-1px;
+  width:var(--tick);
+  height:var(--tick);
+  border-top:2px solid hsl(var(--primary));
+  border-left:2px solid hsl(var(--primary));
 }
+.panel::after,
+.featured::after,
 .card::after{
   content:"";
   position:absolute;
-  bottom:-1px; right:-1px;
-  width:6px; height:6px;
-  border-bottom: 1px solid hsl(var(--primary));
-  border-right: 1px solid hsl(var(--primary));
+  bottom:-1px;
+  right:-1px;
+  width:var(--tick);
+  height:var(--tick);
+  border-bottom:2px solid hsl(var(--primary));
+  border-right:2px solid hsl(var(--primary));
+}
+
+/* extra corners */
+.panel span.corner,
+.featured span.corner,
+.card span.corner{
+  position:absolute;
+  width:var(--tick);
+  height:var(--tick);
+}
+.panel .tr,
+.featured .tr,
+.card .tr{
+  top:-1px;
+  right:-1px;
+  border-top:2px solid hsl(var(--primary));
+  border-right:2px solid hsl(var(--primary));
+}
+.panel .bl,
+.featured .bl,
+.card .bl{
+  bottom:-1px;
+  left:-1px;
+  border-bottom:2px solid hsl(var(--primary));
+  border-left:2px solid hsl(var(--primary));
+}
+
+.panel h2{
+  font-size:15px;
+  margin-bottom:10px;
+}
+
+.row{
+  display:flex;
+  gap:10px;
+  padding:8px;
+  border:1px solid hsl(var(--border));
+  background:hsla(var(--card),0.5);
+  margin-bottom:8px;
+}
+.row b{ color:hsl(var(--foreground)); }
+.row span{ color:hsl(var(--muted)); }
+
+/* =========================================
+   Cards grid
+   ========================================= */
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+@media(max-width:700px){
+  .cards{ grid-template-columns:1fr; }
 }
 
 .card h3{
-  margin: 0 0 6px;
-  font-size: 16px;
+  margin-bottom:6px;
+  font-size:16px;
 }
 .card p{
-  margin: 0;
-  font-size: 14px;
-  color: hsla(var(--muted), 1);
+  margin:0;
+  font-size:14px;
+  color:hsl(var(--muted));
 }
 
-/* Footer */
+/* =========================================
+   Footer
+   ========================================= */
+
 footer{
-  margin-top: 26px;
-  font-size: 13px;
-  color: hsla(var(--muted-foreground), 1);
+  margin-top:26px;
+  font-size:13px;
+  color:hsl(var(--muted));
   display:flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
+  justify-content:space-between;
+  flex-wrap:wrap;
 }
-footer a{ color: hsla(var(--muted), 1); }
-footer a:hover{ color: hsl(var(--foreground)); text-decoration:none; }
 
-/* Focus ring (nice for accessibility) */
+/* Focus */
 :focus-visible{
-  outline: 2px solid hsla(var(--ring), 0.8);
-  outline-offset: 2px;
+  outline:2px solid hsla(var(--ring),0.8);
+  outline-offset:2px;
 }
