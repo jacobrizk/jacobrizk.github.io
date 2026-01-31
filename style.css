@@ -1,25 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Serif:wght@600;700&display=swap');
+
+:root{
+  --bg: #ffffff;
+  --text: #0f0f0f;
+  --muted: #444;
+  --border: #111;
+  --accent: #ff7a00;
+
+  --max: 1100px;
+  --pad: 28px;
+
+  /* card + corner tuning */
+  --card-border: 3px;      /* thicker borders */
+  --corner-thick: 4px;     /* thickness of orange corner lines */
+  --corner-len: 36px;      /* length of orange corner lines */
+  --radius: 16px;
+}
+
+*{ box-sizing: border-box; }
+html, body{ height: 100%; }
+body{
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "IBM Plex Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.55;
+}
+
+/* page width + less “huge margins” */
+.page{
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: var(--pad);
+}
+
+/* kill any “top bar” if it exists */
+.topbar,
+.top-bar,
+.sitebar{
+  display: none !important;
+}
+
+/* NAV */
+.nav{
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 8px 0 24px;
+  flex-wrap: wrap;
+}
+
+a{
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0,0,0,.35);
+}
+a:hover{
+  border-bottom-color: var(--text);
+}
+
 /* ================================
    Centered Site Title (Hero)
    ================================ */
 
-/* Center the entire hero content */
 .hero{
   text-align: center;
+  padding: 44px 0 18px;
 }
 
-/* Bigger, more authoritative title */
 .hero h1{
-  font-size: clamp(38px, 6vw, 56px);
+  font-family: "IBM Plex Serif", Georgia, serif;
+  font-size: clamp(42px, 7vw, 74px);
   letter-spacing: -0.06em;
-  margin-bottom: 14px;
+  margin: 0 0 10px;
 }
 
-/* Centered description under title */
 .hero .subtitle{
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
   text-align: center;
   max-width: 65ch;
   font-size: 16px;
   line-height: 1.65;
+  color: var(--muted);
+}
+
+.hero .hero-links{
+  margin-top: 14px;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+/* ================================
+   Cards + orange 4-corner borders
+   ================================ */
+
+.card{
+  position: relative;
+  border: var(--card-border) solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 18px;
+  background: #fff;
+  margin: 18px 0;
+}
+
+/* 4 corners using multiple backgrounds (reliable + clean) */
+.card{
+  background:
+    linear-gradient(var(--accent), var(--accent)) left top / var(--corner-len) var(--corner-thick) no-repeat,
+    linear-gradient(var(--accent), var(--accent)) left top / var(--corner-thick) var(--corner-len) no-repeat,
+
+    linear-gradient(var(--accent), var(--accent)) right top / var(--corner-len) var(--corner-thick) no-repeat,
+    linear-gradient(var(--accent), var(--accent)) right top / var(--corner-thick) var(--corner-len) no-repeat,
+
+    linear-gradient(var(--accent), var(--accent)) left bottom / var(--corner-len) var(--corner-thick) no-repeat,
+    linear-gradient(var(--accent), var(--accent)) left bottom / var(--corner-thick) var(--corner-len) no-repeat,
+
+    linear-gradient(var(--accent), var(--accent)) right bottom / var(--corner-len) var(--corner-thick) no-repeat,
+    linear-gradient(var(--accent), var(--accent)) right bottom / var(--corner-thick) var(--corner-len) no-repeat,
+
+    #fff;
+}
+
+/* headings */
+h2{
+  font-size: 22px;
+  margin: 0 0 10px;
+}
+h3{
+  font-size: 18px;
+  margin: 0 0 8px;
+}
+.small{
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Featured should be a box like the rest */
+.featured{
+  margin-top: 18px;
+}
+
+/* Section list */
+.section-title{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.section-title .arrow{
+  font-size: 20px;
+  opacity: .85;
+}
+
+/* Make the content take up more of the screen */
+.stack{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+/* Optional: two-column on wide screens */
+@media (min-width: 900px){
+  .stack.two{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Mobile tweaks */
+@media (max-width: 600px){
+  :root{ --pad: 18px; --corner-len: 28px; }
+  .hero{ padding: 34px 0 12px; }
+  .hero .subtitle{ font-size: 15px; }
+  .nav{ gap: 12px; }
 }
