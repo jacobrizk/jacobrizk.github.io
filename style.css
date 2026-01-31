@@ -1,9 +1,244 @@
-:root { --bg:#0b0e14; --fg:#e7eaf0; --muted:#aab3c2; --card:#121826; --line:#253047; }
+:root {
+  --bg: #0e1116;
+  --card: #151a22;
+  --card2: #141922;
+  --text: #e6e6e6;
+  --muted: #b6bcc8;
+  --muted2: #8b93a6;
+  --border: #252b3a;
+  --accent: #f59e0b;
+  --radius: 10px;
+  --max: 1050px;
+}
+
 * { box-sizing: border-box; }
-body { margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; background:var(--bg); color:var(--fg); }
-.wrap { max-width: 900px; margin: 0 auto; padding: 24px; }
-.sub { color: var(--muted); margin-top: 6px; }
-.nav a { color: var(--fg); text-decoration: none; margin-right: 14px; padding-bottom: 2px; border-bottom: 1px solid transparent; }
-.nav a:hover { border-bottom-color: var(--fg); }
-.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px 22px; }
-.foot { color: var(--muted); font-size: 14px; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "IBM Plex Sans", Arial, Helvetica, sans-serif;
+  line-height: 1.55;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 28px 18px 70px;
+}
+
+/* Header / nav */
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 26px;
+}
+
+.brand {
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.nav {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.nav a {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.nav a:hover {
+  color: var(--text);
+}
+
+/* Hero */
+.hero {
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 26px 22px;
+  margin-bottom: 18px;
+}
+
+h1 {
+  margin: 0 0 10px;
+  font-size: clamp(28px, 4vw, 42px);
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  color: var(--muted);
+  max-width: 70ch;
+  margin-bottom: 14px;
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.tag {
+  border: 1px solid var(--border);
+  background: var(--card2);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.btns {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  border: 1px solid var(--border);
+  background: transparent;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.btn.primary {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn:hover {
+  background: rgba(255,255,255,0.04);
+  text-decoration: none;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+.panel {
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 16px 14px;
+}
+
+.panel h2 {
+  margin: 0 0 10px;
+  font-size: 15px;
+  letter-spacing: 0.4px;
+  color: var(--muted);
+}
+
+/* Currently */
+.row {
+  display: flex;
+  gap: 10px;
+  padding: 8px 8px;
+  border-radius: 6px;
+  background: var(--card2);
+  border: 1px solid var(--border);
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.row b {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.row span {
+  color: var(--muted);
+}
+
+/* Featured */
+.featured {
+  border: 1px dashed var(--border);
+  background: var(--card2);
+  border-radius: var(--radius);
+  padding: 16px 14px;
+}
+
+.featured .kicker {
+  font-size: 12px;
+  letter-spacing: 0.6px;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.featured h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+
+.featured p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Section cards */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+@media (max-width: 700px) {
+  .cards { grid-template-columns: 1fr; }
+}
+
+.card {
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 14px 14px;
+}
+
+.card h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+}
+
+.card p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* Footer */
+footer {
+  margin-top: 26px;
+  font-size: 13px;
+  color: var(--muted2);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+footer a {
+  color: var(--muted);
+}
