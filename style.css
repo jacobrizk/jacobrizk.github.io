@@ -1,50 +1,122 @@
 /* =========================================
-   DormProjects — Blueprint Grid (Original, Sharp)
-   Same as original block layout, but with sharp corners.
+   DormProjects — Tailwind-style converted to plain CSS
+   (No build step needed. Works on GitHub Pages.)
    ========================================= */
 
-:root{
-  --bg: #0e1116;
-  --text: #e6e6e6;
-  --muted: #b6bcc8;
-  --muted2: #8b93a6;
+/* Fonts (same as the other AI output) */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
 
-  --card: #151a22;
-  --card2: #141922;
+:root {
+  /* HSL Values (same as your snippet) */
+  --background: 218 22% 7%;      /* #0e1116 */
+  --foreground: 0 0% 90%;        /* #e6e6e6 */
 
-  --border: #252b3a;
-  --accent: #f59e0b;
+  --card: 217 24% 11%;           /* #151a22 */
+  --card-foreground: 0 0% 90%;
 
-  /* SHARP corners */
-  --radius: 0px;
+  --primary: 38 92% 50%;         /* #f59e0b */
+  --primary-foreground: 0 0% 10%;
+
+  --secondary: 221 22% 19%;      /* #252b3a */
+  --secondary-foreground: 0 0% 90%;
+
+  --muted: 220 12% 75%;          /* #b6bcc8 */
+  --muted-foreground: 220 12% 55%;
+
+  --border: 221 22% 19%;
+  --ring: 38 92% 50%;
+
+  --radius: 0px;                 /* strict sharp corners */
+
+  /* Layout */
   --max: 1050px;
+
+  /* Grid */
+  --grid-a: rgba(255,255,255,0.035);
+  --grid-b: rgba(255,255,255,0.08);
+
+  /* Effects */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.5);
 }
 
-*{ box-sizing: border-box; }
+/* Base reset-ish */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
 
-body{
+body {
   margin: 0;
-  color: var(--text);
-  font-family: "IBM Plex Sans", Arial, Helvetica, sans-serif;
-  line-height: 1.55;
+  color: hsl(var(--foreground));
+  font-family: "IBM Plex Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 
-  /* Blueprint grid */
-  background-color: var(--bg);
+  background-color: hsl(var(--background));
+
+  /* Blueprint Grid Pattern */
   background-image:
-    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px),
-    linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
-  background-size:
-    20px 20px,
-    20px 20px,
-    100px 100px,
-    100px 100px;
+    linear-gradient(var(--grid-a) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-a) 1px, transparent 1px),
+    linear-gradient(var(--grid-b) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-b) 1px, transparent 1px);
+  background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
+  background-position: center top;
 }
 
-/* Links */
-a{ color: var(--accent); text-decoration: none; }
-a:hover{ text-decoration: underline; }
+a {
+  color: hsl(var(--primary));
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+/* =========================================
+   Utility classes (plain CSS versions)
+   ========================================= */
+
+.text-shadow-sm { text-shadow: var(--shadow-sm); }
+
+/* "glass-panel" = card background at 80% + blur + border */
+.glass-panel {
+  background: hsla(var(--card), 0.80);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid hsl(var(--border));
+}
+
+/* technical-border with corner ticks */
+.technical-border {
+  position: relative;
+  border: 1px solid hsl(var(--border));
+}
+.technical-border::before,
+.technical-border::after{
+  content:"";
+  position:absolute;
+  width: 6px;
+  height: 6px;
+}
+.technical-border::before{
+  top: -1px;
+  left: -1px;
+  border-top: 1px solid hsl(var(--primary));
+  border-left: 1px solid hsl(var(--primary));
+}
+.technical-border::after{
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 1px solid hsl(var(--primary));
+  border-right: 1px solid hsl(var(--primary));
+}
+
+/* =========================================
+   Your existing site structure (mapped)
+   ========================================= */
 
 .wrap{
   max-width: var(--max);
@@ -52,241 +124,286 @@ a:hover{ text-decoration: underline; }
   padding: 28px 18px 70px;
 }
 
-/* =========================================
-   Header / Nav
-   ========================================= */
-
+/* Top bar */
 .top{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  margin-bottom: 26px;
   gap: 14px;
+  margin-bottom: 24px;
 }
 
 .brand{
   font-weight: 700;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.2px;
 }
 
+/* Nav */
 .nav{
   display:flex;
   gap: 16px;
   flex-wrap: wrap;
 }
-
 .nav a{
-  color: var(--muted);
+  color: hsla(var(--muted), 1);
   font-size: 14px;
 }
+.nav a:hover{ color: hsl(var(--foreground)); text-decoration:none; }
 
-.nav a:hover{
-  color: var(--text);
-  text-decoration: none;
-}
-
-/* =========================================
-   Hero
-   ========================================= */
-
+/* Hero becomes a technical glass panel */
 .hero{
-  border: 1px solid var(--border);
-  background: var(--card);
   border-radius: var(--radius);
   padding: 26px 22px;
   margin-bottom: 18px;
+
+  background: hsla(var(--card), 0.80);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid hsl(var(--border));
+  position: relative;
+}
+
+/* give hero the corner ticks (technical border) */
+.hero::before{
+  content:"";
+  position:absolute;
+  top:-1px; left:-1px;
+  width:6px; height:6px;
+  border-top: 1px solid hsl(var(--primary));
+  border-left: 1px solid hsl(var(--primary));
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  bottom:-1px; right:-1px;
+  width:6px; height:6px;
+  border-bottom: 1px solid hsl(var(--primary));
+  border-right: 1px solid hsl(var(--primary));
 }
 
 h1{
-  margin: 0 0 10px;
   font-size: clamp(28px, 4vw, 42px);
-  letter-spacing: -0.5px;
+  letter-spacing: -0.04em;
+  margin-bottom: 10px;
 }
-
 .subtitle{
-  color: var(--muted);
+  color: hsla(var(--muted), 1);
   max-width: 70ch;
   margin-bottom: 14px;
   font-size: 15px;
 }
 
+/* Tags */
 .tags{
   display:flex;
   gap: 8px;
   flex-wrap: wrap;
   margin-bottom: 16px;
 }
-
 .tag{
-  border: 1px solid var(--border);
-  background: var(--card2);
+  border: 1px solid hsl(var(--border));
+  background: hsla(var(--card), 0.55);
   padding: 4px 10px;
-  border-radius: 999px; /* keep tags pill-like */
+  border-radius: 999px; /* keep tags pill; you can set to 0 if you want */
   font-size: 12px;
-  color: var(--muted);
+  color: hsla(var(--muted), 1);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
 }
 
-/* =========================================
-   Buttons
-   ========================================= */
-
+/* Buttons */
 .btns{
   display:flex;
   gap: 10px;
   flex-wrap: wrap;
 }
-
 .btn{
-  border: 1px solid var(--border);
-  background: transparent;
+  border: 1px solid hsl(var(--border));
+  background: hsla(var(--card), 0.40);
   padding: 8px 14px;
-  border-radius: 0px; /* SHARP */
+  border-radius: var(--radius);
   font-size: 14px;
-  color: var(--muted);
+  color: hsla(var(--muted), 1);
 }
-
 .btn.primary{
-  border-color: var(--accent);
-  color: var(--accent);
+  border-color: hsl(var(--primary));
+  color: hsl(var(--primary));
+  background: hsla(var(--primary), 0.08);
 }
-
 .btn:hover{
-  background: rgba(255,255,255,0.04);
-  text-decoration: none;
+  background: hsla(var(--card), 0.55);
+  text-decoration:none;
 }
 
-/* =========================================
-   Layout grid
-   ========================================= */
-
+/* Main grid */
 .grid{
   display:grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: 14px;
   margin-bottom: 14px;
 }
-
 @media (max-width: 900px){
   .grid{ grid-template-columns: 1fr; }
 }
 
-/* =========================================
-   Panels / Sections
-   ========================================= */
-
+/* Panels */
 .panel{
-  border: 1px solid var(--border);
-  background: var(--card);
   border-radius: var(--radius);
   padding: 16px 14px;
+
+  background: hsla(var(--card), 0.80);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid hsl(var(--border));
+  position: relative;
+}
+.panel::before{
+  content:"";
+  position:absolute;
+  top:-1px; left:-1px;
+  width:6px; height:6px;
+  border-top: 1px solid hsl(var(--primary));
+  border-left: 1px solid hsl(var(--primary));
+}
+.panel::after{
+  content:"";
+  position:absolute;
+  bottom:-1px; right:-1px;
+  width:6px; height:6px;
+  border-bottom: 1px solid hsl(var(--primary));
+  border-right: 1px solid hsl(var(--primary));
 }
 
 .panel h2{
   margin: 0 0 10px;
   font-size: 15px;
-  letter-spacing: 1px;
-  color: var(--muted);
-  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  letter-spacing: 0.02em;
+  color: hsla(var(--foreground), 0.92);
 }
 
-/* =========================================
-   Currently rows
-   ========================================= */
-
+/* Rows */
 .row{
   display:flex;
   gap: 10px;
   padding: 8px 8px;
-  border-radius: 0px; /* SHARP */
-  background: var(--card2);
-  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: hsla(var(--card), 0.45);
+  border: 1px solid hsla(var(--border), 0.85);
   margin-bottom: 8px;
   font-size: 14px;
 }
-
 .row b{
-  color: var(--text);
+  color: hsl(var(--foreground));
   font-weight: 600;
 }
-
 .row span{
-  color: var(--muted);
+  color: hsla(var(--muted), 1);
 }
 
-/* =========================================
-   Featured box
-   ========================================= */
-
+/* Featured */
 .featured{
-  border: 1px dashed var(--border);
-  background: var(--card2);
   border-radius: var(--radius);
   padding: 16px 14px;
+
+  background: hsla(var(--card), 0.70);
+  border: 1px solid hsla(var(--border), 1);
+  position: relative;
+}
+.featured::before{
+  content:"";
+  position:absolute;
+  top:-1px; left:-1px;
+  width:6px; height:6px;
+  border-top: 1px solid hsl(var(--primary));
+  border-left: 1px solid hsl(var(--primary));
+}
+.featured::after{
+  content:"";
+  position:absolute;
+  bottom:-1px; right:-1px;
+  width:6px; height:6px;
+  border-bottom: 1px solid hsl(var(--primary));
+  border-right: 1px solid hsl(var(--primary));
 }
 
 .featured .kicker{
   font-size: 12px;
   letter-spacing: 1px;
-  color: var(--accent);
+  color: hsl(var(--primary));
   margin-bottom: 6px;
-  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
 }
-
 .featured h3{
   margin: 0 0 6px;
   font-size: 18px;
 }
-
 .featured p{
-  color: var(--muted);
+  color: hsla(var(--muted), 1);
   font-size: 14px;
+  margin: 0;
 }
 
-/* =========================================
-   Cards (section previews)
-   ========================================= */
-
+/* Cards */
 .cards{
   display:grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   margin-bottom: 14px;
 }
-
 @media (max-width: 700px){
   .cards{ grid-template-columns: 1fr; }
 }
-
 .card{
-  border: 1px solid var(--border);
-  background: var(--card);
   border-radius: var(--radius);
   padding: 14px 14px;
+
+  background: hsla(var(--card), 0.80);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid hsl(var(--border));
+  position: relative;
+}
+.card::before{
+  content:"";
+  position:absolute;
+  top:-1px; left:-1px;
+  width:6px; height:6px;
+  border-top: 1px solid hsl(var(--primary));
+  border-left: 1px solid hsl(var(--primary));
+}
+.card::after{
+  content:"";
+  position:absolute;
+  bottom:-1px; right:-1px;
+  width:6px; height:6px;
+  border-bottom: 1px solid hsl(var(--primary));
+  border-right: 1px solid hsl(var(--primary));
 }
 
 .card h3{
   margin: 0 0 6px;
   font-size: 16px;
 }
-
 .card p{
   margin: 0;
   font-size: 14px;
-  color: var(--muted);
+  color: hsla(var(--muted), 1);
 }
 
-/* =========================================
-   Footer
-   ========================================= */
-
+/* Footer */
 footer{
   margin-top: 26px;
   font-size: 13px;
-  color: var(--muted2);
+  color: hsla(var(--muted-foreground), 1);
   display:flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px;
 }
+footer a{ color: hsla(var(--muted), 1); }
+footer a:hover{ color: hsl(var(--foreground)); text-decoration:none; }
 
-footer a{ color: var(--muted); }
+/* Focus ring (nice for accessibility) */
+:focus-visible{
+  outline: 2px solid hsla(var(--ring), 0.8);
+  outline-offset: 2px;
+}
