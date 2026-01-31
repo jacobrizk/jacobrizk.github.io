@@ -1,60 +1,64 @@
 /* =========================================
-   DormProjects — Blueprint Grid (Refined)
-   Same blueprint vibe, improved spacing + depth.
+   DormProjects — Blueprint Log Layout
+   Goal: remove "cards/blocks" Wix vibe
+   - no shadows
+   - minimal rounding
+   - sections feel like one document
+   - dividers + left accent, not boxes
    ========================================= */
 
 :root{
-  /* Colors */
   --bg: #0e1116;
   --text: #e6e6e6;
   --muted: #b6bcc8;
   --muted2: #8b93a6;
 
-  --card: #151a22;
-  --card2: #141922;
-
-  --border: #252b3a;
   --accent: #f59e0b;
 
-  /* Layout */
-  --radius: 10px;
-  --max: 1050px;
+  --line: rgba(255,255,255,0.10);
+  --line2: rgba(255,255,255,0.06);
 
-  /* Shadows (NEW: deeper but clean) */
-  --shadow-panel: 0 10px 28px rgba(0,0,0,0.45);
-  --shadow-card: 0 6px 18px rgba(0,0,0,0.35);
+  --surface: rgba(14,17,22,0.70); /* single-page surface */
+  --surface2: rgba(14,17,22,0.35);
+
+  --max: 980px;
+  --radius: 6px; /* small, not “app-like” */
 }
 
-*{ box-sizing: border-box; }
+*{ box-sizing:border-box; }
 
 body{
-  margin: 0;
+  margin:0;
   color: var(--text);
   font-family: "IBM Plex Sans", Arial, Helvetica, sans-serif;
-  line-height: 1.6;
+  line-height: 1.65;
 
-  /* Blueprint grid */
+  /* Blueprint grid stays, but subtle */
   background-color: var(--bg);
   background-image:
-    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px),
-    linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+    linear-gradient(rgba(255,255,255,0.030) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.030) 1px, transparent 1px),
+    linear-gradient(rgba(255,255,255,0.060) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.060) 1px, transparent 1px);
   background-size:
-    20px 20px,
-    20px 20px,
-    100px 100px,
-    100px 100px;
+    22px 22px,
+    22px 22px,
+    110px 110px,
+    110px 110px;
 }
 
-/* Links */
-a{ color: var(--accent); text-decoration: none; }
-a:hover{ text-decoration: underline; }
+a{ color: var(--accent); text-decoration:none; }
+a:hover{ text-decoration:underline; }
 
 .wrap{
   max-width: var(--max);
   margin: 0 auto;
-  padding: 36px 20px 90px; /* NEW: more vertical breathing room */
+  padding: 34px 18px 90px;
+
+  /* This is the big change: one continuous “page” */
+  background: var(--surface);
+  border-left: 2px solid rgba(245,158,11,0.30);
+  padding-left: 18px;
 }
 
 /* =========================================
@@ -63,160 +67,151 @@ a:hover{ text-decoration: underline; }
 
 .top{
   display:flex;
-  align-items:center;
+  align-items:baseline;
   justify-content:space-between;
-  margin-bottom: 32px; /* more space */
-  gap: 16px;
+  gap: 14px;
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--line);
 }
 
 .brand{
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.3px;
 }
 
 .nav{
   display:flex;
-  gap: 18px;
+  gap: 14px;
   flex-wrap: wrap;
 }
 
 .nav a{
   color: var(--muted);
-  font-size: 14px;
+  font-size: 13px;
+  letter-spacing: 0.2px;
 }
 
-.nav a:hover{
-  color: var(--text);
-  text-decoration: none;
-}
+.nav a:hover{ color: var(--text); text-decoration:none; }
 
 /* =========================================
-   Hero
+   Hero (becomes a header section, not a card)
    ========================================= */
 
 .hero{
-  border: 1px solid var(--border);
-  background: var(--card);
-  border-radius: var(--radius);
-  padding: 32px 26px;          /* NEW: roomier */
-  margin-bottom: 28px;         /* NEW: more separation */
-  box-shadow: var(--shadow-panel);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0 0 18px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--line);
 }
 
 h1{
-  margin: 0 0 14px;
-  font-size: clamp(28px, 4vw, 42px);
-  letter-spacing: -0.5px;
+  margin: 0 0 10px;
+  font-size: clamp(30px, 4vw, 44px);
+  letter-spacing: -0.6px;
 }
 
 .subtitle{
   color: var(--muted);
-  max-width: 72ch;
-  margin-bottom: 18px;
+  max-width: 78ch;
+  margin: 0 0 14px;
   font-size: 15px;
 }
 
-/* Tags */
+/* tags become simple inline labels */
 .tags{
   display:flex;
   gap: 10px;
   flex-wrap: wrap;
-  margin-bottom: 20px;
+  margin: 0 0 14px;
 }
 
 .tag{
-  border: 1px solid var(--border);
-  background: var(--card2);
-  padding: 6px 12px;
-  border-radius: 999px;
   font-size: 12px;
   color: var(--muted);
+  border: 1px solid var(--line2);
+  background: rgba(0,0,0,0.14);
+  padding: 5px 10px;
+  border-radius: 999px;
 }
 
-/* =========================================
-   Buttons
-   ========================================= */
-
-.btns{
-  display:flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
+/* buttons become “tool links” */
+.btns{ display:flex; gap: 12px; flex-wrap: wrap; }
 
 .btn{
-  border: 1px solid var(--border);
-  background: transparent;
-  padding: 10px 16px;
-  border-radius: 6px;
-  font-size: 14px;
+  border: 1px solid var(--line2);
+  background: rgba(0,0,0,0.10);
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  font-size: 13px;
   color: var(--muted);
 }
 
 .btn.primary{
-  border-color: var(--accent);
+  border-color: rgba(245,158,11,0.40);
   color: var(--accent);
+  background: rgba(245,158,11,0.08);
 }
 
 .btn:hover{
   background: rgba(255,255,255,0.04);
-  text-decoration: none;
+  text-decoration:none;
 }
 
 /* =========================================
-   Layout grid
+   Layout grid (less “dashboard”)
    ========================================= */
 
+/* Make it feel more editorial: stack sooner */
 .grid{
   display:grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 20px;              /* NEW: wider gutters */
-  margin-bottom: 24px;
-}
-
-@media (max-width: 900px){
-  .grid{ grid-template-columns: 1fr; }
+  grid-template-columns: 1fr;
+  gap: 18px;
+  margin-bottom: 18px;
 }
 
 /* =========================================
-   Panels / Sections
+   Panels become sections (NOT blocks)
    ========================================= */
 
 .panel{
-  border: 1px solid var(--border);
-  background: var(--card);
-  border-radius: var(--radius);
-  padding: 22px 20px;     /* NEW: more internal spacing */
-  box-shadow: var(--shadow-panel);
+  border: none;
+  background: transparent;
+  border-radius: 0;
+  padding: 0 0 18px;
+  margin-bottom: 0;
+  border-bottom: 1px solid var(--line);
 }
 
 .panel h2{
-  margin: 0 0 14px;
-  font-size: 15px;
-  letter-spacing: 1px;
-  color: var(--muted);
-  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  margin: 0 0 12px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: rgba(245,158,11,0.90);
+  text-transform: uppercase;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 }
 
-/* =========================================
-   Rows
-   ========================================= */
-
+/* Rows become clean list items */
 .row{
   display:flex;
   gap: 12px;
-  padding: 10px 12px;
-  border-radius: 6px;
-  background: var(--card2);
-  border: 1px solid var(--border);
-  margin-bottom: 10px;
+  padding: 10px 0;
+  border: none;
+  border-bottom: 1px solid var(--line2);
+  margin: 0;
+  background: transparent;
+  border-radius: 0;
   font-size: 14px;
 }
 
-.row:last-child{ margin-bottom: 0; }
+.row:last-child{ border-bottom: none; }
 
 .row b{
   color: var(--text);
-  font-weight: 600;
+  font-weight: 650;
 }
 
 .row span{
@@ -224,44 +219,49 @@ h1{
 }
 
 /* =========================================
-   Featured box
+   Featured becomes a “callout line”, not a box
    ========================================= */
 
 .featured{
-  border: 1px dashed var(--border);
-  background: var(--card2);
+  border: none;
+  background: rgba(0,0,0,0.14);
+  border-left: 3px solid rgba(245,158,11,0.60);
   border-radius: var(--radius);
-  padding: 22px 20px;     /* NEW */
-  box-shadow: var(--shadow-card);
+  padding: 14px 14px;
 }
 
 .featured .kicker{
   font-size: 12px;
-  letter-spacing: 1px;
-  color: var(--accent);
-  margin-bottom: 8px;
-  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  letter-spacing: 2px;
+  color: rgba(245,158,11,0.95);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 }
 
 .featured h3{
-  margin: 0 0 8px;
+  margin: 0 0 6px;
   font-size: 18px;
 }
 
 .featured p{
+  margin: 0;
   color: var(--muted);
   font-size: 14px;
 }
 
 /* =========================================
-   Cards (section previews)
+   Cards area becomes a simple two-column list
+   (still uses your .cards/.card HTML)
    ========================================= */
 
 .cards{
   display:grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 18px;              /* NEW: more spacing */
-  margin-bottom: 24px;
+  gap: 10px 22px;
+  margin: 18px 0 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
 }
 
 @media (max-width: 700px){
@@ -269,16 +269,19 @@ h1{
 }
 
 .card{
-  border: 1px solid var(--border);
-  background: var(--card);
-  border-radius: var(--radius);
-  padding: 20px 18px;
-  box-shadow: var(--shadow-card);
+  border: none;
+  background: transparent;
+  border-radius: 0;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line2);
 }
 
+.card:hover{ background: transparent; }
+
 .card h3{
-  margin: 0 0 8px;
+  margin: 0 0 6px;
   font-size: 16px;
+  color: var(--text);
 }
 
 .card p{
@@ -292,8 +295,10 @@ h1{
    ========================================= */
 
 footer{
-  margin-top: 40px;        /* NEW */
-  font-size: 13px;
+  margin-top: 26px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
   color: var(--muted2);
   display:flex;
   justify-content: space-between;
