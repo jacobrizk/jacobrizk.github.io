@@ -1,431 +1,345 @@
-/* =========================================
-   DormProjects — Dorm Workshop Notebook (Unique)
-   - imperfect grid paper
-   - margin line
-   - subtle noise + smudges
-   - panels feel taped/handled (not SaaS)
-   ========================================= */
 
-:root {
-  --bg: #0d1016;
-  --paper: #0f141d;      /* base behind everything */
-  --card: rgba(19, 24, 36, 0.88);
-  --card2: rgba(16, 20, 32, 0.82);
-  --text: #e7e7e7;
-  --muted: #b8bfd0;
-  --muted2: #8892aa;
-  --border: rgba(210, 220, 255, 0.14);
-  --accent: #f59e0b;
 
-  --radius: 10px;
-  --max: 1050px;
+:root{
+  /* Base */
+  --bg: #f6f3ea;         /* warm paper */
+  --bg2: #fbf8f2;        /* lighter paper */
+  --text: #1a1f2b;
+  --muted: rgba(26,31,43,0.72);
+  --muted2: rgba(26,31,43,0.55);
 
-  --grid-small: 22px;
-  --grid-big: 110px;
+  /* Workshop accent */
+  --accent: #f59e0b;     /* your orange */
+  --accent2: #22c55e;    /* playful “science green” for tiny highlights */
+  --border: rgba(26,31,43,0.14);
 
-  --grid-dot: rgba(255,255,255,0.16);
-  --grid-line: rgba(255,255,255,0.10);
-  --grid-line-big: rgba(255,255,255,0.18);
+  /* Surfaces */
+  --card: rgba(255,255,255,0.84);
+  --card2: rgba(255,255,255,0.68);
 
-  --shadow: 0 10px 28px rgba(0,0,0,0.45);
-  --shadow-soft: 0 6px 16px rgba(0,0,0,0.35);
+  /* Layout */
+  --radius: 16px;
+  --max: 1100px;
+
+  /* Shadows (friendly, not “corporate”) */
+  --shadow: 0 12px 30px rgba(26,31,43,0.10);
+  --shadow2: 0 8px 18px rgba(26,31,43,0.08);
+
+  /* Grid */
+  --gridSmall: rgba(26,31,43,0.06);
+  --gridBig: rgba(26,31,43,0.10);
+  --small: 22px;
+  --big: 110px;
 }
 
-* { box-sizing: border-box; }
+*{ box-sizing: border-box; }
+html, body{ height: 100%; }
 
-html, body { height: 100%; }
-
-body {
+body{
   margin: 0;
   color: var(--text);
-  font-family: "IBM Plex Sans", Arial, Helvetica, sans-serif;
+  font-family: "IBM Plex Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
   line-height: 1.55;
 
-  /* Base */
-  background: var(--bg);
-  overflow-x: hidden;
+  /* Warm paper + subtle gradient energy */
+  background:
+    radial-gradient(900px 520px at 18% 10%, rgba(245,158,11,0.18), transparent 55%),
+    radial-gradient(900px 520px at 85% 25%, rgba(34,197,94,0.10), transparent 55%),
+    linear-gradient(180deg, var(--bg2), var(--bg));
 }
 
-/* =========================================
-   BACKGROUND LAYERS (this is where uniqueness lives)
-   ========================================= */
-
-/* Grid + paper texture + smudges (fixed so it feels like a desk surface) */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -2;
-
-  background-color: var(--paper);
-
-  background-image:
-    /* faint "paper grain" via micro-gradient */
-    radial-gradient(circle at 20% 10%, rgba(255,255,255,0.05), transparent 35%),
-    radial-gradient(circle at 80% 30%, rgba(245,158,11,0.05), transparent 40%),
-    radial-gradient(circle at 35% 85%, rgba(255,255,255,0.04), transparent 45%),
-
-    /* pencil smudge / hand contact zones */
-    radial-gradient(700px 340px at 65% 75%, rgba(0,0,0,0.35), transparent 60%),
-    radial-gradient(520px 260px at 15% 70%, rgba(0,0,0,0.25), transparent 55%),
-
-    /* small dot grid (imperfect blueprint feel) */
-    radial-gradient(circle at 1px 1px, var(--grid-dot) 1px, transparent 0),
-
-    /* big grid lines */
-    linear-gradient(var(--grid-line-big) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line-big) 1px, transparent 1px),
-
-    /* subtle small grid lines (optional but helps) */
-    linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
-
-    /* margin line like real notebook paper */
-    linear-gradient(90deg, rgba(245,158,11,0.25) 2px, transparent 2px);
-
-  background-size:
-    100% 100%,
-    100% 100%,
-    100% 100%,
-
-    100% 100%,
-    100% 100%,
-
-    var(--grid-small) var(--grid-small),
-
-    var(--grid-big) var(--grid-big),
-    var(--grid-big) var(--grid-big),
-
-    var(--grid-small) var(--grid-small),
-    var(--grid-small) var(--grid-small),
-
-    100% 100%;
-
-  background-position:
-    0 0,
-    0 0,
-    0 0,
-
-    0 0,
-    0 0,
-
-    0 0,
-
-    0 0,
-    0 0,
-
-    0 0,
-    0 0,
-
-    72px 0;
-
-  /* Slightly rotate the entire background a hair to avoid “template-perfect” */
-  transform: rotate(-0.35deg) scale(1.02);
-  transform-origin: center;
-}
-
-/* Light noise overlay (adds analog feel; still CSS-only) */
-body::after {
-  content: "";
+/* Subtle graph paper overlay (not loud) */
+body::before{
+  content:"";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: -1;
 
-  opacity: 0.10;
-  mix-blend-mode: overlay;
-
   background-image:
-    repeating-linear-gradient(
-      0deg,
-      rgba(255,255,255,0.06) 0px,
-      rgba(255,255,255,0.06) 1px,
-      transparent 2px,
-      transparent 4px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(0,0,0,0.07) 0px,
-      rgba(0,0,0,0.07) 1px,
-      transparent 2px,
-      transparent 6px
-    );
+    linear-gradient(var(--gridSmall) 1px, transparent 1px),
+    linear-gradient(90deg, var(--gridSmall) 1px, transparent 1px),
+    linear-gradient(var(--gridBig) 1px, transparent 1px),
+    linear-gradient(90deg, var(--gridBig) 1px, transparent 1px);
+
+  background-size:
+    var(--small) var(--small),
+    var(--small) var(--small),
+    var(--big) var(--big),
+    var(--big) var(--big);
+
+  opacity: 0.85;
 }
 
-/* =========================================
-   Links & wrap
-   ========================================= */
+/* Links */
+a{ color: #c97700; text-decoration: none; }
+a:hover{ text-decoration: underline; }
 
-a { color: var(--accent); text-decoration: none; }
-a:hover { text-decoration: underline; }
-
-.wrap {
+/* Page wrap */
+.wrap{
   max-width: var(--max);
   margin: 0 auto;
-  padding: 28px 18px 70px;
+  padding: 30px 18px 80px;
 }
 
-/* =========================================
-   Header / Nav
-   ========================================= */
-
-.top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 26px;
+/* Header / Nav */
+.top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 14px;
+  margin-bottom: 22px;
 }
 
-.brand {
-  font-weight: 700;
-  letter-spacing: 0.3px;
+.brand{
+  font-weight: 800;
+  letter-spacing: 0.2px;
 }
 
-.nav {
-  display: flex;
+.nav{
+  display:flex;
   gap: 16px;
   flex-wrap: wrap;
 }
 
-.nav a {
+.nav a{
   color: var(--muted);
   font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 999px;
 }
 
-.nav a:hover { color: var(--text); }
+.nav a:hover{
+  color: var(--text);
+  background: rgba(26,31,43,0.06);
+  text-decoration: none;
+}
 
-/* =========================================
-   Hero
-   ========================================= */
-
-.hero {
+/* Hero */
+.hero{
   border: 1px solid var(--border);
   background: var(--card);
   border-radius: var(--radius);
-  padding: 26px 22px;
-  margin-bottom: 18px;
+  padding: 28px 22px;
+  margin-bottom: 16px;
   box-shadow: var(--shadow);
   position: relative;
+  overflow: hidden;
 }
 
-/* little “tape” corner — makes it feel physical */
-.hero::before {
-  content: "";
-  position: absolute;
-  top: -10px;
-  right: 18px;
-  width: 72px;
-  height: 22px;
-  background: rgba(245,158,11,0.14);
-  border: 1px solid rgba(245,158,11,0.22);
-  transform: rotate(3deg);
-  border-radius: 4px;
+/* playful corner stripe */
+.hero::after{
+  content:"";
+  position:absolute;
+  top:-40px;
+  right:-60px;
+  width: 220px;
+  height: 120px;
+  background: rgba(245,158,11,0.18);
+  transform: rotate(18deg);
 }
 
-h1 {
-  margin: 0 0 10px;
-  font-size: clamp(28px, 4vw, 42px);
-  letter-spacing: -0.5px;
+h1{
+  margin: 0 0 8px;
+  font-size: clamp(30px, 4vw, 46px);
+  letter-spacing: -0.8px;
 }
 
-.subtitle {
+.subtitle{
   color: var(--muted);
-  max-width: 70ch;
+  max-width: 72ch;
   margin-bottom: 14px;
+  font-size: 16px;
 }
 
-.tags {
-  display: flex;
+/* Tags */
+.tags{
+  display:flex;
   gap: 8px;
   flex-wrap: wrap;
   margin-bottom: 16px;
 }
 
-.tag {
-  border: 1px solid var(--border);
-  background: var(--card2);
-  padding: 4px 10px;
+.tag{
+  border: 1px solid rgba(26,31,43,0.12);
+  background: rgba(255,255,255,0.7);
+  padding: 6px 10px;
   border-radius: 999px;
   font-size: 12px;
-  color: var(--muted);
+  color: rgba(26,31,43,0.72);
 }
 
-/* =========================================
-   Buttons (more “label maker” than marketing)
-   ========================================= */
+/* Buttons (bigger & more “maker”) */
+.btns{
+  display:flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
 
-.btns { display: flex; gap: 10px; flex-wrap: wrap; }
-
-.btn {
-  border: 1px solid var(--border);
-  background: rgba(0,0,0,0.10);
-  padding: 8px 14px;
-  border-radius: 6px;
+.btn{
+  border: 1px solid rgba(26,31,43,0.18);
+  background: rgba(255,255,255,0.75);
+  padding: 10px 14px;
+  border-radius: 12px;
   font-size: 14px;
-  color: var(--muted);
+  color: rgba(26,31,43,0.78);
+  box-shadow: 0 2px 0 rgba(26,31,43,0.06);
 }
 
-.btn.primary {
-  border-color: rgba(245,158,11,0.65);
-  color: var(--accent);
-  background: rgba(245,158,11,0.08);
+.btn.primary{
+  border-color: rgba(245,158,11,0.50);
+  background: rgba(245,158,11,0.18);
+  color: rgba(26,31,43,0.90);
 }
 
-.btn:hover {
-  background: rgba(255,255,255,0.06);
-  text-decoration: none;
+.btn:hover{
+  background: rgba(255,255,255,0.92);
+  transform: translateY(-1px);
+  text-decoration:none;
 }
 
-/* =========================================
-   Layout grid
-   ========================================= */
-
-.grid {
-  display: grid;
+/* Layout grid */
+.grid{
+  display:grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: 14px;
   margin-bottom: 14px;
 }
 
-@media (max-width: 900px) {
-  .grid { grid-template-columns: 1fr; }
+@media (max-width: 900px){
+  .grid{ grid-template-columns: 1fr; }
 }
 
-/* =========================================
-   Panels / Sections (slightly imperfect edges)
-   ========================================= */
-
-.panel {
+/* Panels */
+.panel{
   border: 1px solid var(--border);
   background: var(--card);
   border-radius: var(--radius);
   padding: 16px 14px;
-  box-shadow: var(--shadow-soft);
-  position: relative;
+  box-shadow: var(--shadow2);
 }
 
-/* tiny corner “wear” */
-.panel::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: var(--radius);
-  pointer-events: none;
-  background:
-    radial-gradient(18px 18px at 6% 18%, rgba(255,255,255,0.08), transparent 60%),
-    radial-gradient(22px 22px at 92% 10%, rgba(0,0,0,0.30), transparent 60%);
-  opacity: 0.45;
-}
-
-.panel h2 {
+/* Notebook-ish section label */
+.panel h2{
   margin: 0 0 10px;
-  font-size: 14px;
-  letter-spacing: 1.2px;
-  color: var(--muted);
-  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 1.6px;
+  color: rgba(26,31,43,0.70);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 }
 
-/* =========================================
-   Currently rows
-   ========================================= */
-
-.row {
-  display: flex;
+/* Currently rows (more breathable) */
+.row{
+  display:flex;
   gap: 10px;
-  padding: 8px 8px;
-  border-radius: 6px;
+  padding: 10px 10px;
+  border-radius: 12px;
   background: var(--card2);
-  border: 1px solid var(--border);
-  margin-bottom: 8px;
+  border: 1px solid rgba(26,31,43,0.12);
+  margin-bottom: 10px;
   font-size: 14px;
 }
 
-.row b { color: var(--text); font-weight: 600; }
-.row span { color: var(--muted); }
+.row b{
+  color: rgba(26,31,43,0.95);
+  font-weight: 700;
+}
 
-/* =========================================
-   Featured box (feels like a pinned note)
-   ========================================= */
+.row span{
+  color: rgba(26,31,43,0.72);
+}
 
-.featured {
-  border: 1px dashed rgba(210, 220, 255, 0.22);
-  background: rgba(16,20,32,0.88);
+/* Featured box — “project card” vibe */
+.featured{
+  border: 1px dashed rgba(245,158,11,0.55);
+  background: rgba(255,255,255,0.80);
   border-radius: var(--radius);
   padding: 16px 14px;
-  box-shadow: var(--shadow-soft);
+  box-shadow: var(--shadow2);
   position: relative;
 }
 
-/* “pin” */
-.featured::before {
-  content: "";
-  position: absolute;
-  top: 10px;
+/* Little “sticker” dot */
+.featured::before{
+  content:"";
+  position:absolute;
+  top: 12px;
   right: 12px;
   width: 10px;
   height: 10px;
   border-radius: 999px;
-  background: rgba(245,158,11,0.85);
-  box-shadow: 0 0 0 3px rgba(245,158,11,0.18);
+  background: rgba(34,197,94,0.9);
+  box-shadow: 0 0 0 4px rgba(34,197,94,0.16);
 }
 
-.featured .kicker {
+.featured .kicker{
   font-size: 12px;
-  letter-spacing: 1.4px;
-  color: var(--accent);
+  letter-spacing: 1.6px;
+  color: rgba(245,158,11,0.95);
   margin-bottom: 6px;
-  font-family: "IBM Plex Mono", monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 }
 
-.featured h3 { margin: 0 0 6px; font-size: 18px; }
-.featured p { color: var(--muted); font-size: 14px; }
+.featured h3{
+  margin: 0 0 6px;
+  font-size: 18px;
+}
 
-/* =========================================
-   Cards (section previews)
-   ========================================= */
+.featured p{
+  color: rgba(26,31,43,0.74);
+  font-size: 14px;
+}
 
-.cards {
-  display: grid;
+/* Cards (section previews) */
+.cards{
+  display:grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   margin-bottom: 14px;
 }
 
-@media (max-width: 700px) {
-  .cards { grid-template-columns: 1fr; }
+@media (max-width: 700px){
+  .cards{ grid-template-columns: 1fr; }
 }
 
-.card {
-  border: 1px solid var(--border);
+.card{
+  border: 1px solid rgba(26,31,43,0.14);
   background: var(--card);
   border-radius: var(--radius);
-  padding: 14px 14px;
-  box-shadow: var(--shadow-soft);
-  transition: transform 120ms ease, background 120ms ease;
+  padding: 16px 14px;
+  box-shadow: var(--shadow2);
+  transition: transform 140ms ease, background 140ms ease;
 }
 
-/* a tiny hover that feels tactile, not “app” */
-.card:hover {
+.card:hover{
   transform: translateY(-2px);
-  background: rgba(19,24,36,0.94);
+  background: rgba(255,255,255,0.92);
 }
 
-.card h3 { margin: 0 0 6px; font-size: 16px; }
-.card p { margin: 0; font-size: 14px; color: var(--muted); }
+.card h3{
+  margin: 0 0 6px;
+  font-size: 16px;
+}
 
-/* =========================================
-   Footer
-   ========================================= */
+.card p{
+  margin: 0;
+  font-size: 14px;
+  color: rgba(26,31,43,0.72);
+}
 
-footer {
+/* Footer */
+footer{
   margin-top: 26px;
   font-size: 13px;
-  color: var(--muted2);
-  display: flex;
+  color: rgba(26,31,43,0.60);
+  display:flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(26,31,43,0.12);
 }
 
-footer a { color: var(--muted); }
+footer a{
+  color: rgba(26,31,43,0.70);
+}
