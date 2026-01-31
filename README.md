@@ -1,5 +1,9 @@
 # Dorm Projects
 
-the website workspace, all .html and .css are in this repo.
+The website workspace, dormprojects.com
 
-Live website: dormprojects.com
+NOTES:
+
+1. try filling up home screen (boxes).
+3. live dorm weather.
+4. maybe less dark themed.
