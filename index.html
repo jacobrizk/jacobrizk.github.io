@@ -3,282 +3,23 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="DormProjects — a personal workshop for building, learning, experimenting, and tools." />
   <title>DormProjects</title>
+  <meta name="description" content="DormProjects — a personal engineering workshop and notebook." />
 
-  <style>
-    :root{
-      --bg: #0b0f17;
-      --card: rgba(255,255,255,0.06);
-      --card2: rgba(255,255,255,0.08);
-      --text: rgba(255,255,255,0.92);
-      --muted: rgba(255,255,255,0.68);
-      --muted2: rgba(255,255,255,0.55);
-      --border: rgba(255,255,255,0.10);
-      --shadow: 0 18px 60px rgba(0,0,0,0.45);
-      --radius: 18px;
-      --max: 1050px;
-      --accent: #6ee7ff; /* change later if you want */
-      --accent2: #a78bfa;
-    }
+  <!-- Engineering / notebook font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      color: var(--text);
-      background:
-        radial-gradient(1200px 600px at 20% 10%, rgba(110,231,255,0.16), transparent 60%),
-        radial-gradient(1000px 500px at 85% 20%, rgba(167,139,250,0.14), transparent 55%),
-        radial-gradient(900px 500px at 40% 85%, rgba(34,197,94,0.08), transparent 50%),
-        var(--bg);
-      line-height: 1.45;
-    }
-
-    a{ color: inherit; text-decoration: none; }
-    a:hover{ text-decoration: underline; text-decoration-color: rgba(255,255,255,0.35); }
-
-    .wrap{ max-width: var(--max); margin: 0 auto; padding: 28px 18px 70px; }
-
-    /* Top nav */
-    .top{
-      display:flex; align-items:center; justify-content:space-between;
-      gap: 14px;
-      padding: 10px 4px 26px;
-    }
-    .brand{
-      display:flex; align-items:center; gap: 10px;
-      font-weight: 700;
-      letter-spacing: 0.2px;
-    }
-    .dot{
-      width: 10px; height: 10px; border-radius: 999px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 0 0 4px rgba(110,231,255,0.10);
-      flex: 0 0 auto;
-    }
-    .nav{
-      display:flex; gap: 14px; flex-wrap: wrap;
-      justify-content:flex-end;
-    }
-    .nav a{
-      color: var(--muted);
-      padding: 8px 10px;
-      border-radius: 12px;
-    }
-    .nav a:hover{
-      background: rgba(255,255,255,0.06);
-      text-decoration: none;
-      color: var(--text);
-    }
-
-    /* Hero */
-    .hero{
-      margin-top: 12px;
-      padding: 28px 22px;
-      border: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      position: relative;
-    }
-    .hero::after{
-      content:"";
-      position:absolute; inset:-2px;
-      background:
-        radial-gradient(800px 240px at 25% 10%, rgba(110,231,255,0.12), transparent 60%),
-        radial-gradient(700px 250px at 85% 5%, rgba(167,139,250,0.10), transparent 60%);
-      pointer-events:none;
-    }
-    .hero > *{ position: relative; z-index: 1; }
-
-    h1{
-      margin: 0 0 8px;
-      font-size: clamp(30px, 4.2vw, 46px);
-      letter-spacing: -0.6px;
-    }
-    .subtitle{
-      margin: 0 0 10px;
-      font-size: clamp(15px, 2vw, 18px);
-      color: var(--muted);
-      max-width: 70ch;
-    }
-    .tags{
-      display:flex; flex-wrap: wrap; gap: 8px;
-      margin: 12px 0 18px;
-    }
-    .tag{
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.04);
-      color: var(--muted);
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 13px;
-    }
-    .btns{ display:flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      gap: 8px;
-      padding: 10px 14px;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.06);
-      color: var(--text);
-      font-weight: 600;
-      text-decoration: none;
-    }
-    .btn:hover{
-      background: rgba(255,255,255,0.10);
-      text-decoration: none;
-    }
-    .btn.primary{
-      border-color: rgba(110,231,255,0.35);
-      background: linear-gradient(135deg, rgba(110,231,255,0.16), rgba(167,139,250,0.14));
-    }
-
-    /* Sections */
-    .grid{
-      margin-top: 18px;
-      display:grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 14px;
-    }
-    @media (max-width: 900px){
-      .grid{ grid-template-columns: 1fr; }
-    }
-
-    .panel{
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.05);
-      border-radius: var(--radius);
-      padding: 18px 16px;
-    }
-    .panel h2{
-      margin: 0 0 8px;
-      font-size: 16px;
-      letter-spacing: 0.2px;
-    }
-    .panel p{ margin: 0; color: var(--muted); }
-
-    /* Currently */
-    .currently{
-      display:flex; flex-direction:column; gap: 10px;
-    }
-    .row{
-      display:flex; gap: 10px; align-items:flex-start;
-      padding: 10px 10px;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-    .emoji{ width: 26px; text-align:center; opacity: 0.95; flex:0 0 auto; }
-    .row b{ color: var(--text); }
-    .row span{ color: var(--muted); }
-
-    /* Cards */
-    .cards{
-      margin-top: 14px;
-      display:grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-    @media (max-width: 700px){
-      .cards{ grid-template-columns: 1fr; }
-    }
-    .card{
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.05);
-      border-radius: var(--radius);
-      padding: 16px 14px;
-      position: relative;
-      overflow:hidden;
-    }
-    .card:hover{ background: rgba(255,255,255,0.08); }
-    .card .head{
-      display:flex; align-items:center; justify-content:space-between; gap: 10px;
-      margin-bottom: 8px;
-    }
-    .card .title{
-      display:flex; align-items:center; gap: 10px;
-      font-weight: 700;
-      letter-spacing: 0.2px;
-    }
-    .pill{
-      font-size: 12px;
-      color: var(--muted2);
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.03);
-      padding: 4px 8px;
-      border-radius: 999px;
-      white-space: nowrap;
-    }
-    .card p{ margin: 0; color: var(--muted); }
-
-    /* Featured */
-    .featured{
-      margin-top: 14px;
-      border: 1px solid rgba(110,231,255,0.18);
-      background: linear-gradient(180deg, rgba(110,231,255,0.10), rgba(255,255,255,0.04));
-      border-radius: var(--radius);
-      padding: 16px 14px;
-    }
-    .featured .kicker{
-      font-size: 12px;
-      letter-spacing: 0.6px;
-      text-transform: uppercase;
-      color: rgba(110,231,255,0.85);
-      margin-bottom: 6px;
-      font-weight: 700;
-    }
-    .featured h3{
-      margin: 0 0 6px;
-      font-size: 18px;
-      letter-spacing: -0.2px;
-    }
-    .featured p{ margin: 0; color: var(--muted); }
-    .featured .mini{
-      margin-top: 10px;
-      display:flex; gap: 8px; flex-wrap: wrap;
-    }
-    .mini .chip{
-      font-size: 12px;
-      color: var(--muted);
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.03);
-      padding: 4px 9px;
-      border-radius: 999px;
-    }
-
-    /* Footer */
-    footer{
-      margin-top: 26px;
-      color: var(--muted2);
-      font-size: 13px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      padding: 8px 6px;
-    }
-    footer .links{ display:flex; gap: 14px; flex-wrap: wrap; }
-    footer a{ color: var(--muted); }
-    footer a:hover{ color: var(--text); text-decoration: none; }
-
-    /* Anchor targets so buttons feel nice even on single page */
-    section{ scroll-margin-top: 18px; }
-  </style>
+  <!-- External stylesheet (make sure style.css is in the same folder as this index.html) -->
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
   <div class="wrap">
-    <div class="top">
-      <div class="brand">
-        <span class="dot"></span>
-        <span>DormProjects</span>
-      </div>
+
+    <header class="top">
+      <div class="brand">DormProjects</div>
       <nav class="nav">
         <a href="#projects">Projects</a>
         <a href="#learning">Learning</a>
@@ -286,149 +27,105 @@
         <a href="#tools">Tools</a>
         <a href="#about">About</a>
       </nav>
-    </div>
+    </header>
 
-    <header class="hero">
+    <section class="hero">
       <h1>DormProjects</h1>
       <p class="subtitle">
-        A personal workshop for building, learning, experimenting, and figuring things out.
+        A personal workshop and engineering notebook — documenting what I build,
+        what I learn, and what I try.
       </p>
 
       <div class="tags">
-        <span class="tag">Mechanical Engineering</span>
-        <span class="tag">Rocketry</span>
-        <span class="tag">Electronics</span>
-        <span class="tag">Software</span>
+        <div class="tag">Mechanical Engineering</div>
+        <div class="tag">Rocketry</div>
+        <div class="tag">Electronics</div>
+        <div class="tag">Software</div>
       </div>
 
       <div class="btns">
-        <a class="btn primary" href="#projects">Explore Projects →</a>
+        <a class="btn primary" href="#projects">Explore Projects</a>
         <a class="btn" href="#about">About</a>
       </div>
-    </header>
+    </section>
 
     <div class="grid">
-      <!-- Left: Currently -->
-      <section class="panel currently" aria-label="Currently">
-        <h2>Currently</h2>
+      <section class="panel">
+        <h2>// CURRENTLY</h2>
 
         <div class="row">
-          <div class="emoji">🛠️</div>
-          <div>
-            <b>Building:</b> <span>Rocket avionics + data logging</span>
-          </div>
+          <b>Building:</b>
+          <span>Rocket avionics + data logging</span>
         </div>
 
         <div class="row">
-          <div class="emoji">📚</div>
-          <div>
-            <b>Learning:</b> <span>Circular motion, components, and why formulas actually work</span>
-          </div>
+          <b>Learning:</b>
+          <span>Circular motion, components, why formulas work</span>
         </div>
 
         <div class="row">
-          <div class="emoji">🧪</div>
-          <div>
-            <b>Experimenting:</b> <span>DAC waveform generation + scope-visible signals</span>
-          </div>
+          <b>Experimenting:</b>
+          <span>DAC waveform generation + scope-visible signals</span>
         </div>
 
         <div class="row">
-          <div class="emoji">🧰</div>
-          <div>
-            <b>Tooling:</b> <span>Python + MATLAB utilities (small, fast, useful)</span>
-          </div>
+          <b>Tooling:</b>
+          <span>Python + MATLAB utilities</span>
         </div>
 
-        <!-- Optional note -->
-        <p style="margin-top:6px; color: rgba(255,255,255,0.52); font-size: 13px;">
-          This page stays intentionally lightweight — I update it when something new is on the bench.
+        <p style="font-size:13px;color:var(--muted2);margin-top:6px;">
+          Updated when something new is on the bench.
         </p>
       </section>
 
-      <!-- Right: Featured -->
-      <section class="featured" aria-label="Featured build">
-        <div class="kicker">Featured Build</div>
-        <h3>Rocket flight computer (sensors + logging)</h3>
+      <section class="featured">
+        <div class="kicker">FEATURED BUILD</div>
+        <h3>Rocket flight computer</h3>
         <p>
-          Iterating toward a compact, reliable avionics stack — capturing clean sensor data and
-          learning what breaks in real conditions.
+          Compact avionics stack focused on reliable sensor data,
+          logging, and learning what breaks in real conditions.
         </p>
-        <div class="mini">
-          <span class="chip">I2C sensors</span>
-          <span class="chip">Data logging</span>
-          <span class="chip">Testing + iteration</span>
-        </div>
-        <div class="btns" style="margin-top:12px;">
-          <a class="btn" href="#projects">See projects</a>
-          <a class="btn" href="#learning">See write-ups</a>
-        </div>
       </section>
     </div>
 
-    <!-- Section cards -->
-    <main class="cards" aria-label="Main sections">
-      <a class="card" href="#projects" id="projects">
-        <div class="head">
-          <div class="title">🧱 Projects</div>
-          <span class="pill">things I build</span>
-        </div>
-        <p>Documented builds, designs, systems, and long-form case studies.</p>
-      </a>
+    <section class="cards">
+      <div class="card" id="projects">
+        <h3>Projects</h3>
+        <p>Things I build — documented systems, hardware, and software.</p>
+      </div>
 
-      <a class="card" href="#learning" id="learning">
-        <div class="head">
-          <div class="title">📘 Learning</div>
-          <span class="pill">things I figure out</span>
-        </div>
-        <p>Concepts that clicked, mistakes that taught me, and the adventures inside that.</p>
-      </a>
+      <div class="card" id="learning">
+        <h3>Learning</h3>
+        <p>Concepts that finally clicked, and how they did.</p>
+      </div>
 
-      <a class="card" href="#experiments" id="experiments">
-        <div class="head">
-          <div class="title">🧪 Experiments</div>
-          <span class="pill">things I try</span>
-        </div>
-        <p>Prototypes, tests, half-ideas, and “let’s see what happens.”</p>
-      </a>
+      <div class="card" id="experiments">
+        <h3>Experiments</h3>
+        <p>Tests, prototypes, and ideas in progress.</p>
+      </div>
 
-      <a class="card" href="#tools" id="tools">
-        <div class="head">
-          <div class="title">🛠 Tools</div>
-          <span class="pill">things I make useful</span>
-        </div>
-        <p>Small utilities, calculators, scripts, and generators I use (and share).</p>
-      </a>
-    </main>
-
-    <!-- Placeholder section content (we'll replace as you add pages) -->
-    <section class="panel" style="margin-top:14px;">
-      <h2>Next up</h2>
-      <p>
-        Add your first pages for Projects / Learning / Experiments / Tools, then change these cards to link to them.
-        For now, this is a clean single-page workshop hub.
-      </p>
+      <div class="card" id="tools">
+        <h3>Tools</h3>
+        <p>Small calculators, scripts, and utilities I actually use.</p>
+      </div>
     </section>
 
-    <section class="panel" id="about" style="margin-top:14px;">
-      <h2>About</h2>
-      <p>
-        I’m Jacob — a Mechanical Engineering student who likes building real things, learning hard concepts by
-        messing with them, and documenting what works (and what doesn’t).
-      </p>
-      <p style="margin-top:10px; color: rgba(255,255,255,0.55); font-size: 13px;">
-        Replace this with your final About later — this is just a clean starter.
+    <section class="panel" id="about">
+      <h2>// ABOUT</h2>
+      <p style="color:var(--muted);font-size:14px;">
+        I’m Jacob — a mechanical engineering student who likes building real things,
+        learning by breaking them, and writing down what actually worked.
       </p>
     </section>
 
     <footer>
-      <div>Built by <span style="color: rgba(255,255,255,0.78);">Jacob Rizk</span></div>
-      <div class="links">
-        <a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
-        <a href="mailto:jacobrizk2007@gmail.com">Email</a>
-        <a href="#" title="Add LinkedIn later">LinkedIn</a>
+      <div>Built by Jacob Rizk</div>
+      <div>
+        <a href="https://github.com/">GitHub</a> ·
+        <a href="mailto:you@example.com">Email</a>
       </div>
     </footer>
+
   </div>
 </body>
 </html>
