@@ -1,15 +1,15 @@
-/* ===============================
-   DormProjects — Workshop Notebook
-   =============================== */
+/* =========================================
+   DormProjects — Blueprint / Notebook Style
+   ========================================= */
 
 :root {
-  --bg: #0e1116;
+  --bg: #0d1016;
   --card: #151a22;
-  --card2: #141922;
+  --card2: #111622;
   --text: #e6e6e6;
   --muted: #b6bcc8;
   --muted2: #8b93a6;
-  --border: #252b3a;
+  --border: #2a3142;
   --accent: #f59e0b;
   --radius: 10px;
   --max: 1050px;
@@ -19,7 +19,9 @@
   box-sizing: border-box;
 }
 
-/* === GRID BACKGROUND: WORKSHOP BLUEPRINT === */
+/* =========================================
+   BLUEPRINT CROSSHAIR GRID (STRONG)
+   ========================================= */
 body {
   margin: 0;
   color: var(--text);
@@ -27,21 +29,27 @@ body {
   line-height: 1.55;
 
   background-color: var(--bg);
+
+  /* dots + large grid */
   background-image:
-    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px),
-    linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+    radial-gradient(circle at 1px 1px, rgba(255,255,255,0.22) 1px, transparent 0),
+    linear-gradient(rgba(255,255,255,0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.18) 1px, transparent 1px);
+
   background-size:
-    20px 20px,
-    20px 20px,
-    100px 100px,
-    100px 100px;
+    22px 22px,
+    110px 110px,
+    110px 110px;
+
+  background-position:
+    0 0,
+    0 0,
+    0 0;
 }
 
-/* ===============================
+/* =========================================
    Global elements
-   =============================== */
+   ========================================= */
 
 a {
   color: var(--accent);
@@ -58,9 +66,9 @@ a:hover {
   padding: 28px 18px 70px;
 }
 
-/* ===============================
+/* =========================================
    Header / Nav
-   =============================== */
+   ========================================= */
 
 .top {
   display: flex;
@@ -89,13 +97,13 @@ a:hover {
   color: var(--text);
 }
 
-/* ===============================
+/* =========================================
    Hero
-   =============================== */
+   ========================================= */
 
 .hero {
   border: 1px solid var(--border);
-  background: var(--card);
+  background: rgba(21,26,34,0.92);
   border-radius: var(--radius);
   padding: 26px 22px;
   margin-bottom: 18px;
@@ -129,9 +137,9 @@ h1 {
   color: var(--muted);
 }
 
-/* ===============================
+/* =========================================
    Buttons
-   =============================== */
+   ========================================= */
 
 .btns {
   display: flex;
@@ -154,13 +162,13 @@ h1 {
 }
 
 .btn:hover {
-  background: rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.05);
   text-decoration: none;
 }
 
-/* ===============================
+/* =========================================
    Layout grid
-   =============================== */
+   ========================================= */
 
 .grid {
   display: grid;
@@ -175,35 +183,35 @@ h1 {
   }
 }
 
-/* ===============================
+/* =========================================
    Panels / Sections
-   =============================== */
+   ========================================= */
 
 .panel {
   border: 1px solid var(--border);
-  background: var(--card);
+  background: rgba(21,26,34,0.90);
   border-radius: var(--radius);
   padding: 16px 14px;
 }
 
 .panel h2 {
   margin: 0 0 10px;
-  font-size: 15px;
-  letter-spacing: 1px;
+  font-size: 14px;
+  letter-spacing: 1.2px;
   color: var(--muted);
   font-family: "IBM Plex Mono", monospace;
 }
 
-/* ===============================
+/* =========================================
    Currently rows
-   =============================== */
+   ========================================= */
 
 .row {
   display: flex;
   gap: 10px;
   padding: 8px 8px;
   border-radius: 6px;
-  background: var(--card2);
+  background: rgba(17,22,34,0.9);
   border: 1px solid var(--border);
   margin-bottom: 8px;
   font-size: 14px;
@@ -218,20 +226,20 @@ h1 {
   color: var(--muted);
 }
 
-/* ===============================
+/* =========================================
    Featured box
-   =============================== */
+   ========================================= */
 
 .featured {
   border: 1px dashed var(--border);
-  background: var(--card2);
+  background: rgba(17,22,34,0.92);
   border-radius: var(--radius);
   padding: 16px 14px;
 }
 
 .featured .kicker {
   font-size: 12px;
-  letter-spacing: 1px;
+  letter-spacing: 1.4px;
   color: var(--accent);
   margin-bottom: 6px;
   font-family: "IBM Plex Mono", monospace;
@@ -247,9 +255,9 @@ h1 {
   font-size: 14px;
 }
 
-/* ===============================
+/* =========================================
    Cards (section previews)
-   =============================== */
+   ========================================= */
 
 .cards {
   display: grid;
@@ -266,7 +274,7 @@ h1 {
 
 .card {
   border: 1px solid var(--border);
-  background: var(--card);
+  background: rgba(21,26,34,0.92);
   border-radius: var(--radius);
   padding: 14px 14px;
 }
@@ -282,9 +290,9 @@ h1 {
   color: var(--muted);
 }
 
-/* ===============================
+/* =========================================
    Footer
-   =============================== */
+   ========================================= */
 
 footer {
   margin-top: 26px;
