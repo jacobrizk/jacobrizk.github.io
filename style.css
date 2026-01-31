@@ -1,9 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
 
-:root {
+:root{
   --background: 218 22% 7%;
   --foreground: 0 0% 90%;
-
   --card: 217 24% 11%;
   --muted: 220 12% 75%;
   --border: 221 22% 19%;
@@ -11,20 +10,20 @@
   --ring: 38 92% 50%;
 
   --max: 1050px;
-  --radius: 0px;
 
   --grid-a: rgba(255,255,255,0.035);
   --grid-b: rgba(255,255,255,0.08);
 
-  /* corner tick length */
-  --tick: 14px;
+  /* corner tick geometry */
+  --tick: 16px;     /* length of corner tick */
+  --tickw: 2px;     /* thickness of corner tick */
 }
 
-* { box-sizing: border-box; }
-html, body { height: 100%; }
+*{ box-sizing:border-box; }
+html, body{ height:100%; }
 
-body {
-  margin: 0;
+body{
+  margin:0;
   color: hsl(var(--foreground));
   font-family: "IBM Plex Sans", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -38,10 +37,10 @@ body {
   background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
 }
 
-a { color: hsl(var(--primary)); text-decoration: none; }
-a:hover { text-decoration: underline; }
+a{ color:hsl(var(--primary)); text-decoration:none; }
+a:hover{ text-decoration:underline; }
 
-h1, h2, h3 {
+h1,h2,h3{
   font-family: "IBM Plex Mono", ui-monospace, monospace;
   font-weight: 600;
   margin: 0;
@@ -51,270 +50,208 @@ h1, h2, h3 {
    Layout
    ===================================== */
 
-.wrap {
+.wrap{
   max-width: var(--max);
   margin: 0 auto;
   padding: 28px 18px 70px;
 }
 
-.top {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 28px;
-}
+/* Remove top bar completely */
+.top{ display:none !important; }
 
-.brand {
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+/* =====================================
+   Title area (NOT boxed) — keep formatting
+   ===================================== */
+
+.hero{
+  /* not a box anymore */
+  border: none;
+  background: transparent;
+  padding: 18px 0 22px;
+  margin-bottom: 18px;
   text-align: center;
 }
 
-.nav {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-}
-
-.nav a {
-  font-size: 14px;
-  color: hsl(var(--muted));
-}
-
-.nav a:hover {
-  color: hsl(var(--foreground));
-}
-
-/* =====================================
-   Shared technical box styling
-   ===================================== */
-
-.tech-box,
-.hero,
-.panel,
-.card,
-.featured {
-  position: relative;
-  background: hsla(var(--card), 0.82);
-  backdrop-filter: blur(8px);
-  border: 1px solid hsl(var(--border));
-}
-
-/* 4 corner ticks */
-.tech-box::before,
-.hero::before,
-.panel::before,
-.card::before,
-.featured::before {
-  content: "";
-  position: absolute;
-  top: -1px;
-  left: -1px;
-  width: var(--tick);
-  height: var(--tick);
-  border-top: 2px solid hsl(var(--primary));
-  border-left: 2px solid hsl(var(--primary));
-}
-
-.tech-box::after,
-.hero::after,
-.panel::after,
-.card::after,
-.featured::after {
-  content: "";
-  position: absolute;
-  bottom: -1px;
-  right: -1px;
-  width: var(--tick);
-  height: var(--tick);
-  border-bottom: 2px solid hsl(var(--primary));
-  border-right: 2px solid hsl(var(--primary));
-}
-
-.tech-box span.corner,
-.hero span.corner,
-.panel span.corner,
-.card span.corner,
-.featured span.corner {
-  position: absolute;
-  width: var(--tick);
-  height: var(--tick);
-  pointer-events: none;
-}
-
-.tr {
-  top: -1px;
-  right: -1px;
-  border-top: 2px solid hsl(var(--primary));
-  border-right: 2px solid hsl(var(--primary));
-}
-
-.bl {
-  bottom: -1px;
-  left: -1px;
-  border-bottom: 2px solid hsl(var(--primary));
-  border-left: 2px solid hsl(var(--primary));
-}
-
-/* =====================================
-   Hero (centered title + description)
-   ===================================== */
-
-.hero {
-  padding: 30px 26px;
-  margin-bottom: 22px;
-  text-align: center;
-}
-
-.hero h1 {
+.hero h1{
   font-size: clamp(40px, 6vw, 58px);
   letter-spacing: -0.06em;
   margin-bottom: 14px;
 }
 
-.subtitle {
+.subtitle{
   max-width: 65ch;
   margin: 0 auto 16px;
-  text-align: center;
   color: hsl(var(--muted));
   font-size: 16px;
   line-height: 1.65;
+  text-align: center;
 }
 
-/* =====================================
-   Buttons
-   ===================================== */
-
-.btns {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
+/* Buttons under the title (centered) */
+.btns{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
 }
 
-.btn {
+.btn{
   padding: 8px 14px;
   border: 1px solid hsl(var(--border));
-  background: hsla(var(--card), 0.5);
+  background: hsla(var(--card), 0.50);
   color: hsl(var(--muted));
   font-size: 14px;
 }
 
-.btn.primary {
+.btn.primary{
   border-color: hsl(var(--primary));
   color: hsl(var(--primary));
+  background: hsla(var(--primary), 0.08);
 }
 
-.btn:hover {
+.btn:hover{
   background: hsla(var(--card), 0.65);
-  text-decoration: none;
+  text-decoration:none;
 }
 
 /* =====================================
-   Grid layout
+   Corner-tick box system (PURE CSS)
+   Apply to: .panel, .card, .featured (and anything you want)
    ===================================== */
 
-.grid {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 14px;
-  margin-bottom: 18px;
-}
+.panel, .card, .featured{
+  position: relative;
 
-@media (max-width: 900px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
-}
+  /* box fill */
+  background: hsla(var(--card), 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 
-/* =====================================
-   Panels
-   ===================================== */
+  /* box border */
+  border: 1px solid hsl(var(--border));
 
-.panel {
+  /* spacing */
   padding: 16px 14px;
+
+  /* Corner ticks: 8 gradients (2 per corner) */
+  background-image:
+    /* TL horizontal + TL vertical */
+    linear-gradient(hsl(var(--primary)) 0 0),
+    linear-gradient(hsl(var(--primary)) 0 0),
+
+    /* TR horizontal + TR vertical */
+    linear-gradient(hsl(var(--primary)) 0 0),
+    linear-gradient(hsl(var(--primary)) 0 0),
+
+    /* BL horizontal + BL vertical */
+    linear-gradient(hsl(var(--primary)) 0 0),
+    linear-gradient(hsl(var(--primary)) 0 0),
+
+    /* BR horizontal + BR vertical */
+    linear-gradient(hsl(var(--primary)) 0 0),
+    linear-gradient(hsl(var(--primary)) 0 0);
+
+  background-repeat: no-repeat;
+
+  /* sizes: horiz = tick x tickw, vert = tickw x tick */
+  background-size:
+    var(--tick) var(--tickw),
+    var(--tickw) var(--tick),
+
+    var(--tick) var(--tickw),
+    var(--tickw) var(--tick),
+
+    var(--tick) var(--tickw),
+    var(--tickw) var(--tick),
+
+    var(--tick) var(--tickw),
+    var(--tickw) var(--tick);
+
+  /* positions */
+  background-position:
+    left  -1px top    -1px,   left  -1px top    -1px,
+    right -1px top    -1px,   right -1px top    -1px,
+    left  -1px bottom -1px,   left  -1px bottom -1px,
+    right -1px bottom -1px,   right -1px bottom -1px;
+
+  /* Make sure the corner ticks sit above the fill */
+  background-origin: border-box;
 }
 
-.panel h2 {
+/* Headings inside panels */
+.panel h2{
   font-size: 15px;
   margin-bottom: 10px;
 }
 
-/* Rows */
-.row {
-  display: flex;
-  gap: 10px;
+/* Rows inside panels */
+.row{
+  display:flex;
+  gap:10px;
   padding: 8px;
   border: 1px solid hsl(var(--border));
-  background: hsla(var(--card), 0.5);
+  background: hsla(var(--card), 0.50);
   margin-bottom: 8px;
   font-size: 14px;
 }
 
-.row b {
+.row b{
   color: hsl(var(--foreground));
   font-weight: 600;
 }
 
-.row span {
+.row span{
   color: hsl(var(--muted));
 }
 
-/* =====================================
-   Cards / Featured (identical treatment)
-   ===================================== */
-
-.cards {
-  display: grid;
+/* Cards grid */
+.cards{
+  display:grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   margin-bottom: 18px;
 }
 
-@media (max-width: 700px) {
-  .cards {
-    grid-template-columns: 1fr;
-  }
+@media (max-width: 700px){
+  .cards{ grid-template-columns: 1fr; }
 }
 
-.card,
-.featured {
-  padding: 16px 14px;
-}
-
-.card h3,
-.featured h3 {
+.card h3{
   font-size: 16px;
   margin-bottom: 6px;
 }
 
-.card p,
-.featured p {
+.card p, .featured p{
   margin: 0;
   font-size: 14px;
   color: hsl(var(--muted));
 }
 
-/* =====================================
-   Footer
-   ===================================== */
+/* Main grid layout */
+.grid{
+  display:grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 14px;
+  margin-bottom: 18px;
+}
 
-footer {
+@media (max-width: 900px){
+  .grid{ grid-template-columns: 1fr; }
+}
+
+/* Footer */
+footer{
   margin-top: 26px;
   font-size: 13px;
   color: hsl(var(--muted));
-  display: flex;
+  display:flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  gap: 12px;
 }
 
-/* =====================================
-   Focus ring
-   ===================================== */
-
-:focus-visible {
+/* Focus */
+:focus-visible{
   outline: 2px solid hsla(var(--ring), 0.8);
   outline-offset: 2px;
 }
