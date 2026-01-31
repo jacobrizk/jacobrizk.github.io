@@ -158,6 +158,33 @@ h1,h2,h3{
     linear-gradient(hsl(var(--primary)) 0 0) 100% 100% / var(--tick) var(--tickw) no-repeat,
     linear-gradient(hsl(var(--primary)) 0 0) 100% 100% / var(--tickw) var(--tick) no-repeat;
 }
+/* =====================================
+   Featured box override (highlighted)
+   ===================================== */
+
+.featured{
+  /* Stronger border than normal boxes */
+  border: 3px solid hsl(var(--border));
+
+  /* Slight visual emphasis */
+  background: linear-gradient(
+    180deg,
+    hsla(var(--card), 0.95),
+    hsla(var(--card), 0.85)
+  );
+
+  /* A little more breathing room */
+  padding: 18px 16px;
+
+  /* Make the corners bolder ONLY here */
+  --tick: 26px;
+  --tickw: 3px;
+
+  /* Subtle “info box” inner accent */
+  box-shadow:
+    inset 0 0 0 1px hsla(var(--primary), 0.15);
+}
+
 
 
 /* Headings inside panels */
