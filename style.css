@@ -132,51 +132,33 @@ h1,h2,h3{
 
   /* spacing */
   padding: 16px 14px;
-
-  /* Corner ticks: 8 gradients (2 per corner) */
-  background-image:
-    /* TL horizontal + TL vertical */
-    linear-gradient(hsl(var(--primary)) 0 0),
-    linear-gradient(hsl(var(--primary)) 0 0),
-
-    /* TR horizontal + TR vertical */
-    linear-gradient(hsl(var(--primary)) 0 0),
-    linear-gradient(hsl(var(--primary)) 0 0),
-
-    /* BL horizontal + BL vertical */
-    linear-gradient(hsl(var(--primary)) 0 0),
-    linear-gradient(hsl(var(--primary)) 0 0),
-
-    /* BR horizontal + BR vertical */
-    linear-gradient(hsl(var(--primary)) 0 0),
-    linear-gradient(hsl(var(--primary)) 0 0);
-
-  background-repeat: no-repeat;
-
-  /* sizes: horiz = tick x tickw, vert = tickw x tick */
-  background-size:
-    var(--tick) var(--tickw),
-    var(--tickw) var(--tick),
-
-    var(--tick) var(--tickw),
-    var(--tickw) var(--tick),
-
-    var(--tick) var(--tickw),
-    var(--tickw) var(--tick),
-
-    var(--tick) var(--tickw),
-    var(--tickw) var(--tick);
-
-  /* positions */
-  background-position:
-    left  -1px top    -1px,   left  -1px top    -1px,
-    right -1px top    -1px,   right -1px top    -1px,
-    left  -1px bottom -1px,   left  -1px bottom -1px,
-    right -1px bottom -1px,   right -1px bottom -1px;
-
-  /* Make sure the corner ticks sit above the fill */
-  background-origin: border-box;
 }
+.panel::after,
+.card::after,
+.featured::after{
+  content:"";
+  position:absolute;
+  inset:-1px;              /* sits over the border */
+  pointer-events:none;
+
+  background:
+    /* TL */
+    linear-gradient(hsl(var(--primary)) 0 0) 0 0 / var(--tick) var(--tickw) no-repeat,
+    linear-gradient(hsl(var(--primary)) 0 0) 0 0 / var(--tickw) var(--tick) no-repeat,
+
+    /* TR */
+    linear-gradient(hsl(var(--primary)) 0 0) 100% 0 / var(--tick) var(--tickw) no-repeat,
+    linear-gradient(hsl(var(--primary)) 0 0) 100% 0 / var(--tickw) var(--tick) no-repeat,
+
+    /* BL */
+    linear-gradient(hsl(var(--primary)) 0 0) 0 100% / var(--tick) var(--tickw) no-repeat,
+    linear-gradient(hsl(var(--primary)) 0 0) 0 100% / var(--tickw) var(--tick) no-repeat,
+
+    /* BR */
+    linear-gradient(hsl(var(--primary)) 0 0) 100% 100% / var(--tick) var(--tickw) no-repeat,
+    linear-gradient(hsl(var(--primary)) 0 0) 100% 100% / var(--tickw) var(--tick) no-repeat;
+}
+
 
 /* Headings inside panels */
 .panel h2{
