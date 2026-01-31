@@ -232,3 +232,50 @@ footer{
   outline: 2px solid hsla(var(--ring), 0.8);
   outline-offset: 2px;
 }
+/* =====================
+   Featured: Emphasis Header
+   ===================== */
+
+.featured{
+  border: 3px solid hsla(var(--primary), 0.65);
+
+  background:
+    linear-gradient(
+      180deg,
+      hsla(var(--primary), 0.14) 0%,
+      hsla(var(--primary), 0.08) 14%,
+      hsla(var(--card), 0.90) 38%,
+      hsla(var(--card), 0.85) 100%
+    );
+
+  box-shadow:
+    0 0 0 1px hsla(var(--primary), 0.18),
+    0 18px 46px rgba(0,0,0,0.35);
+
+  padding-top: 20px;
+
+  --tick: 30px;
+  --tickw: 3px;
+}
+
+/* thin emphasis line near top */
+.featured::before{
+  content:"";
+  position:absolute;
+  left: 14px;
+  right: 14px;
+  top: 14px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    hsla(var(--primary), 0.85),
+    transparent
+  );
+  pointer-events:none;
+}
+
+/* align corner overlay to thicker border */
+.featured::after{
+  inset:-3px;
+}
