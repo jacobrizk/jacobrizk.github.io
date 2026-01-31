@@ -1,177 +1,173 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Serif:wght@600;700&display=swap');
-
 :root{
-  --bg: #ffffff;
-  --text: #0f0f0f;
-  --muted: #444;
-  --border: #111;
-  --accent: #ff7a00;
+  --bg:#fff;
+  --text:#111;
+  --muted:#444;
+  --muted2:#666;
+  --border:#111;
+  --accent:#ff7a00;
 
-  --max: 1100px;
-  --pad: 28px;
+  --max:1100px;
+  --pad:28px;
 
-  /* card + corner tuning */
-  --card-border: 3px;      /* thicker borders */
-  --corner-thick: 4px;     /* thickness of orange corner lines */
-  --corner-len: 36px;      /* length of orange corner lines */
-  --radius: 16px;
+  --radius:16px;
+  --border-w:3px;
+  --corner-w:4px;
+  --corner-l:36px;
 }
 
-*{ box-sizing: border-box; }
-html, body{ height: 100%; }
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
 body{
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: "IBM Plex Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-  line-height: 1.55;
-}
-
-/* page width + less “huge margins” */
-.page{
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: var(--pad);
-}
-
-/* kill any “top bar” if it exists */
-.topbar,
-.top-bar,
-.sitebar{
-  display: none !important;
-}
-
-/* NAV */
-.nav{
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin: 8px 0 24px;
-  flex-wrap: wrap;
+  background:var(--bg);
+  color:var(--text);
+  font-family:"IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  line-height:1.55;
 }
 
 a{
-  color: var(--text);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(0,0,0,.35);
+  color:inherit;
+  text-decoration:none;
+  border-bottom:1px solid rgba(0,0,0,.35);
 }
-a:hover{
-  border-bottom-color: var(--text);
+a:hover{ border-bottom-color:var(--text); }
+
+/* ---------- WRAP ---------- */
+.wrap{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:var(--pad);
 }
 
-/* ================================
-   Centered Site Title (Hero)
-   ================================ */
+/* ---------- TOP NAV ---------- */
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:28px;
+  flex-wrap:wrap;
+  gap:12px;
+}
 
+.brand{
+  font-weight:700;
+}
+
+.nav{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+}
+
+/* ---------- HERO ---------- */
 .hero{
-  text-align: center;
-  padding: 44px 0 18px;
+  text-align:center;
+  padding:48px 0 28px;
 }
 
 .hero h1{
-  font-family: "IBM Plex Serif", Georgia, serif;
-  font-size: clamp(42px, 7vw, 74px);
-  letter-spacing: -0.06em;
-  margin: 0 0 10px;
+  font-size:clamp(44px,7vw,76px);
+  letter-spacing:-0.06em;
+  margin:0 0 10px;
 }
 
-.hero .subtitle{
-  margin: 0 auto;
-  text-align: center;
-  max-width: 65ch;
-  font-size: 16px;
-  line-height: 1.65;
-  color: var(--muted);
+.subtitle{
+  max-width:65ch;
+  margin:0 auto;
+  font-size:16px;
+  color:var(--muted);
 }
 
-.hero .hero-links{
-  margin-top: 14px;
-  display: flex;
-  justify-content: center;
-  gap: 14px;
-  flex-wrap: wrap;
+.btns{
+  margin-top:18px;
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
 }
 
-/* ================================
-   Cards + orange 4-corner borders
-   ================================ */
+.btn{
+  padding:8px 14px;
+  border:var(--border-w) solid var(--border);
+  border-radius:999px;
+  font-size:14px;
+  background:#fff;
+}
 
+.btn.primary{
+  background:var(--text);
+  color:#fff;
+}
+
+/* ---------- GRID ---------- */
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+  margin-top:18px;
+}
+
+@media(max-width:800px){
+  .grid{ grid-template-columns:1fr; }
+}
+
+/* ---------- PANEL + FEATURED ---------- */
+.panel,
+.featured,
 .card{
-  position: relative;
-  border: var(--card-border) solid var(--border);
-  border-radius: var(--radius);
-  padding: 18px 18px;
-  background: #fff;
-  margin: 18px 0;
-}
-
-/* 4 corners using multiple backgrounds (reliable + clean) */
-.card{
+  position:relative;
+  padding:18px;
+  border:var(--border-w) solid var(--border);
+  border-radius:var(--radius);
   background:
-    linear-gradient(var(--accent), var(--accent)) left top / var(--corner-len) var(--corner-thick) no-repeat,
-    linear-gradient(var(--accent), var(--accent)) left top / var(--corner-thick) var(--corner-len) no-repeat,
-
-    linear-gradient(var(--accent), var(--accent)) right top / var(--corner-len) var(--corner-thick) no-repeat,
-    linear-gradient(var(--accent), var(--accent)) right top / var(--corner-thick) var(--corner-len) no-repeat,
-
-    linear-gradient(var(--accent), var(--accent)) left bottom / var(--corner-len) var(--corner-thick) no-repeat,
-    linear-gradient(var(--accent), var(--accent)) left bottom / var(--corner-thick) var(--corner-len) no-repeat,
-
-    linear-gradient(var(--accent), var(--accent)) right bottom / var(--corner-len) var(--corner-thick) no-repeat,
-    linear-gradient(var(--accent), var(--accent)) right bottom / var(--corner-thick) var(--corner-len) no-repeat,
-
+    linear-gradient(var(--accent),var(--accent)) left top/var(--corner-l) var(--corner-w) no-repeat,
+    linear-gradient(var(--accent),var(--accent)) left top/var(--corner-w) var(--corner-l) no-repeat,
+    linear-gradient(var(--accent),var(--accent)) right top/var(--corner-l) var(--corner-w) no-repeat,
+    linear-gradient(var(--accent),var(--accent)) right top/var(--corner-w) var(--corner-l) no-repeat,
+    linear-gradient(var(--accent),var(--accent)) left bottom/var(--corner-l) var(--corner-w) no-repeat,
+    linear-gradient(var(--accent),var(--accent)) left bottom/var(--corner-w) var(--corner-l) no-repeat,
+    linear-gradient(var(--accent),var(--accent)) right bottom/var(--corner-l) var(--corner-w) no-repeat,
+    linear-gradient(var(--accent),var(--accent)) right bottom/var(--corner-w) var(--corner-l) no-repeat,
     #fff;
 }
 
-/* headings */
-h2{
-  font-size: 22px;
-  margin: 0 0 10px;
-}
-h3{
-  font-size: 18px;
-  margin: 0 0 8px;
-}
-.small{
-  color: var(--muted);
-  font-size: 14px;
+.kicker{
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.08em;
+  color:var(--muted2);
+  margin-bottom:6px;
 }
 
-/* Featured should be a box like the rest */
-.featured{
-  margin-top: 18px;
+/* ---------- ROWS ---------- */
+.row{
+  display:flex;
+  gap:6px;
+  font-size:14px;
 }
 
-/* Section list */
-.section-title{
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-}
-.section-title .arrow{
-  font-size: 20px;
-  opacity: .85;
+/* ---------- CARDS ---------- */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
 }
 
-/* Make the content take up more of the screen */
-.stack{
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 18px;
+@media(max-width:900px){
+  .cards{ grid-template-columns:1fr 1fr; }
+}
+@media(max-width:500px){
+  .cards{ grid-template-columns:1fr; }
 }
 
-/* Optional: two-column on wide screens */
-@media (min-width: 900px){
-  .stack.two{
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-/* Mobile tweaks */
-@media (max-width: 600px){
-  :root{ --pad: 18px; --corner-len: 28px; }
-  .hero{ padding: 34px 0 12px; }
-  .hero .subtitle{ font-size: 15px; }
-  .nav{ gap: 12px; }
+/* ---------- FOOTER ---------- */
+footer{
+  margin-top:28px;
+  padding-top:14px;
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+  color:var(--muted2);
+  border-top:1px solid rgba(0,0,0,.15);
+  flex-wrap:wrap;
+  gap:8px;
 }
