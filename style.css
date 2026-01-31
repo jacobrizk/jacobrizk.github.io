@@ -253,3 +253,47 @@ footer{
   outline: 2px solid hsla(var(--ring), 0.8);
   outline-offset: 2px;
 }
+
+
+/* ===== FORCE Featured to actually look Featured ===== */
+.featured{
+  /* stronger, obvious frame */
+  border-color: hsla(var(--primary), 0.95) !important;
+
+  /* obvious highlighted header zone */
+  background:
+    linear-gradient(
+      180deg,
+      hsla(var(--primary), 0.22) 0%,
+      hsla(var(--primary), 0.10) 28%,
+      hsla(var(--card), 0.88) 60%,
+      hsla(var(--card), 0.82) 100%
+    ) !important;
+
+  /* noticeable depth + glow (still tasteful) */
+  box-shadow:
+    0 0 0 1px hsla(var(--primary), 0.35),
+    0 0 30px hsla(var(--primary), 0.16),
+    0 26px 70px rgba(0,0,0,0.55) !important;
+
+  /* more “featured” spacing */
+  padding-top: 22px !important;
+}
+
+/* strong top accent line (not a badge) */
+.featured::before{
+  content:"";
+  position:absolute;
+  left: 12px;
+  right: 12px;
+  top: 12px;
+  height: 2px;
+  background: hsla(var(--primary), 0.95);
+  box-shadow: 0 0 18px hsla(var(--primary), 0.28);
+  pointer-events:none;
+}
+
+/* make sure corners are still aligned with border thickness */
+.featured::after{
+  inset:-3px !important; /* matches your base 2px border unless you changed it */
+}
