@@ -14,6 +14,7 @@
   --grid-a: rgba(255,255,255,0.035);
   --grid-b: rgba(255,255,255,0.08);
 
+  /* corner geometry */
   --tick: 16px;
   --tickw: 2px;
 }
@@ -78,6 +79,7 @@ h1,h2,h3{
   line-height: 1.65;
 }
 
+/* Buttons */
 .btns{
   display:flex;
   justify-content:center;
@@ -104,18 +106,22 @@ h1,h2,h3{
   text-decoration:none;
 }
 
-/* ===================== Boxes ===================== */
+/* ===================== Boxes (ONE SYSTEM) ===================== */
 
-.panel, .card, .featured{
+.panel,
+.card,
+.featured{
   position: relative;
+
   background: hsla(var(--card), 0.82);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+
   border: 2px solid hsl(var(--border));
   padding: 16px 14px;
 }
 
-/* Corner overlay */
+/* Corner overlay (same for all boxes) */
 .panel::after,
 .card::after,
 .featured::after{
@@ -133,55 +139,6 @@ h1,h2,h3{
     linear-gradient(hsl(var(--primary)) 0 0) 0 100% / var(--tickw) var(--tick) no-repeat,
     linear-gradient(hsl(var(--primary)) 0 0) 100% 100% / var(--tick) var(--tickw) no-repeat,
     linear-gradient(hsl(var(--primary)) 0 0) 100% 100% / var(--tickw) var(--tick) no-repeat;
-}
-
-/* ===================== FEATURED (REAL HIGHLIGHT) ===================== */
-
-.featured{
-  border: 3px solid hsla(var(--primary), 0.75);
-
-  background:
-    linear-gradient(
-      180deg,
-      hsla(var(--primary), 0.18) 0%,
-      hsla(var(--primary), 0.10) 22%,
-      hsla(var(--card), 0.90) 55%,
-      hsla(var(--card), 0.85) 100%
-    );
-
-  box-shadow:
-    0 0 0 1px hsla(var(--primary), 0.22),
-    0 22px 60px rgba(0,0,0,0.45);
-
-  padding: 20px 16px 18px;
-
-  --tick: 32px;
-  --tickw: 3px;
-}
-
-/* left accent rail */
-.featured::before{
-  content:"";
-  position:absolute;
-  left: 14px;
-  top: 14px;
-  bottom: 14px;
-  width: 3px;
-  background: hsla(var(--primary), 0.9);
-  box-shadow: 0 0 0 1px hsla(var(--primary), 0.25);
-  pointer-events:none;
-  z-index: 1;
-}
-
-/* align featured corners */
-.featured::after{
-  inset:-3px;
-}
-
-/* keep content above accents */
-.featured > *{
-  position: relative;
-  z-index: 2;
 }
 
 /* ===================== Content ===================== */
@@ -220,7 +177,8 @@ h1,h2,h3{
   margin-bottom: 6px;
 }
 
-.card p, .featured p{
+.card p,
+.featured p{
   font-size: 14px;
   color: hsl(var(--muted));
   margin: 0;
@@ -252,48 +210,4 @@ footer{
 :focus-visible{
   outline: 2px solid hsla(var(--ring), 0.8);
   outline-offset: 2px;
-}
-
-
-/* ===== FORCE Featured to actually look Featured ===== */
-.featured{
-  /* stronger, obvious frame */
-  border-color: hsla(var(--primary), 0.95) !important;
-
-  /* obvious highlighted header zone */
-  background:
-    linear-gradient(
-      180deg,
-      hsla(var(--primary), 0.22) 0%,
-      hsla(var(--primary), 0.10) 28%,
-      hsla(var(--card), 0.88) 60%,
-      hsla(var(--card), 0.82) 100%
-    ) !important;
-
-  /* noticeable depth + glow (still tasteful) */
-  box-shadow:
-    0 0 0 1px hsla(var(--primary), 0.35),
-    0 0 30px hsla(var(--primary), 0.16),
-    0 26px 70px rgba(0,0,0,0.55) !important;
-
-  /* more “featured” spacing */
-  padding-top: 22px !important;
-}
-
-/* strong top accent line (not a badge) */
-.featured::before{
-  content:"";
-  position:absolute;
-  left: 12px;
-  right: 12px;
-  top: 12px;
-  height: 2px;
-  background: hsla(var(--primary), 0.95);
-  box-shadow: 0 0 18px hsla(var(--primary), 0.28);
-  pointer-events:none;
-}
-
-/* make sure corners are still aligned with border thickness */
-.featured::after{
-  inset:-3px !important; /* matches your base 2px border unless you changed it */
 }
