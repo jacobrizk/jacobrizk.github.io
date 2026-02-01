@@ -142,42 +142,43 @@
   </div>
 
   <script>
-    (function(){
-      const menuBtn = document.getElementById("menuBtn");
-      const sideNav = document.getElementById("sideNav");
-      const overlay = document.getElementById("navOverlay");
-      const closeBtn = document.getElementById("navClose");
+  (function(){
+    const menuBtn = document.getElementById("menuBtn");
+    const sideNav = document.getElementById("sideNav");
+    const overlay = document.getElementById("navOverlay");
+    const closeBtn = document.getElementById("navClose");
 
-      function openNav(){
-        sideNav.classList.add("is-open");
-        overlay.hidden = false;
-        sideNav.setAttribute("aria-hidden", "false");
-        menuBtn.setAttribute("aria-expanded", "true");
-        document.body.style.overflow = "hidden";
-      }
+    function openNav(){
+      sideNav.classList.add("is-open");
+      overlay.hidden = false;
+      sideNav.setAttribute("aria-hidden", "false");
+      menuBtn.setAttribute("aria-expanded", "true");
+      document.body.classList.add("nav-open");   // <-- IMPORTANT
+      document.body.style.overflow = "hidden";
+    }
 
-      function closeNav(){
-        sideNav.classList.remove("is-open");
-        overlay.hidden = true;
-        sideNav.setAttribute("aria-hidden", "true");
-        menuBtn.setAttribute("aria-expanded", "false");
-        document.body.style.overflow = "";
-      }
+    function closeNav(){
+      sideNav.classList.remove("is-open");
+      overlay.hidden = true;
+      sideNav.setAttribute("aria-hidden", "true");
+      menuBtn.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("nav-open"); // <-- IMPORTANT
+      document.body.style.overflow = "";
+    }
 
-      menuBtn.addEventListener("click", openNav);
-      closeBtn.addEventListener("click", closeNav);
-      overlay.addEventListener("click", closeNav);
+    menuBtn.addEventListener("click", openNav);
+    closeBtn.addEventListener("click", closeNav);
+    overlay.addEventListener("click", closeNav);
 
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeNav();
-      });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeNav();
+    });
 
-      // Close after clicking a link
-      sideNav.addEventListener("click", (e) => {
-        const a = e.target.closest("a");
-        if (a) closeNav();
-      });
-    })();
-  </script>
+    sideNav.addEventListener("click", (e) => {
+      const a = e.target.closest("a");
+      if (a) closeNav();
+    });
+  })();
+</script>
 </body>
 </html>
