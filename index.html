@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dorm Projects</title>
-  <meta name="description" content="DormProjects — a personal engineering workshop and notebook." />
+  <meta name="description" content="Dorm Projects — a personal engineering workshop and notebook." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,36 +18,20 @@
 </head>
 
 <body>
-  <div class="wrap">
+  <!-- FULL-WIDTH FIXED TOP BAR (only one) -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-controls="sideNav" aria-expanded="false">
+        <span class="menu-icon" aria-hidden="true"></span>
+      </button>
 
-    <header class="top">
-      <div class="brand">
-        <a href="/" style="color: var(--text); text-decoration:none;">DormProjects</a>
-      </div>
-      <nav class="nav">
-        <a href="/projects/">Projects</a>
-        <a href="/learning/">Learning</a>
-        <a href="/experiments/">Experiments</a>
-        <a href="/tools/">Tools</a>
-        <a href="/#about">About</a>
-      </nav>
-    </header>
+      <a class="topbar-title" href="/">Dorm Projects</a>
 
-   <section class="hero">
+      <div class="topbar-right" aria-hidden="true"></div>
+    </div>
+  </header>
 
-  <!-- Top bar -->
-  <div class="topbar">
-    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-controls="sideNav" aria-expanded="false">
-      <span class="menu-icon" aria-hidden="true"></span>
-    </button>
-
-    <div class="topbar-title">Dorm Projects</div>
-
-    <!-- spacer so title stays centered even with menu button on left -->
-    <div class="topbar-spacer" aria-hidden="true"></div>
-  </div>
-
-  <!-- Slide-out nav + overlay -->
+  <!-- Overlay + Drawer (only one) -->
   <div class="nav-overlay" id="navOverlay" hidden></div>
 
   <aside class="side-nav" id="sideNav" aria-hidden="true">
@@ -69,13 +53,28 @@
     </div>
   </aside>
 
-  <!-- Subtitle stays where it is (below the bar) -->
-  <p class="subtitle">
-    <em>My Website Workspace.</em>
-  </p>
+  <div class="wrap">
 
-</section>
+    <!-- OPTIONAL: remove this whole block if you want (CSS hides it anyway) -->
+    <header class="top">
+      <div class="brand">
+        <a href="/" style="color: var(--text); text-decoration:none;">DormProjects</a>
+      </div>
+      <nav class="nav">
+        <a href="/projects/">Projects</a>
+        <a href="/learning/">Learning</a>
+        <a href="/experiments/">Experiments</a>
+        <a href="/tools/">Tools</a>
+        <a href="/#about">About</a>
+      </nav>
+    </header>
 
+    <!-- HERO: subtitle only (title is in the topbar now) -->
+    <section class="hero">
+      <p class="subtitle">
+        <em>My Website Workspace.</em>
+      </p>
+    </section>
 
     <!-- Home: airy layout, two blocks -->
     <div class="grid">
@@ -87,7 +86,7 @@
         <div class="row"><b>Experimenting:</b> <span>DAC waveform generation + scope-visible signals</span></div>
         <div class="row"><b>Tooling:</b> <span>Python + MATLAB utilities</span></div>
 
-        <p style="font-size:13px;color:var(--muted);margin-top:6px;">
+        <p style="font-size:13px;color:hsl(var(--muted));margin-top:6px;">
           This is the bench summary — each section has its own mini-homepage with lists and previews.
         </p>
       </section>
@@ -131,7 +130,7 @@
 
     <section class="panel" id="about" style="margin-top:14px;">
       <h2>// ABOUT</h2>
-      <p style="color:var(--muted);font-size:14px;">
+      <p style="color:hsl(var(--muted));font-size:14px;">
         I’m Jacob — a mechanical engineering student who likes building real things,
         learning by breaking them, and writing down what actually worked.
       </p>
@@ -148,43 +147,43 @@
   </div>
 
   <script>
-  (function(){
-    const menuBtn = document.getElementById("menuBtn");
-    const sideNav = document.getElementById("sideNav");
-    const overlay = document.getElementById("navOverlay");
-    const closeBtn = document.getElementById("navClose");
+    (function(){
+      const menuBtn = document.getElementById("menuBtn");
+      const sideNav = document.getElementById("sideNav");
+      const overlay = document.getElementById("navOverlay");
+      const closeBtn = document.getElementById("navClose");
 
-    function openNav(){
-      sideNav.classList.add("is-open");
-      overlay.hidden = false;
-      sideNav.setAttribute("aria-hidden", "false");
-      menuBtn.setAttribute("aria-expanded", "true");
-      document.body.classList.add("nav-open");   // <-- IMPORTANT
-      document.body.style.overflow = "hidden";
-    }
+      function openNav(){
+        sideNav.classList.add("is-open");
+        overlay.hidden = false;
+        sideNav.setAttribute("aria-hidden", "false");
+        menuBtn.setAttribute("aria-expanded", "true");
+        document.body.classList.add("nav-open");
+        document.body.style.overflow = "hidden";
+      }
 
-    function closeNav(){
-      sideNav.classList.remove("is-open");
-      overlay.hidden = true;
-      sideNav.setAttribute("aria-hidden", "true");
-      menuBtn.setAttribute("aria-expanded", "false");
-      document.body.classList.remove("nav-open"); // <-- IMPORTANT
-      document.body.style.overflow = "";
-    }
+      function closeNav(){
+        sideNav.classList.remove("is-open");
+        overlay.hidden = true;
+        sideNav.setAttribute("aria-hidden", "true");
+        menuBtn.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("nav-open");
+        document.body.style.overflow = "";
+      }
 
-    menuBtn.addEventListener("click", openNav);
-    closeBtn.addEventListener("click", closeNav);
-    overlay.addEventListener("click", closeNav);
+      menuBtn.addEventListener("click", openNav);
+      closeBtn.addEventListener("click", closeNav);
+      overlay.addEventListener("click", closeNav);
 
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeNav();
-    });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeNav();
+      });
 
-    sideNav.addEventListener("click", (e) => {
-      const a = e.target.closest("a");
-      if (a) closeNav();
-    });
-  })();
-</script>
+      sideNav.addEventListener("click", (e) => {
+        const a = e.target.closest("a");
+        if (a) closeNav();
+      });
+    })();
+  </script>
 </body>
 </html>
