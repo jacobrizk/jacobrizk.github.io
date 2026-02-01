@@ -115,11 +115,15 @@ h1,h2,h3{
 /* ===================== Hero ===================== */
 
 .hero{
-  background: transparent;
-  margin-bottom: 18px;
-  text-align: center;
-  padding: 0 0 22px;
+  min-height: calc(100vh - var(--topbar-h));
+  position: relative;
+  margin: 0 0 24px;
+  overflow: hidden;
+
+  border: 2px solid hsl(var(--border));
+  background: hsla(var(--card), 0.35);
 }
+
 
 .subtitle{
   max-width: 65ch;
@@ -128,6 +132,62 @@ h1,h2,h3{
   font-size: 16px;
   line-height: 1.65;
 }
+.hero .subtitle{ display:none; }
+/* ===== Full-screen hero background layer ===== */
+.hero-media{
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  /* NO GLOWS: just grid + subtle dark gradient */
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.55)),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,0.035) 0 1px,
+      transparent 1px 26px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,0.035) 0 1px,
+      transparent 1px 26px
+    );
+}
+
+/* ===== Center the hero content ===== */
+.hero-content{
+  position: relative;
+  z-index: 2;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  padding: 28px 18px;
+  gap: 10px;
+}
+
+/* ===== Big centered welcome text ===== */
+.hero-headline{
+  margin: 0;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  font-size: clamp(42px, 7vw, 72px);
+  line-height: 1.05;
+}
+
+.hero-sub{
+  margin: 0;
+  color: hsl(var(--muted));
+  font-size: 17px;
+  line-height: 1.7;
+  max-width: 60ch;
+}
+
 
 /* ===================== Menu Button + Slide-out Nav ===================== */
 
