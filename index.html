@@ -59,7 +59,9 @@
       <div class="hero-media" aria-hidden="true"></div>
 
       <div class="hero-content">
-        <h1 class="hero-headline">My Website Workspace</h1>
+        <h1 class="hero-headline">
+          <span id="typeTitle" class="type" data-text="My Website Workspace"></span> 
+        </h1>
         <p class="hero-sub">
           <em>A place to build, test, document, and learn in public.</em>
         </p>
@@ -171,6 +173,26 @@
       closeBtn.addEventListener("click", closeNav);
       overlay.addEventListener("click", closeNav);
       document.addEventListener("keydown", e => e.key === "Escape" && closeNav());
+
+
+      
+            // Typewriter title
+      const titleEl = document.getElementById("typeTitle");
+      if (titleEl) {
+        const text = titleEl.getAttribute("data-text") || "";
+        const speed = 55;      // ms per character
+        const startDelay = 250;
+
+        let i = 0;
+        titleEl.textContent = "";
+        setTimeout(function tick() {
+          titleEl.textContent = text.slice(0, i);
+          i++;
+          if (i <= text.length) setTimeout(tick, speed);
+          else titleEl.classList.add("done");
+        }, startDelay);
+      }
+
     })();
   </script>
 </body>
