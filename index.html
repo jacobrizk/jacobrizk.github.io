@@ -14,11 +14,10 @@
 
   <!-- Cloudflare Web Analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "6431e79809964267be3b0ae9dbaa7998"}'></script>
-  <!-- End Cloudflare Web Analytics -->
 </head>
 
 <body>
-  <!-- FULL-WIDTH FIXED TOP BAR (only one) -->
+  <!-- Fixed Top Bar -->
   <header class="topbar">
     <div class="topbar-inner">
       <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-controls="sideNav" aria-expanded="false">
@@ -31,7 +30,7 @@
     </div>
   </header>
 
-  <!-- Overlay + Drawer (only one) -->
+  <!-- Overlay + Drawer -->
   <div class="nav-overlay" id="navOverlay" hidden></div>
 
   <aside class="side-nav" id="sideNav" aria-hidden="true">
@@ -41,7 +40,7 @@
     </div>
 
     <nav class="side-nav__links">
-      <a class="side-nav__link" href="/projects/">Explore Projects</a>
+      <a class="side-nav__link" href="/projects/">Projects</a>
       <a class="side-nav__link" href="/learning/">Learning</a>
       <a class="side-nav__link" href="/experiments/">Experiments</a>
       <a class="side-nav__link" href="/tools/">Tools</a>
@@ -55,28 +54,19 @@
 
   <div class="wrap">
 
-    <!-- OPTIONAL: remove this whole block if you want (CSS hides it anyway) -->
-    <header class="top">
-      <div class="brand">
-        <a href="/" style="color: var(--text); text-decoration:none;">DormProjects</a>
-      </div>
-      <nav class="nav">
-        <a href="/projects/">Projects</a>
-        <a href="/learning/">Learning</a>
-        <a href="/experiments/">Experiments</a>
-        <a href="/tools/">Tools</a>
-        <a href="/#about">About</a>
-      </nav>
-    </header>
+    <!-- FULL-SCREEN HOME -->
+    <section class="hero hero--bg hero--center" id="home">
+      <div class="hero-media" aria-hidden="true"></div>
 
-    <!-- HERO: subtitle only (title is in the topbar now) -->
-    <section class="hero">
-      <p class="subtitle">
-        <em>My Website Workspace.</em>
-      </p>
+      <div class="hero-content">
+        <h1 class="hero-headline">My Website Workspace</h1>
+        <p class="hero-sub">
+          <em>A place to build, test, document, and learn in public.</em>
+        </p>
+      </div>
     </section>
 
-    <!-- Home: airy layout, two blocks -->
+    <!-- Existing content starts here -->
     <div class="grid">
       <section class="panel">
         <h2>// CURRENTLY</h2>
@@ -91,7 +81,6 @@
         </p>
       </section>
 
-      <!-- Featured box -->
       <section class="featured">
         <div class="kicker">FEATURED</div>
         <h3>Rocket flight computer</h3>
@@ -105,24 +94,23 @@
       </section>
     </div>
 
-    <!-- Section previews -->
     <section class="cards" style="margin-top:14px;">
-      <a class="card" href="/projects/" style="display:block;color:inherit;text-decoration:none;">
+      <a class="card" href="/projects/">
         <h3>Projects →</h3>
         <p>Builds and systems. Case studies, diagrams, photos, and what I learned.</p>
       </a>
 
-      <a class="card" href="/learning/" style="display:block;color:inherit;text-decoration:none;">
+      <a class="card" href="/learning/">
         <h3>Learning →</h3>
         <p>Write-ups of concepts that clicked, mistakes that taught me, and “aha” moments.</p>
       </a>
 
-      <a class="card" href="/experiments/" style="display:block;color:inherit;text-decoration:none;">
+      <a class="card" href="/experiments/">
         <h3>Experiments →</h3>
         <p>Tests, prototypes, half-ideas, and the messy middle.</p>
       </a>
 
-      <a class="card" href="/tools/" style="display:block;color:inherit;text-decoration:none;">
+      <a class="card" href="/tools/">
         <h3>Tools →</h3>
         <p>Utilities, scripts, generators, and calculators I use (and share).</p>
       </a>
@@ -156,8 +144,6 @@
       function openNav(){
         sideNav.classList.add("is-open");
         overlay.hidden = false;
-        sideNav.setAttribute("aria-hidden", "false");
-        menuBtn.setAttribute("aria-expanded", "true");
         document.body.classList.add("nav-open");
         document.body.style.overflow = "hidden";
       }
@@ -165,8 +151,6 @@
       function closeNav(){
         sideNav.classList.remove("is-open");
         overlay.hidden = true;
-        sideNav.setAttribute("aria-hidden", "true");
-        menuBtn.setAttribute("aria-expanded", "false");
         document.body.classList.remove("nav-open");
         document.body.style.overflow = "";
       }
@@ -174,15 +158,7 @@
       menuBtn.addEventListener("click", openNav);
       closeBtn.addEventListener("click", closeNav);
       overlay.addEventListener("click", closeNav);
-
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeNav();
-      });
-
-      sideNav.addEventListener("click", (e) => {
-        const a = e.target.closest("a");
-        if (a) closeNav();
-      });
+      document.addEventListener("keydown", e => e.key === "Escape" && closeNav());
     })();
   </script>
 </body>
