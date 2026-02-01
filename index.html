@@ -13,101 +13,95 @@
   <link rel="stylesheet" href="/style.css">
 
   <!-- Cloudflare Web Analytics -->
-  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "6431e79809964267be3b0ae9dbaa7998"}'></script>
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token":"6431e79809964267be3b0ae9dbaa7998"}'></script>
 </head>
 
 <body>
-  <!-- Fixed Top Bar -->
+  <!-- TOP BAR -->
   <header class="topbar">
     <div class="topbar-inner">
-      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-controls="sideNav" aria-expanded="false">
-        <span class="menu-icon" aria-hidden="true"></span>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+        <span class="menu-icon"></span>
       </button>
-
       <a class="topbar-title" href="/">Dorm Projects</a>
-
-      <div class="topbar-right" aria-hidden="true"></div>
+      <div></div>
     </div>
   </header>
 
-  <!-- Overlay + Drawer -->
+  <!-- SIDE NAV -->
   <div class="nav-overlay" id="navOverlay" hidden></div>
-
-  <aside class="side-nav" id="sideNav" aria-hidden="true">
+  <aside class="side-nav" id="sideNav">
     <div class="side-nav__header">
       <div class="side-nav__title">Menu</div>
-      <button class="side-nav__close" id="navClose" aria-label="Close menu">✕</button>
+      <button class="side-nav__close" id="navClose">✕</button>
     </div>
 
     <nav class="side-nav__links">
-      <a class="side-nav__link" href="/projects/">Projects</a>
-      <a class="side-nav__link" href="/learning/">Learning</a>
-      <a class="side-nav__link" href="/experiments/">Experiments</a>
-      <a class="side-nav__link" href="/tools/">Tools</a>
-      <a class="side-nav__link" href="/#about">About</a>
+      <a href="/projects/">Projects</a>
+      <a href="/learning/">Learning</a>
+      <a href="/experiments/">Experiments</a>
+      <a href="/tools/">Tools</a>
+      <a href="#about">About</a>
     </nav>
 
-    <div class="side-nav__footer">
-      <div class="side-nav__hint">Quick links to the sections.</div>
-    </div>
+    <div class="side-nav__footer">Quick links to the sections.</div>
   </aside>
 
-  <div class="wrap">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-media"></div>
 
-    <!-- FULL-BLEED HERO -->
-    <section class="hero hero--circuit" id="home">
-      <div class="hero-media" aria-hidden="true"></div>
-
-      <div class="hero-content">
-        <h1 class="hero-headline">My Website Workspace</h1>
-        <p class="hero-sub">
-          <em>A place to build, test, document, and learn in public.</em>
-        </p>
-      </div>
-
-      <a class="hero-scroll" href="#content" aria-label="Scroll down for more">
-        <span class="hero-scroll__arrow" aria-hidden="true">↓</span>
-        <span class="hero-scroll__text">Scroll down for more</span>
-      </a>
-    </section>
-
-    <!-- Existing content starts here -->
-    <div class="grid" id="content">
-      <section class="panel">
-        <h2>// CURRENTLY</h2>
-
-        <div class="row"><b>Building:</b> <span>Rocket avionics + data logging</span></div>
-        <div class="row"><b>Learning:</b> <span>Circular motion, components, why formulas work</span></div>
-        <div class="row"><b>Experimenting:</b> <span>DAC waveform generation + scope-visible signals</span></div>
-        <div class="row"><b>Tooling:</b> <span>Python + MATLAB utilities</span></div>
-
-        <p style="font-size:13px;color:hsl(var(--muted));margin-top:6px;">
-          This is the bench summary — each section has its own mini-homepage with lists and previews.
-        </p>
-      </section>
-
-      <section class="featured">
-        <div class="kicker">FEATURED</div>
-        <h3>Rocket flight computer</h3>
-        <p>
-          Sensors + logging + iteration. Building toward a reliable avionics stack and learning what fails in real conditions.
-        </p>
-        <div class="btns" style="margin-top:12px;">
-          <a class="btn primary" href="/projects/">Go to Projects</a>
-          <a class="btn" href="/learning/">Related Learning</a>
-        </div>
-      </section>
+    <div class="hero-content">
+      <h1 class="hero-headline">My Website Workspace</h1>
+      <p class="hero-sub">
+        <em>A place to build, test, document, and learn in public.</em>
+      </p>
     </div>
 
-    <section class="cards" style="margin-top:14px;">
+    <a class="hero-scroll" href="#content">
+      <span>↓</span>
+      <span>Scroll down for more</span>
+    </a>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="wrap" id="content">
+    <section class="panel">
+      <h2>// CURRENTLY</h2>
+
+      <div class="row"><b>Building:</b> Rocket avionics + data logging</div>
+      <div class="row"><b>Learning:</b> Circular motion, components, why formulas work</div>
+      <div class="row"><b>Experimenting:</b> DAC waveform generation + scope-visible signals</div>
+      <div class="row"><b>Tooling:</b> Python + MATLAB utilities</div>
+
+      <p class="panel-note">
+        This is the bench summary — each section has its own mini-homepage with lists and previews.
+      </p>
+    </section>
+
+    <section class="featured">
+      <div class="kicker">FEATURED</div>
+      <h3>Rocket flight computer</h3>
+      <p>
+        Sensors + logging + iteration. Building toward a reliable avionics stack and
+        learning what fails in real conditions.
+      </p>
+      <div class="btns">
+        <a class="btn primary" href="/projects/">Go to Projects</a>
+        <a class="btn" href="/learning/">Related Learning</a>
+      </div>
+    </section>
+
+    <section class="cards">
       <a class="card" href="/projects/">
         <h3>Projects →</h3>
-        <p>Builds and systems. Case studies, diagrams, photos, and what I learned.</p>
+        <p>Builds, systems, diagrams, photos, and lessons learned.</p>
       </a>
 
       <a class="card" href="/learning/">
         <h3>Learning →</h3>
-        <p>Write-ups of concepts that clicked, mistakes that taught me, and “aha” moments.</p>
+        <p>Concepts that clicked, mistakes that taught me, and “aha” moments.</p>
       </a>
 
       <a class="card" href="/experiments/">
@@ -117,13 +111,13 @@
 
       <a class="card" href="/tools/">
         <h3>Tools →</h3>
-        <p>Utilities, scripts, generators, and calculators I use (and share).</p>
+        <p>Utilities, scripts, and generators I actually use.</p>
       </a>
     </section>
 
-    <section class="panel" id="about" style="margin-top:14px;">
+    <section class="panel" id="about">
       <h2>// ABOUT</h2>
-      <p style="color:hsl(var(--muted));font-size:14px;">
+      <p>
         I’m Jacob — a mechanical engineering student who likes building real things,
         learning by breaking them, and writing down what actually worked.
       </p>
@@ -136,35 +130,29 @@
         <a href="mailto:jacobrizk2007@gmail.com">Email</a>
       </div>
     </footer>
-
-  </div>
+  </main>
 
   <script>
-    (function(){
-      const menuBtn = document.getElementById("menuBtn");
-      const sideNav = document.getElementById("sideNav");
-      const overlay = document.getElementById("navOverlay");
-      const closeBtn = document.getElementById("navClose");
+    const menuBtn = document.getElementById("menuBtn");
+    const sideNav = document.getElementById("sideNav");
+    const overlay = document.getElementById("navOverlay");
+    const closeBtn = document.getElementById("navClose");
 
-      function openNav(){
-        sideNav.classList.add("is-open");
-        overlay.hidden = false;
-        document.body.classList.add("nav-open");
-        document.body.style.overflow = "hidden";
-      }
+    function openNav() {
+      sideNav.classList.add("is-open");
+      overlay.hidden = false;
+      document.body.style.overflow = "hidden";
+    }
 
-      function closeNav(){
-        sideNav.classList.remove("is-open");
-        overlay.hidden = true;
-        document.body.classList.remove("nav-open");
-        document.body.style.overflow = "";
-      }
+    function closeNav() {
+      sideNav.classList.remove("is-open");
+      overlay.hidden = true;
+      document.body.style.overflow = "";
+    }
 
-      menuBtn.addEventListener("click", openNav);
-      closeBtn.addEventListener("click", closeNav);
-      overlay.addEventListener("click", closeNav);
-      document.addEventListener("keydown", e => e.key === "Escape" && closeNav());
-    })();
+    menuBtn.onclick = openNav;
+    closeBtn.onclick = closeNav;
+    overlay.onclick = closeNav;
   </script>
 </body>
 </html>
