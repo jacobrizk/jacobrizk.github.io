@@ -26,10 +26,11 @@ body{
   font-family: "IBM Plex Sans", system-ui, sans-serif;
   background: hsl(var(--background));
   position: relative;
-  isolation: isolate; /* allows background overlay layering cleanly */
+  isolation: isolate; /* lets us layer the global grid behind everything safely */
 }
 
-/* ===== GLOBAL GRID BACKGROUND (RESTORED) ===== */
+/* ===================== GLOBAL GRID (EXACT ORIGINAL LOOK) ===================== */
+/* Same vibe as your old hero grid: subtle lines, 28px spacing, no color shift. */
 body::before{
   content:"";
   position: fixed;
@@ -38,25 +39,28 @@ body::before{
   z-index: 0;
 
   background:
-    radial-gradient(circle at 50% 0%, rgba(0,0,0,0.10), rgba(0,0,0,0.80)),
+    radial-gradient(circle at 50% 40%, rgba(0,0,0,0.25), rgba(0,0,0,0.9)),
     repeating-linear-gradient(
       0deg,
-      rgba(255,255,255,0.035) 0 1px,
+      rgba(255,255,255,0.04) 0 1px,
       transparent 1px 28px
     ),
     repeating-linear-gradient(
       90deg,
-      rgba(255,255,255,0.035) 0 1px,
+      rgba(255,255,255,0.04) 0 1px,
       transparent 1px 28px
     );
-
-  opacity: 1;
 }
 
-/* All actual content above the grid overlay */
-.wrap, .hero{ position: relative; z-index: 1; }
+/* Everything real should sit above the grid overlay */
+.hero,
+.wrap{
+  position: relative;
+  z-index: 1;
+}
 
-/* LINKS */
+/* ===================== LINKS & TYPE ===================== */
+
 a{ color:hsl(var(--primary)); text-decoration:none; }
 a:hover{ text-decoration:underline; }
 
@@ -66,20 +70,22 @@ h1,h2,h3{
   margin: 0;
 }
 
-/* LAYOUT */
+/* ===================== LAYOUT ===================== */
+
 .wrap{
   max-width: var(--max);
   margin: 0 auto;
   padding: 28px 18px 70px;
 }
 
-/* ===== TOP BAR (FIXED + SOLID) ===== */
+/* ===================== TOP BAR ===================== */
+
 .topbar{
   position: fixed;
   inset: 0 0 auto 0;
   height: var(--topbar-h);
   background: hsl(var(--card)); /* SOLID */
-  z-index: 2000;                /* ABOVE EVERYTHING */
+  z-index: 2000;
   border-bottom: 2px solid hsl(var(--border));
   box-shadow: 0 18px 50px rgba(0,0,0,0.35);
 }
@@ -102,7 +108,8 @@ h1,h2,h3{
   color: hsl(var(--foreground));
 }
 
-/* MENU BUTTON */
+/* ===================== MENU BUTTON ===================== */
+
 .menu-btn{
   height: 44px;
   width: 44px;
@@ -139,7 +146,8 @@ h1,h2,h3{
 .menu-icon::before{ top:0; }
 .menu-icon::after{ bottom:0; }
 
-/* OVERLAY + DRAWER (layered correctly) */
+/* ===================== OVERLAY + DRAWER ===================== */
+
 .nav-overlay{
   position: fixed;
   inset: 0;
@@ -214,7 +222,8 @@ h1,h2,h3{
   font-size:13px;
 }
 
-/* ===== HERO (keeps its own richer circuit background too) ===== */
+/* ===================== HERO (keeps richer circuit look) ===================== */
+
 .hero{
   width: 100vw;
   margin-left: calc(50% - 50vw);
@@ -223,31 +232,58 @@ h1,h2,h3{
   min-height: calc(100vh - var(--topbar-h));
   position: relative;
   overflow: hidden;
+
   border: none;
   background: transparent;
 }
 
+/* Circuit-style hero background */
 .hero-media{
   position:absolute;
   inset:0;
   z-index:0;
+
   background:
     radial-gradient(circle at 50% 40%, rgba(0,0,0,0.25), rgba(0,0,0,0.9)),
-    repeating-linear-gradient(0deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 28px),
-    repeating-linear-gradient(90deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 28px),
-    repeating-linear-gradient(0deg, transparent 0 64px, rgba(255,255,255,0.06) 64px 65px, transparent 65px 140px),
-    repeating-linear-gradient(90deg, transparent 0 52px, rgba(255,255,255,0.06) 52px 53px, transparent 53px 120px);
+
+    /* base grid (same spacing as global) */
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,0.04) 0 1px,
+      transparent 1px 28px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,0.04) 0 1px,
+      transparent 1px 28px
+    ),
+
+    /* circuit traces */
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 64px,
+      rgba(255,255,255,0.06) 64px 65px,
+      transparent 65px 140px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 52px,
+      rgba(255,255,255,0.06) 52px 53px,
+      transparent 53px 120px
+    );
 }
 
 .hero-content{
   position: relative;
   z-index: 2;
   min-height: calc(100vh - var(--topbar-h));
+
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   text-align:center;
+
   padding: 0 18px 64px; /* room for scroll pill */
 }
 
@@ -256,6 +292,7 @@ h1,h2,h3{
   letter-spacing: -0.06em;
   line-height: 1.05;
 }
+
 .hero-sub{
   margin-top: 10px;
   font-size: 18px;
@@ -263,6 +300,7 @@ h1,h2,h3{
   max-width: 68ch;
 }
 
+/* Scroll cue */
 .hero-scroll{
   position:absolute;
   left:50%;
@@ -296,7 +334,8 @@ h1,h2,h3{
   50%{ transform: translateY(4px); opacity: 1; }
 }
 
-/* ===== GRID (FIX: spacing + non-squished columns) ===== */
+/* ===================== GRID (TOP TWO BOXES) ===================== */
+
 .grid{
   display:grid;
   grid-template-columns: minmax(520px, 1.35fr) minmax(420px, 1fr);
@@ -305,12 +344,11 @@ h1,h2,h3{
   align-items: stretch;
 }
 @media (max-width: 980px){
-  .grid{
-    grid-template-columns: 1fr;
-  }
+  .grid{ grid-template-columns: 1fr; }
 }
 
-/* PANELS / CARDS / FEATURED */
+/* ===================== PANELS / CARDS / FEATURED ===================== */
+
 .panel,
 .card,
 .featured{
@@ -383,12 +421,14 @@ h1,h2,h3{
   border-color: hsl(var(--primary));
 }
 
-/* ===== CARDS (FIX: even sizing + spacing) ===== */
+/* ===================== CARDS ROW (FOUR BOXES) ===================== */
+
 .cards{
   display:grid;
   grid-template-columns: repeat(4, minmax(240px, 1fr));
   gap: 18px;
   margin-top: 18px;
+  margin-bottom: 18px; /* IMPORTANT: spacing before ABOUT */
   align-items: stretch;
 }
 
@@ -402,7 +442,7 @@ h1,h2,h3{
 .card{
   display:flex;
   flex-direction:column;
-  min-height: 140px; /* prevents “squished” look */
+  min-height: 140px;
 }
 .card h3{ font-size: 18px; margin-bottom: 8px; }
 .card p{
@@ -413,14 +453,20 @@ h1,h2,h3{
 }
 .card:hover{ border-color: hsl(var(--primary)); text-decoration:none; }
 
-/* ABOUT */
+/* ===================== ABOUT (FIX: NOT PRESSED) ===================== */
+
+#about{
+  margin-top: 18px; /* IMPORTANT: separates it from the card row */
+}
+
 .about-text{
   color:hsl(var(--muted));
   font-size:14px;
   margin: 10px 0 0;
 }
 
-/* FOOTER */
+/* ===================== FOOTER ===================== */
+
 footer{
   margin-top: 26px;
   font-size: 13px;
