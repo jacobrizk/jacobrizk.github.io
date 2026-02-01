@@ -54,7 +54,204 @@ h1,h2,h3{
   padding: 28px 18px 70px;
 }
 
+/* Hide the old top bar / tabs */
 .top{ display:none !important; }
+
+/* ===================== Corner Menu + Slide-out Nav ===================== */
+
+/* If your menu button is inside .wrap or .hero, this anchors it nicely */
+.hero{ position: relative; }
+
+.menu-btn{
+  position: absolute;
+  top: 18px;
+  left: 18px;                 /* move to right:18px; left:auto; for top-right */
+  z-index: 80;
+
+  height: 44px;
+  width: 44px;
+  border-radius: 12px;
+
+  background: hsla(var(--card), 0.92);
+  border: 2px solid hsl(var(--border));
+  box-shadow: 0 12px 34px rgba(0,0,0,0.35);
+
+  display: grid;
+  place-items: center;
+
+  cursor: pointer;
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.menu-btn:hover{
+  transform: translateY(-1px);
+  border-color: hsl(var(--primary));
+  background: hsla(var(--card), 0.98);
+}
+
+.menu-btn:active{
+  transform: translateY(0px);
+}
+
+.menu-btn:focus-visible{
+  outline: 2px solid hsla(var(--ring), 0.8);
+  outline-offset: 2px;
+}
+
+/* hamburger icon */
+.menu-icon{
+  position: relative;
+  width: 18px;
+  height: 12px;
+}
+
+.menu-icon::before,
+.menu-icon::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  height:2px;
+  background: hsl(var(--foreground));
+  border-radius: 2px;
+}
+
+.menu-icon::before{ top:0; }
+.menu-icon::after{ bottom:0; }
+
+/* middle line */
+.menu-icon{
+  background: linear-gradient(
+    to bottom,
+    transparent 0 5px,
+    hsl(var(--foreground)) 5px 7px,
+    transparent 7px 100%
+  );
+  border-radius: 2px;
+}
+
+/* overlay behind nav */
+.nav-overlay{
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+/* drawer */
+.side-nav{
+  position: fixed;
+  top: 0;
+  left: 0;                    /* change to right:0; left:auto; for right drawer */
+  height: 100vh;
+  width: min(320px, 86vw);
+  z-index: 75;
+
+  background: hsla(var(--card), 0.96);
+  border-right: 2px solid hsl(var(--border));
+  box-shadow: 20px 0 60px rgba(0,0,0,0.45);
+
+  transform: translateX(-102%);
+  transition: transform 220ms ease;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* give the nav the same orange corner treatment */
+.side-nav::after{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  pointer-events:none;
+
+  background:
+    linear-gradient(hsl(var(--primary)) 0 0) 0 0 / var(--tick) var(--tickw) no-repeat,
+    linear-gradient(hsl(var(--primary)) 0 0) 0 0 / var(--tickw) var(--tick) no-repeat,
+    linear-gradient(hsl(var(--primary)) 0 0) 100% 0 / var(--tick) var(--tickw) no-repeat,
+    linear-gradient(hsl(var(--primary)) 0 0) 100% 0 / var(--tickw) var(--tick) no-repeat,
+    linear-gradient(hsl(var(--primary)) 0 0) 0 100% / var(--tick) var(--tickw) no-repeat,
+    linear-gradient(hsl(var(--primary)) 0 0) 0 100% / var(--tickw) var(--tick) no-repeat,
+    linear-gradient(hsl(var(--primary)) 0 0) 100% 100% / var(--tick) var(--tickw) no-repeat,
+    linear-gradient(hsl(var(--primary)) 0 0) 100% 100% / var(--tickw) var(--tick) no-repeat;
+}
+
+.side-nav.is-open{
+  transform: translateX(0);
+}
+
+.side-nav__header{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  padding: 18px 16px;
+  border-bottom: 2px solid hsl(var(--border));
+}
+
+.side-nav__title{
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: hsl(var(--foreground));
+}
+
+.side-nav__close{
+  height: 36px;
+  width: 36px;
+  border-radius: 10px;
+  background: transparent;
+  border: 2px solid hsl(var(--border));
+  color: hsl(var(--foreground));
+  cursor: pointer;
+  transition: border-color 160ms ease, background 160ms ease;
+}
+
+.side-nav__close:hover{
+  border-color: hsl(var(--primary));
+  background: rgba(0,0,0,0.18);
+}
+
+.side-nav__links{
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.side-nav__link{
+  display:block;
+  padding: 12px 12px;
+  border-radius: 12px;
+
+  background: rgba(0,0,0,0.28);
+  border: 2px solid hsl(var(--border));
+  color: hsl(var(--foreground));
+  text-decoration: none;
+
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.side-nav__link:hover{
+  transform: translateX(2px);
+  border-color: hsl(var(--primary));
+  background: rgba(0,0,0,0.34);
+  text-decoration: none;
+}
+
+.side-nav__footer{
+  margin-top: auto;
+  padding: 14px 16px 18px;
+  border-top: 2px solid hsl(var(--border));
+  color: hsl(var(--muted));
+  font-size: 13px;
+}
+
+/* keep menu reachable on small screens */
+@media (max-width: 640px){
+  .menu-btn{ top: 14px; left: 14px; }
+}
 
 /* ===================== Hero ===================== */
 
@@ -79,7 +276,7 @@ h1,h2,h3{
   line-height: 1.65;
 }
 
-/* Buttons */
+/* Buttons (if you still have them somewhere) */
 .btns{
   display:flex;
   justify-content:center;
