@@ -431,6 +431,33 @@ h1,h2,h3{
   margin: 10px 0 0;
 }
 
+
+/* TPYING ANI */
+.type{
+  display:inline-block;
+  white-space:nowrap;
+}
+
+.type::after{
+  content:"";
+  display:inline-block;
+  width:0.6ch;
+  margin-left:0.15ch;
+  border-right:2px solid hsl(var(--foreground));
+  animation:blink 0.85s step-end infinite;
+  transform:translateY(0.05em);
+}
+
+.type.done::after{
+  animation:none;
+  opacity:0.9;
+}
+
+@keyframes blink{
+  50%{ opacity:0; }
+}
+
+
 /* Footer */
 footer{
   margin-top: 26px;
