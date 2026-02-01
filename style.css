@@ -11,8 +11,9 @@
   --topbar-h: 64px;
   --max: 1600px;
 
-  --tick: 16px;
-  --tickw: 2px;
+  /* corner ticks */
+  --tick: 16px;   /* length */
+  --tickw: 2px;   /* thickness */
 }
 
 *{ box-sizing:border-box; }
@@ -25,10 +26,10 @@ body{
   font-family: "IBM Plex Sans", system-ui, sans-serif;
   background: hsl(var(--background));
   position: relative;
+  isolation: isolate;
 }
 
-/* ===================== NOTEBOOK GRID (ORIGINAL STYLE) ===================== */
-/* This is the ONLY background grid. Same everywhere. */
+/* ===================== NOTEBOOK GRID (GLOBAL, NO TRACES) ===================== */
 body::before{
   content:"";
   position: fixed;
@@ -36,6 +37,7 @@ body::before{
   pointer-events: none;
   z-index: 0;
 
+  /* EXACT “old notebook grid” look */
   background:
     repeating-linear-gradient(
       0deg,
@@ -49,18 +51,10 @@ body::before{
     );
 }
 
-/* All content above the grid */
-.topbar,
-.nav-overlay,
-.side-nav,
-.hero,
-.wrap{
-  position: relative;
-  z-index: 1;
-}
+/* Keep all real content above the grid overlay */
+.hero, .wrap{ position: relative; z-index: 1; }
 
-/* ===================== LINKS & TYPE ===================== */
-
+/* ===================== TYPE ===================== */
 a{ color:hsl(var(--primary)); text-decoration:none; }
 a:hover{ text-decoration:underline; }
 
@@ -70,16 +64,14 @@ h1,h2,h3{
   margin: 0;
 }
 
-/* ===================== LAYOUT ===================== */
-
+/* ===================== WRAP ===================== */
 .wrap{
   max-width: var(--max);
   margin: 0 auto;
   padding: 28px 18px 70px;
 }
 
-/* ===================== TOP BAR ===================== */
-
+/* ===================== TOP BAR (STAYS FIXED) ===================== */
 .topbar{
   position: fixed;
   inset: 0 0 auto 0;
@@ -102,14 +94,13 @@ h1,h2,h3{
 
 .topbar-title{
   text-align:center;
-  font-family: "IBM Plex Mono";
+  font-family: "IBM Plex Mono", monospace;
   font-weight:700;
   font-size: 20px;
   color: hsl(var(--foreground));
 }
 
 /* ===================== MENU BUTTON ===================== */
-
 .menu-btn{
   height: 44px;
   width: 44px;
@@ -132,6 +123,7 @@ h1,h2,h3{
     hsl(var(--foreground)) 5px 7px,
     transparent 7px 100%
   );
+  border-radius:2px;
 }
 .menu-icon::before,
 .menu-icon::after{
@@ -140,12 +132,12 @@ h1,h2,h3{
   left:0; right:0;
   height:2px;
   background:hsl(var(--foreground));
+  border-radius:2px;
 }
 .menu-icon::before{ top:0; }
 .menu-icon::after{ bottom:0; }
 
-/* ===================== OVERLAY + DRAWER ===================== */
-
+/* ===================== OVERLAY + DRAWER (FIXED) ===================== */
 .nav-overlay{
   position: fixed;
   inset: 0;
@@ -159,7 +151,7 @@ h1,h2,h3{
   left: 0;
   width: min(320px, 88vw);
   height: calc(100vh - var(--topbar-h));
-  background: hsl(var(--card));
+  background: hsla(var(--card), 0.98);
   border-right: 2px solid hsl(var(--border));
   z-index: 1600;
 
@@ -171,73 +163,182 @@ h1,h2,h3{
   padding: 14px;
   gap: 12px;
 }
+
 .side-nav.is-open{ transform: translateX(0); }
 
-/* ===================== HERO ===================== */
+.side-nav__header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
 
+.side-nav__title{
+  font-family:"IBM Plex Mono";
+  font-weight:700;
+  color:hsl(var(--foreground));
+}
+
+.side-nav__close{
+  height: 36px;
+  width: 36px;
+  border-radius: 10px;
+  border: 2px solid hsl(var(--border));
+  background: rgba(0,0,0,0.2);
+  color:hsl(var(--foreground));
+  cursor:pointer;
+}
+.side-nav__close:hover{ border-color: hsl(var(--primary)); }
+
+.side-nav__links{
+  display:flex;
+  flex-direction:column;
+  gap: 8px;
+  padding-top: 6px;
+}
+
+.side-nav__link{
+  display:block;
+  padding: 10px 10px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  color:hsl(var(--foreground));
+  font-family:"IBM Plex Mono";
+  font-weight:600;
+}
+.side-nav__link:hover{
+  border-color: hsl(var(--border));
+  background: rgba(0,0,0,0.25);
+  text-decoration:none;
+}
+
+.side-nav__footer{
+  margin-top:auto;
+  color:hsl(var(--muted));
+  font-size:13px;
+}
+.side-nav__hint{ color:hsl(var(--muted)); }
+
+/* ===================== HERO (GRID ONLY, NO TRACES) ===================== */
 .hero{
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
   min-height: calc(100vh - var(--topbar-h));
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
+  position: relative;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+}
+
+/* Keep this element but make it just a soft vignette (no circuit lines) */
+.hero-media{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(0,0,0,0.18), rgba(0,0,0,0.70));
 }
 
 .hero-content{
+  position: relative;
+  z-index: 2;
+  min-height: calc(100vh - var(--topbar-h));
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
   padding: 0 18px 64px;
 }
 
 .hero-headline{
   font-size: clamp(44px, 7.5vw, 84px);
   letter-spacing: -0.06em;
+  line-height: 1.05;
 }
 
 .hero-sub{
   margin-top: 10px;
   font-size: 18px;
   color: hsl(var(--muted));
+  max-width: 68ch;
 }
 
-/* Scroll cue */
 .hero-scroll{
   position:absolute;
   left:50%;
   bottom:18px;
   transform:translateX(-50%);
+  z-index:3;
+
+  display:flex;
+  align-items:center;
+  gap:10px;
+
   padding: 10px 16px;
   border-radius: 999px;
+
   background: rgba(0,0,0,0.45);
   border: 1px solid hsl(var(--border));
   color: hsl(var(--muted));
   font-size: 13px;
 }
 
-/* ===================== GRID (TOP ROW) ===================== */
+.hero-scroll:hover{
+  border-color: hsl(var(--primary));
+  color: hsl(var(--foreground));
+  text-decoration:none;
+}
 
+.hero-scroll__arrow{
+  font-size: 16px;
+  animation: scrollPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes scrollPulse{
+  0%,100%{ transform: translateY(0); opacity: .7; }
+  50%{ transform: translateY(4px); opacity: 1; }
+}
+
+/* ===================== LAYOUT GRIDS ===================== */
 .grid{
   display:grid;
   grid-template-columns: minmax(520px, 1.35fr) minmax(420px, 1fr);
   gap: 18px;
   margin-top: 18px;
+  align-items: stretch;
 }
 @media (max-width: 980px){
   .grid{ grid-template-columns: 1fr; }
 }
 
-/* ===================== PANELS / CARDS ===================== */
+.cards{
+  display:grid;
+  grid-template-columns: repeat(4, minmax(240px, 1fr));
+  gap: 18px;
+  margin-top: 18px;
+  margin-bottom: 18px; /* keeps ABOUT from touching */
+  align-items: stretch;
+}
+@media (max-width: 1200px){
+  .cards{ grid-template-columns: repeat(2, minmax(240px, 1fr)); }
+}
+@media (max-width: 650px){
+  .cards{ grid-template-columns: 1fr; }
+}
 
+/* ===================== PANELS / CARDS / FEATURED ===================== */
 .panel,
 .card,
 .featured{
+  position: relative;
   background: hsla(var(--card), 0.82);
   border: 2px solid hsl(var(--border));
   padding: 16px 14px;
-  position: relative;
+  height: 100%;
 }
 
+/* ✅ Correct 8-stroke corner ticks (horizontal + vertical at each corner) */
 .panel::after,
 .card::after,
 .featured::after{
@@ -246,36 +347,91 @@ h1,h2,h3{
   inset:-2px;
   pointer-events:none;
   background:
+    /* top-left */
     linear-gradient(hsl(var(--primary)) 0 0) 0 0 / var(--tick) var(--tickw) no-repeat,
+    linear-gradient(hsl(var(--primary)) 0 0) 0 0 / var(--tickw) var(--tick) no-repeat,
+
+    /* top-right */
     linear-gradient(hsl(var(--primary)) 0 0) 100% 0 / var(--tick) var(--tickw) no-repeat,
+    linear-gradient(hsl(var(--primary)) 0 0) 100% 0 / var(--tickw) var(--tick) no-repeat,
+
+    /* bottom-left */
     linear-gradient(hsl(var(--primary)) 0 0) 0 100% / var(--tick) var(--tickw) no-repeat,
-    linear-gradient(hsl(var(--primary)) 0 0) 100% 100% / var(--tick) var(--tickw) no-repeat;
+    linear-gradient(hsl(var(--primary)) 0 0) 0 100% / var(--tickw) var(--tick) no-repeat,
+
+    /* bottom-right */
+    linear-gradient(hsl(var(--primary)) 0 0) 100% 100% / var(--tick) var(--tickw) no-repeat,
+    linear-gradient(hsl(var(--primary)) 0 0) 100% 100% / var(--tickw) var(--tick) no-repeat;
 }
 
-/* ===================== CARDS ROW ===================== */
+.row{ margin-top: 4px; font-size: 14px; }
+.row b{ color:hsl(var(--foreground)); }
+.row span{ color:hsl(var(--muted)); }
 
-.cards{
-  display:grid;
-  grid-template-columns: repeat(4, minmax(240px, 1fr));
-  gap: 18px;
-  margin-top: 18px;
-  margin-bottom: 18px;
-}
-@media (max-width: 1200px){
-  .cards{ grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 650px){
-  .cards{ grid-template-columns: 1fr; }
+.panel-note{
+  font-size:13px;
+  color:hsl(var(--muted));
+  margin: 10px 0 0;
 }
 
-/* ===================== ABOUT ===================== */
-
-#about{
-  margin-top: 18px;
+/* Featured */
+.kicker{
+  font-family:"IBM Plex Mono";
+  font-weight:700;
+  font-size: 12px;
+  color: hsl(var(--muted));
+  letter-spacing: 0.08em;
+}
+.featured h3{ margin-top: 6px; font-size: 20px; }
+.featured p{
+  color:hsl(var(--muted));
+  font-size: 14px;
+  margin: 10px 0 0;
 }
 
-/* ===================== FOOTER ===================== */
+/* Buttons */
+.btns{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+.btn{
+  display:inline-block;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 2px solid hsl(var(--border));
+  background: rgba(0,0,0,0.20);
+  color: hsl(var(--foreground));
+  font-family:"IBM Plex Mono";
+  font-weight:700;
+  font-size: 13px;
+}
+.btn:hover{ border-color: hsl(var(--primary)); text-decoration:none; }
+.btn.primary{
+  background: rgba(0,0,0,0.35);
+  border-color: hsl(var(--primary));
+}
 
+/* Card typography */
+.card{
+  display:flex;
+  flex-direction:column;
+  min-height: 140px;
+}
+.card h3{ font-size: 18px; margin-bottom: 8px; }
+.card p{
+  margin: 0;
+  color:hsl(var(--muted));
+  font-size: 14px;
+  flex: 1;
+}
+.card:hover{ border-color: hsl(var(--primary)); text-decoration:none; }
+
+/* ABOUT */
+#about{ margin-top: 18px; }
+.about-text{
+  color:hsl(var(--muted));
+  font-size:14px;
+  margin: 10px 0 0;
+}
+
+/* Footer */
 footer{
   margin-top: 26px;
   font-size: 13px;
