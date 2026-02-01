@@ -9,15 +9,9 @@
   --primary: 38 92% 50%;
   --ring: 38 92% 50%;
 
-  /* fixed full-width top bar */
   --topbar-h: 64px;
-
   --max: 1600px;
 
-  --grid-a: rgba(255,255,255,0.035);
-  --grid-b: rgba(255,255,255,0.08);
-
-  /* corner geometry */
   --tick: 16px;
   --tickw: 2px;
 }
@@ -27,21 +21,13 @@ html, body{ height:100%; }
 
 body{
   margin:0;
+  padding-top: var(--topbar-h);
   color: hsl(var(--foreground));
   font-family: "IBM Plex Sans", system-ui, sans-serif;
-  -webkit-font-smoothing: antialiased;
-
-  /* push content below fixed topbar */
-  padding-top: var(--topbar-h);
-
-  background-color: hsl(var(--background));
-  background-image:
-    linear-gradient(var(--grid-a) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-a) 1px, transparent 1px),
-    linear-gradient(var(--grid-b) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-b) 1px, transparent 1px);
-  background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
+  background: hsl(var(--background));
 }
+
+/* ===================== LINKS & TYPE ===================== */
 
 a{ color:hsl(var(--primary)); text-decoration:none; }
 a:hover{ text-decoration:underline; }
@@ -52,7 +38,7 @@ h1,h2,h3{
   margin: 0;
 }
 
-/* ===================== Layout ===================== */
+/* ===================== LAYOUT ===================== */
 
 .wrap{
   max-width: var(--max);
@@ -60,359 +46,198 @@ h1,h2,h3{
   padding: 28px 18px 70px;
 }
 
-/* Hide the old top header (you still have it in HTML) */
 .top{ display:none !important; }
 
-/* ===================== Fixed Full-Width Top Bar ===================== */
+/* ===================== TOP BAR ===================== */
 
 .topbar{
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  inset: 0 0 auto 0;
   height: var(--topbar-h);
+  background: hsl(var(--border));
   z-index: 60;
-
-  background: hsl(var(--border) / 1);
-  border-bottom: 1px solid hsla(var(--border), 0.9);
-
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
   box-shadow: 0 18px 50px rgba(0,0,0,0.30);
 }
 
 .topbar-inner{
-  height: 100%;
   max-width: var(--max);
+  height: 100%;
   margin: 0 auto;
   padding: 10px 18px;
-
-  display: grid;
+  display:grid;
   grid-template-columns: 44px 1fr 44px;
-  align-items: center;
-  gap: 10px;
+  align-items:center;
 }
 
 .topbar-title{
-  justify-self: center;
-  font-family: "IBM Plex Mono", ui-monospace, monospace;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  font-size: clamp(18px, 2.8vw, 24px);
-  line-height: 1;
+  text-align:center;
+  font-family: "IBM Plex Mono", monospace;
+  font-weight:700;
+  font-size: 20px;
   color: hsl(var(--foreground));
-  text-decoration: none;
 }
 
-.topbar-title:hover{ text-decoration: none; }
-
-.topbar-right{
-  width: 44px;
-  height: 44px;
-}
-
-/* ===================== Hero ===================== */
+/* ===================== FULL-BLEED HERO ===================== */
 
 .hero{
+  /* FULL WIDTH, IGNORE .wrap */
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+
   min-height: calc(100vh - var(--topbar-h));
   position: relative;
-  margin: 0 0 24px;
   overflow: hidden;
 
-  border: 2px solid hsl(var(--border));
-  background: hsla(var(--card), 0.35);
+  border: none;
+  background: transparent;
 }
 
-
-.subtitle{
-  max-width: 65ch;
-  margin: 0 auto 16px;
-  color: hsl(var(--muted));
-  font-size: 16px;
-  line-height: 1.65;
-}
-.hero .subtitle{ display:none; }
-/* ===== Full-screen hero background layer ===== */
+/* Circuit-style background */
 .hero-media{
-  position: absolute;
-  inset: 0;
-  z-index: 0;
+  position:absolute;
+  inset:0;
+  z-index:0;
 
-  /* NO GLOWS: just grid + subtle dark gradient */
   background:
-    linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.55)),
+    radial-gradient(circle at 50% 40%, rgba(0,0,0,0.25), rgba(0,0,0,0.9)),
+
+    /* base grid */
     repeating-linear-gradient(
       0deg,
-      rgba(255,255,255,0.035) 0 1px,
-      transparent 1px 26px
+      rgba(255,255,255,0.04) 0 1px,
+      transparent 1px 28px
     ),
     repeating-linear-gradient(
       90deg,
-      rgba(255,255,255,0.035) 0 1px,
-      transparent 1px 26px
+      rgba(255,255,255,0.04) 0 1px,
+      transparent 1px 28px
+    ),
+
+    /* circuit traces */
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 64px,
+      rgba(255,255,255,0.06) 64px 65px,
+      transparent 65px 140px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 52px,
+      rgba(255,255,255,0.06) 52px 53px,
+      transparent 53px 120px
     );
 }
 
-/* ===== Center the hero content ===== */
+/* Centered welcome text */
 .hero-content{
   position: relative;
   z-index: 2;
   height: 100%;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
 
-  padding: 28px 18px;
-  gap: 10px;
+  text-align:center;
+  padding: 0 18px;
+
+  transform: translateY(-6vh);
 }
 
-/* ===== Big centered welcome text ===== */
 .hero-headline{
-  margin: 0;
-  font-family: "IBM Plex Mono", ui-monospace, monospace;
-  font-weight: 700;
+  font-size: clamp(48px, 7.5vw, 84px);
   letter-spacing: -0.06em;
-  font-size: clamp(42px, 7vw, 72px);
   line-height: 1.05;
 }
 
 .hero-sub{
-  margin: 0;
+  margin-top: 10px;
+  font-size: 18px;
   color: hsl(var(--muted));
-  font-size: 17px;
-  line-height: 1.7;
-  max-width: 60ch;
+  max-width: 68ch;
 }
 
+/* Scroll cue */
+.hero-scroll{
+  position:absolute;
+  left:50%;
+  bottom:18px;
+  transform:translateX(-50%);
+  z-index:3;
 
-/* ===================== Menu Button + Slide-out Nav ===================== */
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  padding: 10px 16px;
+  border-radius: 999px;
+
+  background: rgba(0,0,0,0.45);
+  border: 1px solid hsl(var(--border));
+  color: hsl(var(--muted));
+  font-size: 13px;
+}
+
+.hero-scroll:hover{
+  border-color: hsl(var(--primary));
+  color: hsl(var(--foreground));
+}
+
+.hero-scroll__arrow{
+  font-size: 16px;
+  animation: scrollPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes scrollPulse{
+  0%,100%{ transform: translateY(0); opacity: .7; }
+  50%{ transform: translateY(4px); opacity: 1; }
+}
+
+/* ===================== MENU ===================== */
 
 .menu-btn{
-  position: relative;
-  z-index: 20;
-
   height: 44px;
   width: 44px;
   border-radius: 12px;
-
   background: rgba(0,0,0,0.25);
-  border: 2px solid hsla(var(--border), 0.9);
-  box-shadow: none;
-
-  display: grid;
-  place-items: center;
-
-  cursor: pointer;
-  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease, opacity 160ms ease;
+  border: 2px solid hsl(var(--border));
+  display:grid;
+  place-items:center;
+  cursor:pointer;
 }
 
-.menu-btn:hover{
-  transform: translateY(-1px);
-  border-color: hsl(var(--primary));
-  background: rgba(0,0,0,0.32);
-}
-
-.menu-btn:active{ transform: translateY(0px); }
-
-.menu-btn:focus-visible{
-  outline: 2px solid hsla(var(--ring), 0.8);
-  outline-offset: 2px;
-}
-
-/* Hide the hamburger while menu is open */
-body.nav-open .menu-btn{
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* hamburger icon */
 .menu-icon{
-  position: relative;
-  width: 18px;
-  height: 12px;
-  border-radius: 2px;
-
-  background: linear-gradient(
-    to bottom,
-    transparent 0 5px,
-    hsl(var(--foreground)) 5px 7px,
-    transparent 7px 100%
-  );
+  width:18px;
+  height:12px;
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 0 5px,
+      hsl(var(--foreground)) 5px 7px,
+      transparent 7px 100%
+    );
 }
 
 .menu-icon::before,
 .menu-icon::after{
   content:"";
-  position:absolute;
-  left:0;
-  right:0;
-  height:2px;
-  background: hsl(var(--foreground));
-  border-radius: 2px;
-}
-
-.menu-icon::before{ top:0; }
-.menu-icon::after{ bottom:0; }
-
-/* overlay */
-.nav-overlay{
-  position: fixed;
-  inset: 0;
-  z-index: 90;
-  background: rgba(0,0,0,0.60);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-}
-
-/* drawer */
-.side-nav{
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: min(320px, 86vw);
-  z-index: 100;
-
-  background: hsla(var(--card), 0.96);
-  border-right: 2px solid hsl(var(--border));
-  box-shadow: 20px 0 60px rgba(0,0,0,0.45);
-
-  transform: translateX(-102%);
-  transition: transform 220ms ease;
-
-  display: flex;
-  flex-direction: column;
-}
-
-/* Keep orange corners on the drawer (you did NOT forbid these) */
-.side-nav::after{
-  content:"";
-  position:absolute;
-  inset:-2px;
-  pointer-events:none;
-
-  background:
-    linear-gradient(hsl(var(--primary)) 0 0) 0 0 / var(--tick) var(--tickw) no-repeat,
-    linear-gradient(hsl(var(--primary)) 0 0) 0 0 / var(--tickw) var(--tick) no-repeat,
-    linear-gradient(hsl(var(--primary)) 0 0) 100% 0 / var(--tick) var(--tickw) no-repeat,
-    linear-gradient(hsl(var(--primary)) 0 0) 100% 0 / var(--tickw) var(--tick) no-repeat,
-    linear-gradient(hsl(var(--primary)) 0 0) 0 100% / var(--tick) var(--tickw) no-repeat,
-    linear-gradient(hsl(var(--primary)) 0 0) 0 100% / var(--tickw) var(--tick) no-repeat,
-    linear-gradient(hsl(var(--primary)) 0 0) 100% 100% / var(--tick) var(--tickw) no-repeat,
-    linear-gradient(hsl(var(--primary)) 0 0) 100% 100% / var(--tickw) var(--tick) no-repeat;
-}
-
-.side-nav.is-open{ transform: translateX(0); }
-
-.side-nav__header{
-  display:flex;
-  align-items:center;
-  justify-content: space-between;
-  padding: 18px 16px;
-  border-bottom: 2px solid hsl(var(--border));
-}
-
-.side-nav__title{
-  font-family: "IBM Plex Mono", ui-monospace, monospace;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: hsl(var(--foreground));
-}
-
-.side-nav__close{
-  height: 36px;
-  width: 36px;
-  border-radius: 10px;
-  background: transparent;
-  border: 2px solid hsl(var(--border));
-  color: hsl(var(--foreground));
-  cursor: pointer;
-  transition: border-color 160ms ease, background 160ms ease;
-}
-
-.side-nav__close:hover{
-  border-color: hsl(var(--primary));
-  background: rgba(0,0,0,0.18);
-}
-
-.side-nav__links{
-  padding: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.side-nav__link{
   display:block;
-  padding: 12px 12px;
-  border-radius: 12px;
-
-  background: rgba(0,0,0,0.28);
-  border: 2px solid hsl(var(--border));
-  color: hsl(var(--foreground));
-  text-decoration: none;
-
-  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+  height:2px;
+  background:hsl(var(--foreground));
 }
 
-.side-nav__link:hover{
-  transform: translateX(2px);
-  border-color: hsl(var(--primary));
-  background: rgba(0,0,0,0.34);
-  text-decoration: none;
-}
+.menu-icon::before{ margin-bottom:3px; }
+.menu-icon::after{ margin-top:3px; }
 
-.side-nav__footer{
-  margin-top: auto;
-  padding: 14px 16px 18px;
-  border-top: 2px solid hsl(var(--border));
-  color: hsl(var(--muted));
-  font-size: 13px;
-}
-
-/* ===================== Buttons ===================== */
-
-.btns{
-  display:flex;
-  justify-content:center;
-  gap:12px;
-  flex-wrap:wrap;
-}
-
-.btn{
-  padding: 8px 14px;
-  border: 1px solid hsl(var(--border));
-  background: hsla(var(--card), 0.50);
-  color: hsl(var(--muted));
-  font-size: 14px;
-}
-
-.btn.primary{
-  border-color: hsl(var(--primary));
-  color: hsl(var(--primary));
-  background: hsla(var(--primary), 0.08);
-}
-
-.btn:hover{
-  background: hsla(var(--card), 0.65);
-  text-decoration:none;
-}
-
-/* ===================== Boxes (ONE SYSTEM) ===================== */
+/* ===================== PANELS / CARDS (UNCHANGED) ===================== */
 
 .panel,
 .card,
 .featured{
   position: relative;
-
   background: hsla(var(--card), 0.82);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-
   border: 2px solid hsl(var(--border));
   padding: 16px 14px;
 }
@@ -424,7 +249,6 @@ body.nav-open .menu-btn{
   position:absolute;
   inset:-2px;
   pointer-events:none;
-
   background:
     linear-gradient(hsl(var(--primary)) 0 0) 0 0 / var(--tick) var(--tickw) no-repeat,
     linear-gradient(hsl(var(--primary)) 0 0) 0 0 / var(--tickw) var(--tick) no-repeat,
@@ -436,61 +260,7 @@ body.nav-open .menu-btn{
     linear-gradient(hsl(var(--primary)) 0 0) 100% 100% / var(--tickw) var(--tick) no-repeat;
 }
 
-/* ===================== Content ===================== */
-
-.panel h2{
-  font-size: 15px;
-  margin-bottom: 10px;
-}
-
-.row{
-  display:flex;
-  gap:10px;
-  padding: 8px;
-  border: 1px solid hsl(var(--border));
-  background: hsla(var(--card), 0.50);
-  margin-bottom: 8px;
-  font-size: 14px;
-}
-
-.row b{ color: hsl(var(--foreground)); }
-.row span{ color: hsl(var(--muted)); }
-
-.cards{
-  display:grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin-bottom: 18px;
-}
-
-@media (max-width: 700px){
-  .cards{ grid-template-columns: 1fr; }
-}
-
-.card h3{
-  font-size: 16px;
-  margin-bottom: 6px;
-}
-
-.card p,
-.featured p{
-  font-size: 14px;
-  color: hsl(var(--muted));
-  margin: 0;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 14px;
-  margin-bottom: 18px;
-}
-
-@media (max-width: 900px){
-  .grid{ grid-template-columns: 1fr; }
-}
-
-/* ===================== Footer ===================== */
+/* ===================== FOOTER ===================== */
 
 footer{
   margin-top: 26px;
