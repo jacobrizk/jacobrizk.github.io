@@ -261,7 +261,7 @@ footer{
 .hero-scroll{
   position:absolute;
   left:50%;
-  bottom:18px;
+  bottom:48px; /* move scroll button up and down */
   transform:translateX(-50%);
   padding:10px 16px;
   border-radius:999px;
