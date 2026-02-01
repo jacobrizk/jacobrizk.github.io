@@ -33,43 +33,49 @@
       </nav>
     </header>
 
-    <section class="hero">
+   <section class="hero">
 
-      <!-- Corner menu button -->
-      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-controls="sideNav" aria-expanded="false">
-        <span class="menu-icon" aria-hidden="true"></span>
-      </button>
+  <!-- Top bar -->
+  <div class="topbar">
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-controls="sideNav" aria-expanded="false">
+      <span class="menu-icon" aria-hidden="true"></span>
+    </button>
 
-      <!-- Slide-out nav + overlay -->
-      <div class="nav-overlay" id="navOverlay" hidden></div>
+    <div class="topbar-title">Dorm Projects</div>
 
-      <aside class="side-nav" id="sideNav" aria-hidden="true">
-        <div class="side-nav__header">
-          <div class="side-nav__title">Menu</div>
-          <button class="side-nav__close" id="navClose" aria-label="Close menu">✕</button>
-        </div>
+    <!-- spacer so title stays centered even with menu button on left -->
+    <div class="topbar-spacer" aria-hidden="true"></div>
+  </div>
 
-        <nav class="side-nav__links">
-          <a class="side-nav__link" href="/projects/">Explore Projects</a>
-          <a class="side-nav__link" href="/learning/">Learning</a>
-          <a class="side-nav__link" href="/experiments/">Experiments</a>
-          <a class="side-nav__link" href="/tools/">Tools</a>
-          <a class="side-nav__link" href="/#about">About</a>
-        </nav>
+  <!-- Slide-out nav + overlay -->
+  <div class="nav-overlay" id="navOverlay" hidden></div>
 
-        <div class="side-nav__footer">
-          <div class="side-nav__hint">Quick links to the sections.</div>
-        </div>
-      </aside>
+  <aside class="side-nav" id="sideNav" aria-hidden="true">
+    <div class="side-nav__header">
+      <div class="side-nav__title">Menu</div>
+      <button class="side-nav__close" id="navClose" aria-label="Close menu">✕</button>
+    </div>
 
-      <h1>Dorm Projects</h1>
-      <p class="subtitle">
-        <em>My Website Workspace.</em>
-      </p>
+    <nav class="side-nav__links">
+      <a class="side-nav__link" href="/projects/">Explore Projects</a>
+      <a class="side-nav__link" href="/learning/">Learning</a>
+      <a class="side-nav__link" href="/experiments/">Experiments</a>
+      <a class="side-nav__link" href="/tools/">Tools</a>
+      <a class="side-nav__link" href="/#about">About</a>
+    </nav>
 
-      <!-- (Removed the top button row on purpose) -->
+    <div class="side-nav__footer">
+      <div class="side-nav__hint">Quick links to the sections.</div>
+    </div>
+  </aside>
 
-    </section>
+  <!-- Subtitle stays where it is (below the bar) -->
+  <p class="subtitle">
+    <em>My Website Workspace.</em>
+  </p>
+
+</section>
+
 
     <!-- Home: airy layout, two blocks -->
     <div class="grid">
