@@ -10,7 +10,7 @@
   --ring: 38 92% 50%;
 
   /* fixed full-width top bar */
-  --topbar: var(--border);
+  --topbar: hotpink;
   --topbar-h: 64px;
 
   --max: 1600px;
