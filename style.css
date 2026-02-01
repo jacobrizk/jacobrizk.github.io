@@ -57,13 +57,32 @@ body::before{
 }
 
 /* ===================== LINKS & TYPE ===================== */
-a{ color:hsl(var(--primary)); text-decoration:none; }
+/* IMPORTANT: links are NOT globally yellow */
+a{ color:hsl(var(--foreground)); text-decoration:none; }
 a:hover{ text-decoration:underline; }
 
 h1,h2,h3{
   font-family: "IBM Plex Mono", ui-monospace, monospace;
   font-weight: 600;
   margin: 0;
+}
+
+/* Accent only where you want it */
+.panel h2,
+.card h3,
+.featured h3,
+.kicker{
+  color: hsl(var(--primary));
+}
+
+/* Body text colors */
+p{ margin: 0; }
+.panel-note,
+.card p,
+.featured p,
+.hero-sub,
+footer{
+  color: hsl(var(--muted));
 }
 
 /* ===================== WRAP ===================== */
@@ -101,6 +120,7 @@ h1,h2,h3{
   font-size: 20px;
   color: hsl(var(--foreground));
 }
+.topbar-title:hover{ text-decoration:none; }
 
 /* ===================== MENU BUTTON ===================== */
 .menu-btn{
@@ -163,22 +183,47 @@ h1,h2,h3{
 }
 .side-nav.is-open{ transform: translateX(0); }
 
+.side-nav__header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.side-nav__title{
+  font-family:"IBM Plex Mono";
+  font-weight:700;
+  color:hsl(var(--foreground));
+}
+.side-nav__close{
+  width:36px;
+  height:36px;
+  border-radius:10px;
+  border:2px solid hsl(var(--border));
+  background: rgba(0,0,0,0.25);
+  color:hsl(var(--foreground));
+  cursor:pointer;
+}
+.side-nav__close:hover{ border-color:hsl(var(--primary)); }
+
 .side-nav__links{
   display:flex;
   flex-direction:column;
   gap:8px;
 }
 .side-nav__link{
+  display:block;
   padding:10px;
   border-radius:12px;
   font-family:"IBM Plex Mono";
   font-weight:600;
-  color:hsl(var(--foreground));
+  color:hsl(var(--foreground)); /* stays white */
 }
 .side-nav__link:hover{
-  background: rgba(0,0,0,0.25);
+  background: rgba(255,255,255,0.04);
   text-decoration:none;
 }
+
+.side-nav__footer{ margin-top:auto; }
+.side-nav__hint{ color:hsl(var(--muted)); font-size:13px; }
 
 /* ===================== HERO ===================== */
 .hero{
@@ -191,24 +236,25 @@ h1,h2,h3{
   justify-content:center;
   text-align:center;
   background: transparent;
+  position: relative;
 }
 
-.hero-media{ background: transparent; }
+.hero-media{
+  position:absolute;
+  inset:0;
+  background: transparent;
+}
 
 .hero-content{
   padding: 0 18px 64px;
+  position: relative;
+  z-index: 2;
 }
 
 .hero-headline{
   font-size: clamp(44px, 7.5vw, 84px);
   letter-spacing: -0.06em;
   line-height:1.05;
-}
-
-.hero-sub{
-  margin-top:10px;
-  font-size:18px;
-  color:hsl(var(--muted));
 }
 
 /* Scroll pill */
@@ -223,6 +269,12 @@ h1,h2,h3{
   border:1px solid hsl(var(--border));
   color:hsl(var(--muted));
   font-size:13px;
+  z-index: 3;
+}
+.hero-scroll:hover{
+  border-color: hsl(var(--primary));
+  color: hsl(var(--foreground));
+  text-decoration:none;
 }
 
 /* ===================== GRID ===================== */
@@ -265,6 +317,38 @@ h1,h2,h3{
     linear-gradient(hsl(var(--primary)) 0 0) 100% 100% / var(--tickw) var(--tick) no-repeat;
 }
 
+/* CURRENTLY rows */
+.row{ margin-top: 6px; font-size: 14px; }
+.row b{ color:hsl(var(--foreground)); font-weight:700; }
+.row span{ color:hsl(var(--muted)); }
+
+/* Featured kicker */
+.kicker{
+  font-family:"IBM Plex Mono";
+  font-weight:700;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+/* Buttons */
+.btns{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+.btn{
+  display:inline-block;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 2px solid hsl(var(--border));
+  background: rgba(0,0,0,0.20);
+  color: hsl(var(--foreground));
+  font-family:"IBM Plex Mono";
+  font-weight:700;
+  font-size: 13px;
+}
+.btn:hover{ border-color: hsl(var(--primary)); text-decoration:none; }
+.btn.primary{
+  border-color: hsl(var(--primary));
+}
+
 /* ===================== CARDS ===================== */
 .cards{
   display:grid;
@@ -280,8 +364,13 @@ h1,h2,h3{
   .cards{ grid-template-columns:1fr; }
 }
 
+/* Make card blocks not turn yellow / link-styled */
+.card{ display:block; }
+.card:hover{ text-decoration:none; border-color: hsl(var(--primary)); }
+
 /* ===================== ABOUT ===================== */
 #about{ margin-top:18px; }
+.about-text{ color:hsl(var(--muted)); margin-top:10px; }
 
 /* ===================== TYPING ANIMATION ===================== */
 .type{
@@ -311,9 +400,12 @@ h1,h2,h3{
 footer{
   margin-top:26px;
   font-size:13px;
-  color:hsl(var(--muted));
   display:flex;
   justify-content:space-between;
   flex-wrap:wrap;
   gap:12px;
 }
+footer a{
+  color: hsl(var(--primary)); /* footer links can be accent */
+}
+footer a:hover{ text-decoration:underline; }
