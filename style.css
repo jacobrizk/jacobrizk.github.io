@@ -8,9 +8,10 @@
   --border: 221 22% 19%;
   --primary: 38 92% 50%;
   --ring: 38 92% 50%;
+
+  /* fixed full-width top bar */
   --topbar: 217 24% 9%;
   --topbar-h: 64px;
-
 
   --max: 1600px;
 
@@ -30,6 +31,9 @@ body{
   color: hsl(var(--foreground));
   font-family: "IBM Plex Sans", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+
+  /* push content below fixed topbar */
+  padding-top: var(--topbar-h);
 
   background-color: hsl(var(--background));
   background-image:
@@ -57,25 +61,65 @@ h1,h2,h3{
   padding: 28px 18px 70px;
 }
 
-/* Hide the old top bar / tabs */
+/* Hide the old top header (you still have it in HTML) */
 .top{ display:none !important; }
+
+/* ===================== Fixed Full-Width Top Bar ===================== */
+
+.topbar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--topbar-h);
+  z-index: 60;
+
+  background: hsla(var(--topbar), 0.92);
+  border-bottom: 1px solid hsla(var(--border), 0.9);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  box-shadow: 0 18px 50px rgba(0,0,0,0.30);
+}
+
+.topbar-inner{
+  height: 100%;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 10px 18px;
+
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  align-items: center;
+  gap: 10px;
+}
+
+.topbar-title{
+  justify-self: center;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  font-size: clamp(18px, 2.8vw, 24px);
+  line-height: 1;
+  color: hsl(var(--foreground));
+  text-decoration: none;
+}
+
+.topbar-title:hover{ text-decoration: none; }
+
+.topbar-right{
+  width: 44px;
+  height: 44px;
+}
 
 /* ===================== Hero ===================== */
 
 .hero{
-  position: relative;
   background: transparent;
   margin-bottom: 18px;
   text-align: center;
-
-  /* remove old hero padding — bar controls top spacing now */
   padding: 0 0 22px;
-}
-
-.hero h1{
-  font-size: clamp(40px, 6vw, 58px);
-  letter-spacing: -0.06em;
-  margin-bottom: 14px;
 }
 
 .subtitle{
@@ -86,79 +130,18 @@ h1,h2,h3{
   line-height: 1.65;
 }
 
-/* ===================== Top Bar ===================== */
-
-.topbar{
-  height: var(--topbar-h);
-  display: grid;
-  grid-template-columns: 44px 1fr 44px;
-  align-items: center;
-  gap: 10px;
-
-  padding: 10px 14px;
-  margin-bottom: 14px;
-
-  background: hsla(var(--topbar), 0.92);
-  border: 2px solid hsl(var(--border));
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
-  position: sticky;
-  top: 0;
-  z-index: 40;
-
-  box-shadow: 0 18px 50px rgba(0,0,0,0.35);
-}
-
-/* give the bar the orange corner ticks too */
-.topbar::after{
-  content:"";
-  position:absolute;
-  inset:-2px;
-  pointer-events:none;
-
-  background:
-    linear-gradient(hsl(var(--primary)) 0 0) 0 0 / var(--tick) var(--tickw) no-repeat,
-    linear-gradient(hsl(var(--primary)) 0 0) 0 0 / var(--tickw) var(--tick) no-repeat,
-    linear-gradient(hsl(var(--primary)) 0 0) 100% 0 / var(--tick) var(--tickw) no-repeat,
-    linear-gradient(hsl(var(--primary)) 0 0) 100% 0 / var(--tickw) var(--tick) no-repeat,
-    linear-gradient(hsl(var(--primary)) 0 0) 0 100% / var(--tick) var(--tickw) no-repeat,
-    linear-gradient(hsl(var(--primary)) 0 0) 0 100% / var(--tickw) var(--tick) no-repeat,
-    linear-gradient(hsl(var(--primary)) 0 0) 100% 100% / var(--tick) var(--tickw) no-repeat,
-    linear-gradient(hsl(var(--primary)) 0 0) 100% 100% / var(--tickw) var(--tick) no-repeat;
-}
-
-.topbar-title{
-  font-family: "IBM Plex Mono", ui-monospace, monospace;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  font-size: clamp(20px, 3.2vw, 28px);
-  line-height: 1;
-  color: hsl(var(--foreground));
-  text-align: center;
-}
-
-.topbar-spacer{
-  width: 44px;
-  height: 44px;
-}
-
-
-/* ===================== Corner Menu + Slide-out Nav ===================== */
+/* ===================== Menu Button + Slide-out Nav ===================== */
 
 .menu-btn{
-  position: relative;          /* no longer absolute */
-  top: auto;
-  left: auto;
-
+  position: relative;
   z-index: 20;
 
   height: 44px;
   width: 44px;
   border-radius: 12px;
 
-  background: hsla(var(--card), 0.72);
-  border: 2px solid hsl(var(--border));
+  background: rgba(0,0,0,0.25);
+  border: 2px solid hsla(var(--border), 0.9);
   box-shadow: none;
 
   display: grid;
@@ -168,11 +151,10 @@ h1,h2,h3{
   transition: transform 160ms ease, border-color 160ms ease, background 160ms ease, opacity 160ms ease;
 }
 
-
 .menu-btn:hover{
   transform: translateY(-1px);
   border-color: hsl(var(--primary));
-  background: hsla(var(--card), 0.98);
+  background: rgba(0,0,0,0.32);
 }
 
 .menu-btn:active{ transform: translateY(0px); }
@@ -182,7 +164,7 @@ h1,h2,h3{
   outline-offset: 2px;
 }
 
-/* Hide the hamburger while menu is open (requires JS to add body.nav-open) */
+/* Hide the hamburger while menu is open */
 body.nav-open .menu-btn{
   opacity: 0;
   pointer-events: none;
@@ -193,6 +175,14 @@ body.nav-open .menu-btn{
   position: relative;
   width: 18px;
   height: 12px;
+  border-radius: 2px;
+
+  background: linear-gradient(
+    to bottom,
+    transparent 0 5px,
+    hsl(var(--foreground)) 5px 7px,
+    transparent 7px 100%
+  );
 }
 
 .menu-icon::before,
@@ -209,32 +199,21 @@ body.nav-open .menu-btn{
 .menu-icon::before{ top:0; }
 .menu-icon::after{ bottom:0; }
 
-.menu-icon{
-  background: linear-gradient(
-    to bottom,
-    transparent 0 5px,
-    hsl(var(--foreground)) 5px 7px,
-    transparent 7px 100%
-  );
-  border-radius: 2px;
-}
-
-/* overlay behind nav — MUST be above menu button */
+/* overlay */
 .nav-overlay{
   position: fixed;
   inset: 0;
   z-index: 90;
-
   background: rgba(0,0,0,0.60);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
 }
 
-/* drawer — MUST be above overlay */
+/* drawer */
 .side-nav{
   position: fixed;
   top: 0;
-  left: 0;                    /* change to right:0; left:auto; for right drawer */
+  left: 0;
   height: 100vh;
   width: min(320px, 86vw);
   z-index: 100;
@@ -250,6 +229,7 @@ body.nav-open .menu-btn{
   flex-direction: column;
 }
 
+/* Keep orange corners on the drawer (you did NOT forbid these) */
 .side-nav::after{
   content:"";
   position:absolute;
@@ -335,12 +315,7 @@ body.nav-open .menu-btn{
   font-size: 13px;
 }
 
-/* Mobile spacing */
-@media (max-width: 640px){
-  .menu-btn{ top: 14px; left: 14px; }
-}
-
-/* ===================== Buttons (still used elsewhere) ===================== */
+/* ===================== Buttons ===================== */
 
 .btns{
   display:flex;
@@ -466,9 +441,4 @@ footer{
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px;
-}
-
-:focus-visible{
-  outline: 2px solid hsla(var(--ring), 0.8);
-  outline-offset: 2px;
 }
