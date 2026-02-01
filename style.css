@@ -235,8 +235,7 @@ h1,h2,h3{
   position:absolute;
   inset:0;
   z-index:0;
-  background:
-    radial-gradient(circle at 50% 40%, rgba(0,0,0,0.18), rgba(0,0,0,0.70));
+  background: transparent;
 }
 
 .hero-content{
