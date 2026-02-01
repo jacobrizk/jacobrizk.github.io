@@ -255,6 +255,10 @@ footer{
   font-size: clamp(44px, 7.5vw, 84px);
   letter-spacing: -0.06em;
   line-height:1.05;
+
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: break-word;
 }
 
 /* Scroll pill */
