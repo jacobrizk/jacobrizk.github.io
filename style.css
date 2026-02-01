@@ -8,6 +8,9 @@
   --border: 221 22% 19%;
   --primary: 38 92% 50%;
   --ring: 38 92% 50%;
+  --topbar: 217 24% 9%;
+  --topbar-h: 64px;
+
 
   --max: 1600px;
 
@@ -60,11 +63,13 @@ h1,h2,h3{
 /* ===================== Hero ===================== */
 
 .hero{
-  position: relative; /* anchors the menu button */
+  position: relative;
   background: transparent;
-  padding: 18px 0 22px;
   margin-bottom: 18px;
   text-align: center;
+
+  /* remove old hero padding — bar controls top spacing now */
+  padding: 0 0 22px;
 }
 
 .hero h1{
@@ -81,23 +86,80 @@ h1,h2,h3{
   line-height: 1.65;
 }
 
+/* ===================== Top Bar ===================== */
+
+.topbar{
+  height: var(--topbar-h);
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 14px;
+  margin-bottom: 14px;
+
+  background: hsla(var(--topbar), 0.92);
+  border: 2px solid hsl(var(--border));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  position: sticky;
+  top: 0;
+  z-index: 40;
+
+  box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+}
+
+/* give the bar the orange corner ticks too */
+.topbar::after{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  pointer-events:none;
+
+  background:
+    linear-gradient(hsl(var(--primary)) 0 0) 0 0 / var(--tick) var(--tickw) no-repeat,
+    linear-gradient(hsl(var(--primary)) 0 0) 0 0 / var(--tickw) var(--tick) no-repeat,
+    linear-gradient(hsl(var(--primary)) 0 0) 100% 0 / var(--tick) var(--tickw) no-repeat,
+    linear-gradient(hsl(var(--primary)) 0 0) 100% 0 / var(--tickw) var(--tick) no-repeat,
+    linear-gradient(hsl(var(--primary)) 0 0) 0 100% / var(--tick) var(--tickw) no-repeat,
+    linear-gradient(hsl(var(--primary)) 0 0) 0 100% / var(--tickw) var(--tick) no-repeat,
+    linear-gradient(hsl(var(--primary)) 0 0) 100% 100% / var(--tick) var(--tickw) no-repeat,
+    linear-gradient(hsl(var(--primary)) 0 0) 100% 100% / var(--tickw) var(--tick) no-repeat;
+}
+
+.topbar-title{
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  font-size: clamp(20px, 3.2vw, 28px);
+  line-height: 1;
+  color: hsl(var(--foreground));
+  text-align: center;
+}
+
+.topbar-spacer{
+  width: 44px;
+  height: 44px;
+}
+
+
 /* ===================== Corner Menu + Slide-out Nav ===================== */
 
 .menu-btn{
-  position: absolute;
-  top: 18px;
-  left: 18px;                 /* move to right:18px; left:auto; for top-right */
+  position: relative;          /* no longer absolute */
+  top: auto;
+  left: auto;
 
-  /* IMPORTANT: must be BELOW overlay/nav */
   z-index: 20;
 
   height: 44px;
   width: 44px;
   border-radius: 12px;
 
-  background: hsla(var(--card), 0.92);
+  background: hsla(var(--card), 0.72);
   border: 2px solid hsl(var(--border));
-  box-shadow: 0 12px 34px rgba(0,0,0,0.35);
+  box-shadow: none;
 
   display: grid;
   place-items: center;
@@ -105,6 +167,7 @@ h1,h2,h3{
   cursor: pointer;
   transition: transform 160ms ease, border-color 160ms ease, background 160ms ease, opacity 160ms ease;
 }
+
 
 .menu-btn:hover{
   transform: translateY(-1px);
