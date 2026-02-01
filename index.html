@@ -12,10 +12,9 @@
 
   <link rel="stylesheet" href="/style.css">
 
-
-  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6431e79809964267be3b0ae9dbaa7998"}'></script><!-- End Cloudflare Web Analytics -->
-
-  
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "6431e79809964267be3b0ae9dbaa7998"}'></script>
+  <!-- End Cloudflare Web Analytics -->
 </head>
 
 <body>
@@ -35,17 +34,41 @@
     </header>
 
     <section class="hero">
+
+      <!-- Corner menu button -->
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-controls="sideNav" aria-expanded="false">
+        <span class="menu-icon" aria-hidden="true"></span>
+      </button>
+
+      <!-- Slide-out nav + overlay -->
+      <div class="nav-overlay" id="navOverlay" hidden></div>
+
+      <aside class="side-nav" id="sideNav" aria-hidden="true">
+        <div class="side-nav__header">
+          <div class="side-nav__title">Menu</div>
+          <button class="side-nav__close" id="navClose" aria-label="Close menu">✕</button>
+        </div>
+
+        <nav class="side-nav__links">
+          <a class="side-nav__link" href="/projects/">Explore Projects</a>
+          <a class="side-nav__link" href="/learning/">Learning</a>
+          <a class="side-nav__link" href="/experiments/">Experiments</a>
+          <a class="side-nav__link" href="/tools/">Tools</a>
+          <a class="side-nav__link" href="/#about">About</a>
+        </nav>
+
+        <div class="side-nav__footer">
+          <div class="side-nav__hint">Quick links to the sections.</div>
+        </div>
+      </aside>
+
       <h1>Dorm Projects</h1>
       <p class="subtitle">
-  <em>My Website Workspace.</em>
-</p>
+        <em>My Website Workspace.</em>
+      </p>
 
-      <div class="btns">
-        <a class="btn primary" href="/projects/">Explore Projects</a>
-        <a class="btn" href="/learning/">Learning</a>
-        <a class="btn" href="/experiments/">Experiments</a>
-        <a class="btn" href="/tools/">Tools</a>
-      </div>
+      <!-- (Removed the top button row on purpose) -->
+
     </section>
 
     <!-- Home: airy layout, two blocks -->
@@ -63,7 +86,7 @@
         </p>
       </section>
 
-      <!-- Featured box (you wanted this back on home) -->
+      <!-- Featured box -->
       <section class="featured">
         <div class="kicker">FEATURED</div>
         <h3>Rocket flight computer</h3>
@@ -77,7 +100,7 @@
       </section>
     </div>
 
-    <!-- Section previews (link OUT to pages) -->
+    <!-- Section previews -->
     <section class="cards" style="margin-top:14px;">
       <a class="card" href="/projects/" style="display:block;color:inherit;text-decoration:none;">
         <h3>Projects →</h3>
@@ -117,5 +140,44 @@
     </footer>
 
   </div>
+
+  <script>
+    (function(){
+      const menuBtn = document.getElementById("menuBtn");
+      const sideNav = document.getElementById("sideNav");
+      const overlay = document.getElementById("navOverlay");
+      const closeBtn = document.getElementById("navClose");
+
+      function openNav(){
+        sideNav.classList.add("is-open");
+        overlay.hidden = false;
+        sideNav.setAttribute("aria-hidden", "false");
+        menuBtn.setAttribute("aria-expanded", "true");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeNav(){
+        sideNav.classList.remove("is-open");
+        overlay.hidden = true;
+        sideNav.setAttribute("aria-hidden", "true");
+        menuBtn.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
+      }
+
+      menuBtn.addEventListener("click", openNav);
+      closeBtn.addEventListener("click", closeNav);
+      overlay.addEventListener("click", closeNav);
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeNav();
+      });
+
+      // Close after clicking a link
+      sideNav.addEventListener("click", (e) => {
+        const a = e.target.closest("a");
+        if (a) closeNav();
+      });
+    })();
+  </script>
 </body>
 </html>
