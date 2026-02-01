@@ -57,16 +57,39 @@ h1,h2,h3{
 /* Hide the old top bar / tabs */
 .top{ display:none !important; }
 
-/* ===================== Corner Menu + Slide-out Nav ===================== */
+/* ===================== Hero ===================== */
 
-/* If your menu button is inside .wrap or .hero, this anchors it nicely */
-.hero{ position: relative; }
+.hero{
+  position: relative; /* anchors the menu button */
+  background: transparent;
+  padding: 18px 0 22px;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.hero h1{
+  font-size: clamp(40px, 6vw, 58px);
+  letter-spacing: -0.06em;
+  margin-bottom: 14px;
+}
+
+.subtitle{
+  max-width: 65ch;
+  margin: 0 auto 16px;
+  color: hsl(var(--muted));
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+/* ===================== Corner Menu + Slide-out Nav ===================== */
 
 .menu-btn{
   position: absolute;
   top: 18px;
   left: 18px;                 /* move to right:18px; left:auto; for top-right */
-  z-index: 80;
+
+  /* IMPORTANT: must be BELOW overlay/nav */
+  z-index: 20;
 
   height: 44px;
   width: 44px;
@@ -80,7 +103,7 @@ h1,h2,h3{
   place-items: center;
 
   cursor: pointer;
-  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease, opacity 160ms ease;
 }
 
 .menu-btn:hover{
@@ -89,13 +112,17 @@ h1,h2,h3{
   background: hsla(var(--card), 0.98);
 }
 
-.menu-btn:active{
-  transform: translateY(0px);
-}
+.menu-btn:active{ transform: translateY(0px); }
 
 .menu-btn:focus-visible{
   outline: 2px solid hsla(var(--ring), 0.8);
   outline-offset: 2px;
+}
+
+/* Hide the hamburger while menu is open (requires JS to add body.nav-open) */
+body.nav-open .menu-btn{
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* hamburger icon */
@@ -119,7 +146,6 @@ h1,h2,h3{
 .menu-icon::before{ top:0; }
 .menu-icon::after{ bottom:0; }
 
-/* middle line */
 .menu-icon{
   background: linear-gradient(
     to bottom,
@@ -130,24 +156,25 @@ h1,h2,h3{
   border-radius: 2px;
 }
 
-/* overlay behind nav */
+/* overlay behind nav — MUST be above menu button */
 .nav-overlay{
   position: fixed;
   inset: 0;
-  z-index: 70;
-  background: rgba(0,0,0,0.55);
+  z-index: 90;
+
+  background: rgba(0,0,0,0.60);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
 }
 
-/* drawer */
+/* drawer — MUST be above overlay */
 .side-nav{
   position: fixed;
   top: 0;
   left: 0;                    /* change to right:0; left:auto; for right drawer */
   height: 100vh;
   width: min(320px, 86vw);
-  z-index: 75;
+  z-index: 100;
 
   background: hsla(var(--card), 0.96);
   border-right: 2px solid hsl(var(--border));
@@ -160,7 +187,6 @@ h1,h2,h3{
   flex-direction: column;
 }
 
-/* give the nav the same orange corner treatment */
 .side-nav::after{
   content:"";
   position:absolute;
@@ -178,9 +204,7 @@ h1,h2,h3{
     linear-gradient(hsl(var(--primary)) 0 0) 100% 100% / var(--tickw) var(--tick) no-repeat;
 }
 
-.side-nav.is-open{
-  transform: translateX(0);
-}
+.side-nav.is-open{ transform: translateX(0); }
 
 .side-nav__header{
   display:flex;
@@ -248,35 +272,13 @@ h1,h2,h3{
   font-size: 13px;
 }
 
-/* keep menu reachable on small screens */
+/* Mobile spacing */
 @media (max-width: 640px){
   .menu-btn{ top: 14px; left: 14px; }
 }
 
-/* ===================== Hero ===================== */
+/* ===================== Buttons (still used elsewhere) ===================== */
 
-.hero{
-  background: transparent;
-  padding: 18px 0 22px;
-  margin-bottom: 18px;
-  text-align: center;
-}
-
-.hero h1{
-  font-size: clamp(40px, 6vw, 58px);
-  letter-spacing: -0.06em;
-  margin-bottom: 14px;
-}
-
-.subtitle{
-  max-width: 65ch;
-  margin: 0 auto 16px;
-  color: hsl(var(--muted));
-  font-size: 16px;
-  line-height: 1.65;
-}
-
-/* Buttons (if you still have them somewhere) */
 .btns{
   display:flex;
   justify-content:center;
@@ -318,7 +320,6 @@ h1,h2,h3{
   padding: 16px 14px;
 }
 
-/* Corner overlay (same for all boxes) */
 .panel::after,
 .card::after,
 .featured::after{
